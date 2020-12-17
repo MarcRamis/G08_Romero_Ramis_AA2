@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\source\repos\MarcRamis\Progr3_JoelRomero_MarcRamis\src\AA1_05\InputManager.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Collisions.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\source\repos\MarcRamis\Progr3_JoelRomero_MarcRamis\src\AA1_05\InputManager.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Collisions.h" />

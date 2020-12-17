@@ -57,6 +57,9 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\source\repos\MarcRamis\Progr3_JoelRomero_MarcRamis\src\AA1_05\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\source\repos\MarcRamis\Progr3_JoelRomero_MarcRamis\src\AA1_05\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
