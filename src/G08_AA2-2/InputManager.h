@@ -9,13 +9,13 @@ enum class InputKeys {
 	NONE, LEFT, RIGHT, UP, DOWN, SPACE, A, D, W, S, P, ESC, MOUSE_LEFT, MOUSE_RIGHT, QUIT, COUNT
 };
 
-class InputData {
+class InputManager {
 
 private:
-	InputData();
-	~InputData();
+	InputManager();
+	~InputManager();
 
-	static InputData* input;
+	static InputManager* input;
 
 	bool keyboardPressed[(int)InputKeys::COUNT] = {};
 	bool keyboardKeyDown[(int)InputKeys::COUNT] = {};
@@ -28,9 +28,9 @@ private:
 
 public:
 
-	static InputData* GetInstance()
+	static InputManager* GetInstance()
 	{
-		if (input == nullptr) { input = new InputData; }
+		if (input == nullptr) { input = new InputManager; }
 		return input;
 	};
 

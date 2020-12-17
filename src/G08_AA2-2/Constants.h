@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 // Game general information
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 720
+#define SCREEN_HEIGHT 704
 
 // -- GAME TIME CONFIG --
 const int FPS{ 60 };
