@@ -6,7 +6,8 @@
 
 #include "Types.h"
 
-class Grid
+class Map
 {
+	
 	VEC2 position;
 };
