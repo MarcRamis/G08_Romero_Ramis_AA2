@@ -39,13 +39,14 @@ void Game::Run()
 		switch (gameState)
 		{
 		case GameState::MENU:
+			Render();
 			break;
 		case GameState::PLAY:
 			break;
 		case GameState::RANKING:
 			break;
-
-		
+		default:
+			break;
 		}
 
 		// --- FRAME CONTROL ---
