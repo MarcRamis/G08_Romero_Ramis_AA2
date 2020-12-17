@@ -18,7 +18,16 @@ void Game::Update()
 
 void Game::Render()
 {
-	Renderer::GetInstance()->
+	Renderer::GetInstance()->Clear();
+	//Background
+
+	//UI
+
+	//Objects
+
+	//Timer
+
+	Renderer::GetInstance()->Render();
 }
 
 void Game::Run()
@@ -31,12 +40,12 @@ void Game::Run()
 		{
 		case GameState::MENU:
 			break;
-		case GameState::GAME:
+		case GameState::PLAY:
 			break;
-		case GameState::GAME:
+		case GameState::RANKING:
+			break;
 
-			break;
-			defa
+		
 		}
 
 		// --- FRAME CONTROL ---

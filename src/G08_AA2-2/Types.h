@@ -24,8 +24,6 @@ struct RECT {
 	RECT(int _x, int _y, int _w, int _h) : x(_x), y(_y), w(_w), h(_h) {};
 };
 
-enum class GameState { GAME, EXIT, MENU };
-
 struct Font {
 	const std::string id;
 	std::string path;
