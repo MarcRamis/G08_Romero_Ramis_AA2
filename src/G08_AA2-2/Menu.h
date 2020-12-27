@@ -1,6 +1,12 @@
 #pragma once
 #include "Scene.h"
-class Menu : Scene
+class Menu : public Scene
 {
-};
+private:
 
+public:
+	Menu();
+	~Menu();
+
+	void Draw();
+};
