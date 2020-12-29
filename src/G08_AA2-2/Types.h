@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string>
 
+#include <vector>
+
 struct VEC2 {
 	int x, y;
 

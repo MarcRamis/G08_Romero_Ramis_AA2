@@ -1,14 +1,20 @@
 #pragma once
-#include "Scene.h"
-#include "Map.h"
-#include "Player.h"
-#include "PowerUp.h"
+#include "../../dep/inc/XML/rapidxml.hpp"
+#include "../../dep/inc/XML/rapidxml_utils.hpp"
+#include "../../dep/inc/XML/rapidxml_iterators.hpp"
+#include "../../dep/inc/XML/rapidxml_print.hpp"
 
-enum class Level { NONE, LEVEL1, LEVEL2, COUNT };
+#include <sstream>
+
+#include "Scene.h"
+#include "Level.h"
+#include "PowerUp.h"
 
 class Play : public Scene
 {
 private:
+
+	std::vector<Level> levels;
 
 public:
 	Play();

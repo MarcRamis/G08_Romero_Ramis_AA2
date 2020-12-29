@@ -1,13 +1,13 @@
 #pragma once
-#include "../../dep/inc/XML/rapidxml.hpp"
-#include "../../dep/inc/XML/rapidxml_utils.hpp"
-#include "../../dep/inc/XML/rapidxml_iterators.hpp"
-#include "../../dep/inc/XML/rapidxml_print.hpp"
 
-#include "Types.h"
+#include "Wall.h"
 
 class Map
 {
+private:
+	Wall *wall;
+
+public:
 	
-	VEC2 position;
+	Wall* GetWall() { return wall; };
 };
