@@ -2,44 +2,71 @@
 
 Play::Play() 
 {
-	// -- Read XML file --
-	rapidxml::xml_document<> doc;
-	std::ifstream file("../../res/files/config.xml");
-	std::stringstream buffer;
-	buffer << file.rdbuf();
-	file.close();
-	std::string content(buffer.str());
-	doc.parse<0>(&content[0]);
-
-	rapidxml::xml_node<>* pRoot = doc.first_node();
-
-	for (rapidxml::xml_node<>* pEnemy = pRoot->first_node(); pEnemy; pEnemy = pEnemy->next_sibling())
-	{
-
-		Level level;
-		level.GetPlayer()->at(0).SetLive((int)pEnemy->first_attribute("lives")->value())
-		enemy.name = (std::string)pEnemy->first_attribute("name")->value();
-		enemy.live = atoi(pEnemy->first_node("live")->value());			//conversion a la C
-		enemy.damage = atoi(pEnemy->first_node("damage")->value());		//conversion a la C
-		enemy.shield = atoi(pEnemy->first_node("shield")->value());		//conversion a la C
-		enemy.hitSpeed = atof(pEnemy->first_node("hitSpeed")->value());	//conversion a la C
-		enemy.experience = atoi(pEnemy->first_node("exp")->value());
-
-		rapidxml::xml_node<>* pWeapons = pEnemy->first_node("weapons"); //necesario ya que se han agrupado las weapons
-		for (rapidxml::xml_node<>* pWeapon = pWeapons->first_node("weapon"); pWeapon; pWeapon = pWeapon->next_sibling())
-		{
-			Weapon weapon;
-			weapon.name = (std::string)pWeapon->first_attribute("name")->value();
-			weapon.SetTypeFromString((std::string)pWeapon->first_node("type")->value());
-			weapon.range = atoi(pWeapon->first_node("range")->value());
-			enemy.weapons.push_back(weapon);
-		};
-
-		levels.push_back(level);
-
-	};
+	ReadMap();
 }
 
 Play::~Play() {}
 
-void Play::Draw() {}
+void Play::ReadMap()
+{
+	// -- Read XML file --
+	rapidxml::xml_document<> doc;						// VARIABLE DECLARATION WHERE "doc" IS AN OBJECT FROM xml_document CLASS
+	std::ifstream file("../../res/files/config.xml");	// VARIABLE FILE DECLARATION
+	std::stringstream buffer;					// BUFFER DECLARATION BECAUSE STRINGSTREAM CAN CONTAIN MASSIVE INFORMATION OF THIS TYPE
+	buffer << file.rdbuf();				// SAVE INFORMATION IN BUFFER WHERE "file.rdbuf()" IS A FUNCTION FROM "ifstream" 
+	file.close();						// CLOSE FILE BECAUSE WE UPDATED EVERYTHING
+	std::string content(buffer.str());	// VARIABLE DECLARATION AND SAVING BUFFER INSIDE. WE DO THIS BECAUSE "doc.parse()" function WORKS WITH STRING NOT STRINGSTREAM
+	doc.parse<0>(&content[0]);			// LOOK AT FIRST ELEMENT					
+
+	rapidxml::xml_node<>* pGame = doc.first_node();
+
+	std::cout << doc.first_node()->name() << "\n";
+	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
+	{
+		Level tmpLevel;
+		std::cout << "\t" << pLevel->name() << "\n";
+		std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
+
+		rapidxml::xml_node<>* pPlayers = pLevel->first_node("Players");
+		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
+		{
+			Player tmpPlayer;
+
+			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
+			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
+
+			std::cout << "\t\t\t" << pPlayer->name() << "\n";
+			std::cout << "\t\t\t\t" << pPlayer->first_attribute()->name() << ':' << pPlayer->first_attribute("lives")->value() << "\n";
+			std::cout << "\t\t\t\t" << pPlayer->first_node()->name() << "\n";
+			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
+			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
+			
+			tmpLevel.GetPlayer()->push_back(tmpPlayer);
+		}
+
+		std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
+
+		rapidxml::xml_node<>* pMaps = pLevel->first_node("Map");
+		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
+		{
+			Wall tmpWall;
+			tmpWall.SetDestructible(atoi(pMap->first_attribute("destructible")->value()));
+			tmpWall.SetPosition(VEC2(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
+
+			std::cout << "\t\t\t" << pMap->name() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
+			
+			tmpLevel.GetWall()->push_back(tmpWall);
+		}
+		
+		levels.push_back(tmpLevel);
+	}
+}
+
+void Play::Draw() 
+{
+	// -- Background --
+	Renderer::GetInstance()->PushImage(T_BG, T_BG);
+}

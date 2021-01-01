@@ -1,9 +1,11 @@
 #pragma once
 
+#include "SDL.h"
+
 #include <time.h>
+#include <iostream>
 
 #include "Types.h"
-#include <iostream>
 
 enum class InputKeys {
 	NONE, LEFT, RIGHT, UP, DOWN, SPACE, A, D, W, S, P, ESC, MOUSE_LEFT, MOUSE_RIGHT, QUIT, COUNT
@@ -33,6 +35,8 @@ public:
 		if (input == nullptr) { input = new InputManager; }
 		return input;
 	};
+
+	void Update();
 
 	void UpdateDeltaTime();
 

@@ -17,60 +17,6 @@ Game::~Game()
 
 }
 
-void Game::UpdateInput()
-{
-	input->SetFalseKeyDown();
-
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			input->SetKeyValue(InputKeys::QUIT, true);
-			break;
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE) input->SetKeyValue(InputKeys::ESC, true);
-
-			if (event.key.keysym.sym == SDLK_w) input->SetKeyValue(InputKeys::W, true);
-			if (event.key.keysym.sym == SDLK_a) input->SetKeyValue(InputKeys::A, true);
-			if (event.key.keysym.sym == SDLK_s) input->SetKeyValue(InputKeys::S, true);
-			if (event.key.keysym.sym == SDLK_d) input->SetKeyValue(InputKeys::D, true);
-
-			if (event.key.keysym.sym == SDLK_UP) input->SetKeyValue(InputKeys::UP, true);
-			if (event.key.keysym.sym == SDLK_DOWN) input->SetKeyValue(InputKeys::DOWN, true);
-			if (event.key.keysym.sym == SDLK_LEFT) input->SetKeyValue(InputKeys::LEFT, true);
-			if (event.key.keysym.sym == SDLK_RIGHT) input->SetKeyValue(InputKeys::RIGHT, true);
-			break;
-
-		case SDL_KEYUP:
-			if (event.key.keysym.sym == SDLK_ESCAPE) input->SetKeyValue(InputKeys::ESC, false);
-
-			if (event.key.keysym.sym == SDLK_w) input->SetKeyValue(InputKeys::W, false);
-			if (event.key.keysym.sym == SDLK_a) input->SetKeyValue(InputKeys::A, false);
-			if (event.key.keysym.sym == SDLK_s) input->SetKeyValue(InputKeys::S, false);
-			if (event.key.keysym.sym == SDLK_d) input->SetKeyValue(InputKeys::D, false);
-
-			if (event.key.keysym.sym == SDLK_UP) input->SetKeyValue(InputKeys::UP, false);
-			if (event.key.keysym.sym == SDLK_DOWN) input->SetKeyValue(InputKeys::DOWN, false);
-			if (event.key.keysym.sym == SDLK_LEFT) input->SetKeyValue(InputKeys::LEFT, false);
-			if (event.key.keysym.sym == SDLK_RIGHT) input->SetKeyValue(InputKeys::RIGHT, false);
-			break;
-
-		case SDL_MOUSEMOTION:
-			input->SetMouseCoords(event.motion.x, event.motion.y);
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_LEFT) input->SetKeyValue(InputKeys::MOUSE_LEFT, true);
-			break;
-		case SDL_MOUSEBUTTONUP:
-			if (event.button.button == SDL_BUTTON_LEFT) input->SetKeyValue(InputKeys::MOUSE_LEFT, false);
-			break;
-		default:;
-		}
-	}
-}
-
 void Game::Update()
 {
 	switch (gameState)
@@ -173,8 +119,8 @@ void Game::Run()
 {
 	while (gameState != GameState::EXIT)
 	{
-		UpdateInput();
-
+		input->Update();
+		
 		Render();
 		Update();
 		

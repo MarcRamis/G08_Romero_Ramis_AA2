@@ -30,7 +30,6 @@ public:
 	void Run();
 private:
 	
-	void UpdateInput();
 	void Update();
 	void Render();
 };

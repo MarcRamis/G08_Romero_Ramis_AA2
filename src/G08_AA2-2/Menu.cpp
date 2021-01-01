@@ -6,32 +6,34 @@ Menu::Menu()
 	Renderer::GetInstance()->LoadTexture(T_BG, "../../res/img/bgGame.jpg");
 	Renderer::GetInstance()->LoadRect(T_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 
-	// -- Buttons --
+	// -- MENU INFO --
 #pragma region Buttons
 
 	Renderer::GetInstance()->LoadFont({ F_SAIYAN, "../../res/ttf/saiyan.ttf", 50 });
 	Renderer::GetInstance()->LoadFont({ F_SAIYAN_TITLE, "../../res/ttf/saiyan.ttf", 60 });
 
 	// TITLE GAME
-	VEC2 vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN_TITLE, { T_TITLE, "Boomberman", { 0,0,100,255 }, 0, 0 });
+	VEC2 vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN_TITLE, { T_TITLE, "BOOMBERENTI", { 0,0,100,255 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_TITLE, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 0, vTemp.x, vTemp.y });
 
+	// -- Buttons --
+
 	// PLAY LV1
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1_N, "Level One", { 0,70,70,255 }, 0, 0 });
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1_H, "Level One", { 0,30,30,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1, "Level One", { 0,0,0,0 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1_N, "Play Level One", { 0,70,70,255 }, 0, 0 });
+	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1_H, "Play Level One", { 0,30,30,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV1, "Play Level One", { 0,0,0,0 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_BTN_PLAY_LV1, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 1, vTemp.x, vTemp.y });
 	
 	// PLAY LV2
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2_N, "Level Two", { 0,70,70,255 }, 0, 0 });
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2_H, "Level Two", { 0,30,30,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2, "Level Two", { 0,0,0,0 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2_N, "Play Level Two", { 0,70,70,255 }, 0, 0 });
+	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2_H, "Play Level Two", { 0,30,30,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_PLAY_LV2, "Play Level Two", { 0,0,0,0 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_BTN_PLAY_LV2, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 2, vTemp.x, vTemp.y });
 
 	// RANKING
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING_N, "Ranking", { 150,0,0,255 }, 0, 0 });
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING_H, "Ranking", { 100,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING, "Ranking", { 0,0,0,0 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING_N, "Consult Ranking", { 150,0,0,255 }, 0, 0 });
+	vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING_H, "Consult Ranking", { 100,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadTextureText(F_SAIYAN, { T_BTN_RANKING, "Consult Ranking", { 0,0,0,0 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_BTN_RANKING, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 3, vTemp.x, vTemp.y });
 
 	// EXIT

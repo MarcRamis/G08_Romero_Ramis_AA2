@@ -9,10 +9,13 @@ private:
 	bool destructible;
 
 public:
-
-	void SetPos(VEC2 _position) { position.x = _position.x; position.y = position.y; };
-	VEC2 GetPos() { return position; };
-
-	void SetDestructibleWall(bool _destructible) { destructible = _destructible; };
-	bool GetDestructibleWall() { return destructible; };
+	
+	Wall() : position(VEC2(0,0)), destructible(false) {};
+	Wall(VEC2 _pos, bool _destr) : position(_pos), destructible(_destr) {};
+	
+	void SetPosition(VEC2 _position) { position = _position; };
+	inline const VEC2 *GetPosition() { return &position; };
+	
+	void SetDestructible(bool _destructible) { destructible = _destructible; };
+	inline const bool *GetDestructibleWall() { return &destructible; };
 };

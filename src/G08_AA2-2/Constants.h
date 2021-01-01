@@ -7,6 +7,7 @@
 // Game general information
 #define SCREEN_WIDTH 720
 #define SCREEN_HEIGHT 704
+const int MAX_PLAYERS{ 2 };
 
 // -- GAME TIME CONFIG --
 const int FPS{ 60 };
@@ -14,6 +15,9 @@ const int FPS{ 60 };
 // -- MENU LINE SPACING--
 const int TEXTSIZE_MENU{ 6 };
 const int TEXT_LINESPACING_MENU{ 15 };
+
+// -- PLAYER SPRITES --
+
 
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };

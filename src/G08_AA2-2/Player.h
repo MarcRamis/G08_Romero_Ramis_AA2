@@ -32,7 +32,10 @@ public:
 	void Reset();
 
 	int AddScore() { return score++; };
+
 	inline const RECT* GetPosition() { return &position; };
+	inline const void SetPosition(RECT _position) { position = _position; };
+	
 	inline const RECT* GetFrame() const { return &frame; };
 	inline const int GetScore() const { return score; };
 

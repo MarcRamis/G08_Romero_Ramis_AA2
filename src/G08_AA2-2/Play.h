@@ -21,4 +21,7 @@ public:
 	~Play();
 
 	void Draw();
+
+private:
+	void ReadMap();
 };

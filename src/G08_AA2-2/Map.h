@@ -5,9 +5,10 @@
 class Map
 {
 private:
-	Wall *wall;
+
+	std::vector<Wall> wall;
 
 public:
 	
-	Wall* GetWall() { return wall; };
+	std::vector<Wall> GetWall() { return wall; };
 };
