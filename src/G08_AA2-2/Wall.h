@@ -1,21 +1,33 @@
 #pragma once
 
+#include "Renderer.h"
 #include "Types.h"
 
 class Wall
 {
 private:
-	VEC2 position;
+	RECT position;
+	RECT frame;
 	bool destructible;
+
+	int initCol, lastCol;
+	int initRow, lastRow;
 
 public:
 	
-	Wall() : position(VEC2(0,0)), destructible(false) {};
-	Wall(VEC2 _pos, bool _destr) : position(_pos), destructible(_destr) {};
-	
-	void SetPosition(VEC2 _position) { position = _position; };
-	inline const VEC2 *GetPosition() { return &position; };
+	Wall();
+	~Wall();
+
+	void SetPosition(RECT _position) { position = _position; };
+	inline const RECT *GetPosition() { return &position; };
 	
 	void SetDestructible(bool _destructible) { destructible = _destructible; };
 	inline const bool *GetDestructibleWall() { return &destructible; };
+
+	void Update();
+
+private:
+	
+	void UpdateSprite();
+	void SetSprite(int textWidth, int textHeight, int nCol, int nRow);
 };

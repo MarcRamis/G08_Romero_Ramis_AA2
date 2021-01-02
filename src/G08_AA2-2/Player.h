@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Constants.h"
 #include "InputManager.h"
+#include "Renderer.h"
 
 class Player
 {
@@ -24,6 +26,7 @@ private:
 
 public:
 	Player();
+	~Player();
 	
 	void Update(InputManager*);
 

@@ -2,6 +2,7 @@
 
 #include "Constants.h"
 #include "Renderer.h"
+#include "Audio.h"
 
 class Scene
 {

@@ -1,6 +1,15 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, 32, 32 }), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) {}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) 
+{
+	//Renderer::GetInstance()->LoadTexture(T_PLAYERS, P_PLAYER1);
+	//Renderer::GetInstance()->LoadTexture(T_PLAYERS, P_PLAYER2);
+}
+
+Player::~Player()
+{
+	
+}
 
 void Player::Update(InputManager* input)
 {
@@ -111,10 +120,8 @@ void Player::SetPlayerValues(int textWidth, int textHeight, int nCol, int nRow, 
 		frame.x = frame.w * initCol;
 		frame.y = frame.h * initRow;
 
-		position.x = 100;
-		position.y = 250;
 		speed = 1.f;
-		score = 0;
+
 		break;
 	case Player::EPlayerType::PL2:
 		initCol = 9;
@@ -124,10 +131,8 @@ void Player::SetPlayerValues(int textWidth, int textHeight, int nCol, int nRow, 
 		frame.x = frame.w * initCol;
 		frame.y = frame.h * initRow;
 
-		position.x = 650;
-		position.y = 250;
 		speed = 1.f;
-		score = 0;
+
 		break;
 	default:
 		frame.x = 0;

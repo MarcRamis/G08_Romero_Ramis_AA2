@@ -25,7 +25,7 @@ public:
 		return audio;
 	};
 
-	void LoadAudio(const std::string& idSound);
+	void LoadAudio(const std::string& idSound, const std::string& path);
 	void PlayMusic(const std::string& idSound, int repetition);
 	void VolumeMusic(const std::string& idSound, int volume);
 	bool MusicIsPaused(const std::string& idSound);

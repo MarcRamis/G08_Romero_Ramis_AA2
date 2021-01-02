@@ -4,25 +4,41 @@
 #include <map>
 #include <unordered_map>
 
-// Game general information
+// ----- GAME GENERAL INFORMATION
+
+// -- SCREEN SIZE--
 #define SCREEN_WIDTH 720
 #define SCREEN_HEIGHT 704
-const int MAX_PLAYERS{ 2 };
 
-// -- GAME TIME CONFIG --
+// -- PATH --
+// -- IMG
+const std::string P_BG{ "../../res/img/bgGame.jpg" };
+const std::string P_ITEMS{ "../../res/img/items.png" };
+const std::string P_PLAYER1{ "../../res/img/player1.png" };
+const std::string P_PLAYER2{ "../../res/img/player2.png" };
+const std::string P_EXPLOSION{ "../../res/img/explosion.png" };
+// -- AU
+const std::string P_GAME_THEME{ "../../res/au/game_theme.mp3" };
+const std::string P_MENU{ "../../res/au/menu.mp3" };
+// -- FILES
+// -- TTF
+
+// -- GAME TIME CONFIG -
 const int FPS{ 60 };
 
 // -- MENU LINE SPACING--
 const int TEXTSIZE_MENU{ 6 };
 const int TEXT_LINESPACING_MENU{ 15 };
 
-// -- PLAYER SPRITES --
-
+// -- SPRITES --
+const int SPRITE_RES{ 48 };
 
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };
 const std::string T_TITLE{ "TitleGame" };
-//const std::string T_PLAYERS{ "Players" };
+const std::string T_PLAYER1{ "Player1" };
+const std::string T_PLAYER2{ "Player2" };
+const std::string T_ITEMS{ "Items" };
 
 // -- MENU BUTTONS
 const std::string T_BTN_PLAY_LV1{ "BtnPlayLv1" };
@@ -52,10 +68,11 @@ const std::string T_BTN_EXIT_H{ "BtnExitH" };
 //const std::string T_TXT_SC_PL1{ "TextScPl1" };
 //const std::string T_TXT_SC_PL2{ "TextScPl2" };
 
-// -- FONTS
+// -- FONTS 
 const std::string F_SAIYAN{ "FontSaiyan" };
 const std::string F_SAIYAN_TITLE{ "FontSaiyanTitle" };
 const std::string F_GAMEOVER{ "FontGameOver" };
 
 // -- AUDIO
-//const std::string S_MAIN_THEME{"SoundMainTheme"};
+const std::string S_MENU{ "SoundMenu" };
+const std::string S_GAME_THEME{"SoundGameTheme"};

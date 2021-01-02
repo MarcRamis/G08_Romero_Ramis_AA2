@@ -3,7 +3,7 @@
 Menu::Menu()
 {
 	// -- Background --
-	Renderer::GetInstance()->LoadTexture(T_BG, "../../res/img/bgGame.jpg");
+	Renderer::GetInstance()->LoadTexture(T_BG, P_BG);
 	Renderer::GetInstance()->LoadRect(T_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 
 	// -- MENU INFO --
@@ -49,6 +49,9 @@ Menu::Menu()
 	Renderer::GetInstance()->LoadRect(T_BTN_SOUND, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 4, vTemp.x, vTemp.y });
 
 #pragma endregion
+
+	// -- AUDIO --
+	Audio::GetInstance()->LoadAudio(S_MENU, P_MENU);
 }
 
 Menu::~Menu() {}

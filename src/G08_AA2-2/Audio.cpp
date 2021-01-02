@@ -15,13 +15,13 @@ Audio::~Audio()
 
 Audio* Audio::audio = nullptr;
 
-void Audio::LoadAudio(const std::string& idSound)
+void Audio::LoadAudio(const std::string& idSound, const std::string& path)
 {
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
 		throw "Error: SDL_Mixer init";
 	}
-
-	m_audio[idSound] = { Mix_LoadMUS("../../res/au/mainTheme.mp3") };
+	
+	m_audio[idSound] = { Mix_LoadMUS(path.c_str()) };
 }
 void Audio::VolumeMusic(const std::string& idSound, int volume){ Mix_VolumeMusic(MIX_MAX_VOLUME / volume); }
 void Audio::PlayMusic(const std::string& idSound, int repetition){ Mix_PlayMusic(m_audio[idSound], repetition); }

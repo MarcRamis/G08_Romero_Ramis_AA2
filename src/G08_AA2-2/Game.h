@@ -22,6 +22,7 @@ private:
 
 	Renderer *r = Renderer::GetInstance();
 	InputManager *input = InputManager::GetInstance();
+	Audio *au = Audio::GetInstance();
 	
 public:
 	Game();
