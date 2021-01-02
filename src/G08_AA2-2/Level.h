@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Map.h"
+#include "Wall.h"
 #include "Player.h"
 
 class Level
