@@ -51,7 +51,7 @@ Menu::Menu()
 #pragma endregion
 
 	// -- AUDIO --
-	Audio::GetInstance()->LoadAudio(S_MENU, P_MENU);
+	//Audio::GetInstance()->LoadAudio(S_MENU, P_MENU);
 }
 
 Menu::~Menu() {}

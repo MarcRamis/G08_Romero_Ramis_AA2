@@ -4,8 +4,57 @@ Play::Play()
 {
 	ReadMap();
 	
+	#pragma region HUD
+
+	Renderer::GetInstance()->LoadFont({ F_TIMER_HUD, "../../res/ttf/game_over.ttf", 50 });
+
+	// TIME
+	// ":"
+	VEC2 vMidTimerTemp = Renderer::GetInstance()->LoadTextureText(F_TIMER_HUD, { T_PLAY_MIDDLE_SIDE_TIMER, ":", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PLAY_MIDDLE_SIDE_TIMER, { SCREEN_WIDTH / 2 - vMidTimerTemp.x / 2, TEXT_HUD_VERTICAL_SPACING, vMidTimerTemp.x, vMidTimerTemp.y });
+	//Minutes
+	VEC2 vLeftTimerTemp = Renderer::GetInstance()->LoadTextureText(F_TIMER_HUD, { T_PLAY_LEFT_SIDE_TIMER, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PLAY_LEFT_SIDE_TIMER, { SCREEN_WIDTH / 2 - vLeftTimerTemp.x - vMidTimerTemp.x / 2, TEXT_HUD_VERTICAL_SPACING, vLeftTimerTemp.x, vLeftTimerTemp.y });
+	//Seconds
+	VEC2 vRightTimerTemp = Renderer::GetInstance()->LoadTextureText(F_TIMER_HUD, { T_PLAY_RIGHT_SIDE_TIMER, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PLAY_RIGHT_SIDE_TIMER, { SCREEN_WIDTH / 2 + vMidTimerTemp.x / 2, TEXT_HUD_VERTICAL_SPACING, vRightTimerTemp.x, vRightTimerTemp.y });
+
+
+	Renderer::GetInstance()->LoadFont({ F_PLAYERS_HUD, "../../res/ttf/game_over.ttf", 80 });
+
+	// PLAYER 1 SCORE_TEXT
+	vP1SCTTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL1_SCORE_TEXT, "PL1: ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL1_SCORE_TEXT, { TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vP1SCTTemp.x, vP1SCTTemp.y });
+
+	// PLAYER 1 SCORE
+	vP1SCTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL1_SCORE, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL1_SCORE, { vP1SCTTemp.x + TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vP1SCTemp.x, vP1SCTemp.y });
+
+	// PLAYER 2 SCORE
+	vP2SCTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL2_SCORE, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vP2SCTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vP2SCTemp.x, vP2SCTemp.y });
+
+	// PLAYER 2 SCORE_TEXT
+	vP2SCTTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL2_SCORE_TEXT, "PL2: ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL2_SCORE_TEXT, { SCREEN_WIDTH - vP2SCTTemp.x - vP2SCTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vP2SCTTemp.x, vP2SCTTemp.y });
+
+	Renderer::GetInstance()->LoadTexture(T_PLAYER1, "../../res/img/player1.png");
+	// PLAYER 1 LIVES
+	/*Renderer::GetInstance()->GetTextureSize(T_PLAYER1).x, Renderer::GetInstance()->GetTextureSize(T_PLAYER1).y, Player::EPlayerType::PL1
+		vTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL1_LIVES, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL1_LIVES, { vP1SCTemp.x, 0, vTemp.x, vTemp.y });*/
+
+	Renderer::GetInstance()->LoadTexture(T_PLAYER2, "../../res/img/player2.png");
+	// PLAYER 2 LIVES
+	/*vTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL2_LIVES, " ", { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL2_LIVES, { vP2SCTTemp, 0, vTemp.x, vTemp.y });
+	PLAYER2_LIVES_WIDTH = vTemp.x;*/
+
+
+#pragma endregion
+
 	// AUDIO
-	Audio::GetInstance()->LoadAudio(S_GAME_THEME, P_GAME_THEME);
+	//Audio::GetInstance()->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() {}
@@ -74,14 +123,29 @@ void Play::Draw()
 	Renderer::GetInstance()->PushImage(T_BG, T_BG);
 	//Renderer::GetInstance()->PushImage(T_ITEMS, T_ITEMS);
 
+	// -- Player 1 -- 
+	Renderer::GetInstance()->PushImage(T_PL1_SCORE_TEXT, T_PL1_SCORE_TEXT);
+	Renderer::GetInstance()->PushImage(T_PL1_SCORE, T_PL1_SCORE);
+	//Renderer::GetInstance()->PushSprite(T_PL1_LIVES, T_PL1_LIVES);
+
+	// -- Timer --
+	Renderer::GetInstance()->PushImage(T_PLAY_LEFT_SIDE_TIMER, T_PLAY_LEFT_SIDE_TIMER);
+	Renderer::GetInstance()->PushImage(T_PLAY_MIDDLE_SIDE_TIMER, T_PLAY_MIDDLE_SIDE_TIMER);
+	Renderer::GetInstance()->PushImage(T_PLAY_RIGHT_SIDE_TIMER, T_PLAY_RIGHT_SIDE_TIMER);
+
+	// -- Player 2 --
+	Renderer::GetInstance()->PushImage(T_PL2_SCORE_TEXT, T_PL2_SCORE_TEXT);
+	Renderer::GetInstance()->PushImage(T_PL2_SCORE, T_PL2_SCORE);
+	//Renderer::GetInstance()->PushImage(T_PL2_LIVES, T_PL2_LIVES);
+
 	// -- LEVEL 1--
-	//for (int i = 0; i < levels.at(0).GetGrid()->size(); i++)
-	//{
-	//	for (int j = 0; j < levels.at(0).GetGrid()->size(); j++)
-	//	{
-	//		//Renderer::GetInstance()->PushImage()
-	//		//if (levels.at(0).IsNotDestructibleWall())
-	//	}
-	//	std::cout << std::endl;
-	//}
+	for (int i = 0; i < MAP_ROWS; i++)
+	{
+		for (int j = 0; j < MAP_COLS; j++)
+		{
+			//if (levels.at(j).IsPlayer({ i,j }, j)) {}
+			//Renderer::GetInstance()->PushImage()
+			//if (levels.at(0).IsNotDestructibleWall())
+		}
+	}
 }

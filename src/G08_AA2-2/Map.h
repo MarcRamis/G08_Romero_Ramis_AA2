@@ -14,7 +14,7 @@
 class Map
 {
 private:
-
+	
 	std::vector<std::vector<int>> grid;
 	std::vector<Wall> wall;
 	std::vector<Player> player;

@@ -13,11 +13,11 @@ Wall::~Wall()
 
 void Wall::SetSprite(int textWidth, int textHeight, int nCol, int nRow)
 {
-	//frame.w = textWidth / nCol;
-	//frame.h = textHeight / nRow;
-	//
-	//initCol = 1;
-	//lastCol = initCol + 3;
-	//initRow = 4;
-	//lastRow = initRow + 4;
+	frame.w = textWidth / nCol;
+	frame.h = textHeight / nRow;
+	
+	initCol = 0;
+	lastCol = initCol + 0;
+	initRow = 0;
+	lastRow = initRow + 0;
 }
