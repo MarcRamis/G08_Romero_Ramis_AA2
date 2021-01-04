@@ -50,7 +50,6 @@ Play::Play()
 	Renderer::GetInstance()->LoadRect(T_PL2_LIVES, { vP2SCTTemp, 0, vTemp.x, vTemp.y });
 	PLAYER2_LIVES_WIDTH = vTemp.x;*/
 
-
 #pragma endregion
 
 	// AUDIO
@@ -72,12 +71,12 @@ void Play::ReadMap()
 
 	rapidxml::xml_node<>* pGame = doc.first_node();
 
-	//std::cout << doc.first_node()->name() << "\n";
+	std::cout << doc.first_node()->name() << "\n";
 	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
 	{
 		Map tmpMap;
-		//std::cout << "\t" << pLevel->name() << "\n";
-		//std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
+		std::cout << "\t" << pLevel->name() << "\n";
+		std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
 
 		rapidxml::xml_node<>* pPlayers = pLevel->first_node("Players");
 		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
@@ -87,16 +86,16 @@ void Play::ReadMap()
 			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
 			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
 
-			/*std::cout << "\t\t\t" << pPlayer->name() << "\n";
+			std::cout << "\t\t\t" << pPlayer->name() << "\n";
 			std::cout << "\t\t\t\t" << pPlayer->first_attribute()->name() << ':' << pPlayer->first_attribute("lives")->value() << "\n";
 			std::cout << "\t\t\t\t" << pPlayer->first_node()->name() << "\n";
 			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
 			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
-			*/
+			
 			tmpMap.GetPlayer()->push_back(tmpPlayer);
 		}
 
-		//std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
+		std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
 
 		rapidxml::xml_node<>* pMaps = pLevel->first_node("Map");
 		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
@@ -105,10 +104,10 @@ void Play::ReadMap()
 			tmpWall.SetDestructible(atoi(pMap->first_attribute("destructible")->value()));
 			tmpWall.SetPosition(RECT(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
 
-			//std::cout << "\t\t\t" << pMap->name() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
+			std::cout << "\t\t\t" << pMap->name() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
+			std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
 			
 			tmpMap.GetWall()->push_back(tmpWall);
 		}

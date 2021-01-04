@@ -39,6 +39,14 @@ private:
 	std::string lt;		
 	std::string rt;		
 
+	VEC2 vMidTimerTemp;
+	VEC2 vLeftTimerTemp;
+	VEC2 vRightTimerTemp;
+	VEC2 vP1SCTTemp;
+	VEC2 vP1ScTemp;
+	VEC2 vP2ScTemp;
+	VEC2 vP2SCTTemp;
+
 public:
 	Game();
 	~Game();
