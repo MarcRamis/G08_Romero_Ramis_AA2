@@ -9,9 +9,9 @@ Menu::Menu()
 	// -- MENU INFO --
 #pragma region Buttons
 
-	Renderer::GetInstance()->LoadFont({ F_SAIYAN, "../../res/ttf/saiyan.ttf", 50 });
-	Renderer::GetInstance()->LoadFont({ F_SAIYAN_TITLE, "../../res/ttf/saiyan.ttf", 60 });
-
+	Renderer::GetInstance()->LoadFont({ F_SAIYAN, P_TTF_SAIYAN, 50 });
+	Renderer::GetInstance()->LoadFont({ F_SAIYAN_TITLE, P_TTF_SAIYAN, 60 });
+	
 	// TITLE GAME
 	VEC2 vTemp = Renderer::GetInstance()->LoadTextureText(F_SAIYAN_TITLE, { T_TITLE, "BOOMBERENTI", { 0,0,100,255 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_TITLE, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 0, vTemp.x, vTemp.y });
@@ -55,6 +55,11 @@ Menu::Menu()
 }
 
 Menu::~Menu() {}
+
+void Menu::Update()
+{
+
+}
 
 void Menu::Draw()
 {

@@ -10,16 +10,12 @@ private:
 	
 	std::vector<Map> levels;
 
-	VEC2 vP1SCTTemp;	
-	VEC2 vP1SCTemp;		
-	VEC2 vP2SCTemp;		
-	VEC2 vP2SCTTemp;
-
 public:
 	Play();
 	~Play();
 
 	void Draw();
+	void Update();
 
 private:
 	void ReadMap();

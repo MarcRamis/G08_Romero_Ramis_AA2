@@ -11,6 +11,7 @@ private:
 public:
 	Scene();
 	~Scene();
-
-	virtual void Draw();
+	
+	virtual void Update() {};
+	virtual void Draw() {};
 };

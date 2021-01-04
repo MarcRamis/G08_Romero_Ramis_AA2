@@ -9,10 +9,11 @@
 // -- SCREEN SIZE--
 #define SCREEN_WIDTH 720
 #define SCREEN_HEIGHT 704
-const int MAP_ROWS{};
-const int MAP_COLS{};
+const int MAP_ROWS{ 13 };
+const int MAP_COLS{ 14 };
+const int FPS{ 60 };
 
-// -- PATH --
+// -- PATH GAME FILE--
 // -- IMG
 const std::string P_BG{ "../../res/img/bgGame.jpg" };
 const std::string P_ITEMS{ "../../res/img/items.png" };
@@ -24,9 +25,8 @@ const std::string P_GAME_THEME{ "../../res/au/game_theme.mp3" };
 const std::string P_MENU{ "../../res/au/menu.mp3" };
 // -- FILES
 // -- TTF
-
-// -- GAME TIME CONFIG --
-const int FPS{ 60 };
+const std::string P_TTF_GAMEOVER{ "../../res/ttf/game_over.ttf" };
+const std::string P_TTF_SAIYAN{ "../../res/ttf/saiyan.ttf" };
 
 // -- MENU LINE SPACING--
 const int TEXTSIZE_MENU{ 6 };
@@ -38,15 +38,19 @@ const int TEXT_HUD_VERTICAL_SPACING{ 10 };
 const int SPRITE_RES{ 48 };
 
 // -- PLAY HUD --
+const std::string T_TXT_TIME{ "TextTime" };
+const float MAX_GAMETIME{ 75.f };
 const std::string T_PL1_SCORE_TEXT{ "Player1ScoreText" };
 const std::string T_PL1_SCORE{ "Player1Score" };
-const std::string T_PL1_LIVES{ "Player1Lives" };
-const std::string T_PLAY_LEFT_SIDE_TIMER{ "PlayLeftTime" };
-const std::string T_PLAY_MIDDLE_SIDE_TIMER{ "PlayMidTime" };
-const std::string T_PLAY_RIGHT_SIDE_TIMER{ "PlayRightTime" };
-const std::string T_PL2_LIVES{ "Player2Lives" };
 const std::string T_PL2_SCORE_TEXT{ "Player2ScoreText" };
 const std::string T_PL2_SCORE{ "Player2Score" };
+
+const std::string T_PL1_LIVES{ "Player1Lives" };
+//const std::string T_PLAY_LEFT_SIDE_TIMER{ "PlayLeftTime" };
+//const std::string T_PLAY_MIDDLE_SIDE_TIMER{ "PlayMidTime" };
+//const std::string T_PLAY_RIGHT_SIDE_TIMER{ "PlayRightTime" };
+const std::string T_PL2_LIVES{ "Player2Lives" };
+
 
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };
@@ -87,8 +91,8 @@ const std::string T_BTN_EXIT_H{ "BtnExitH" };
 const std::string F_SAIYAN{ "FontSaiyan" };
 const std::string F_SAIYAN_TITLE{ "FontSaiyanTitle" };
 const std::string F_GAMEOVER{ "FontGameOver" };
-const std::string F_PLAYERS_HUD{ "FontGameOverHUD" };
-const std::string F_TIMER_HUD{ "FontGameOverHUD" };
+//const std::string F_PLAYERS_HUD{ "FontGameOverHUD" };
+//const std::string F_TIMER_HUD{ "FontGameOverHUD" };
 
 // -- AUDIO
 const std::string S_MENU{ "SoundMenu" };
