@@ -200,6 +200,6 @@ void Game::Run()
 		Update();
 		
 		// --- FRAME CONTROL ---
-		//input->UpdateDeltaTime();
+		input->UpdateDeltaTime();
 	}
 }
