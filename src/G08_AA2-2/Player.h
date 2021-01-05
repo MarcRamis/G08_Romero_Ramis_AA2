@@ -30,7 +30,7 @@ public:
 	
 	void Update(InputManager*);
 
-	void SetPlayerValues(int textWidth, int textHeight, int nCol, int nRow, EPlayerType _type);
+	void SetPlayerValues(int textWidth, int textHeight, int nCol, int nRow, VEC2 pos, EPlayerType _type);
 
 	void Reset();
 

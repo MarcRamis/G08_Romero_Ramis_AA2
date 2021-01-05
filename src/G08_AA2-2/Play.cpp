@@ -3,7 +3,7 @@
 Play::Play() 
 {
 #pragma region GRID
-	ReadMap();
+	//ReadMap();
 
 
 #pragma endregion
@@ -11,25 +11,25 @@ Play::Play()
 #pragma region HUD
 
 	// -- TEXT TIMER --
-	Renderer::GetInstance()->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 100 });
+	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 100 });
 
-	VEC2 vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, " ", { 0,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2, 10, vTemp.x, vTemp.y });
+	VEC2 vTemp =r->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, " ", { 0,0,0,255 }, 0, 0 });
+	r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2, 10, vTemp.x, vTemp.y });
 	
 	// -- PLAYER 1 SCORE TXT
 	// PL1 SCORE TEXT
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE_TEXT, "PL1: ", { 0,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadRect(T_PL1_SCORE_TEXT, { TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE_TEXT, "PL1: ", { 0,0,0,255 }, 0, 0 });
+	r->LoadRect(T_PL1_SCORE_TEXT, { TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 	// PL2 SCORE TEXT
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE_TEXT, "PL2: ", { 0,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadRect(T_PL2_SCORE_TEXT, { SCREEN_WIDTH - vTemp.x - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE_TEXT, "PL2: ", { 0,0,0,255 }, 0, 0 });
+	r->LoadRect(T_PL2_SCORE_TEXT, { SCREEN_WIDTH - vTemp.x - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 
 	// PLAYER 1 SCORE
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE, " ", { 0,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadRect(T_PL1_SCORE, { vTemp.x + TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE, " ", { 0,0,0,255 }, 0, 0 });
+	r->LoadRect(T_PL1_SCORE, { vTemp.x + TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 	// PLAYER 2 SCORE
-	vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, " ", { 0,0,0,255 }, 0, 0 });
-	Renderer::GetInstance()->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, " ", { 0,0,0,255 }, 0, 0 });
+	r->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 
 	//// PLAYER 2 SCORE_TEXT
 
@@ -47,8 +47,24 @@ Play::Play()
 
 #pragma endregion
 
-	// AUDIO
-	//Audio::GetInstance()->LoadAudio(S_GAME_THEME, P_GAME_THEME);
+#pragma region Sprite
+
+	// -- PLAYERS --
+	r->LoadTexture(T_PLAYER1, P_PLAYER1);
+	r->LoadTexture(T_PLAYER2, P_PLAYER2);
+	AddPlayer(r->GetTextureSize(T_PLAYER1).x, r->GetTextureSize(T_PLAYER1).y, {100,100}, Player::EPlayerType::PL1);
+	AddPlayer(r->GetTextureSize(T_PLAYER2).x, r->GetTextureSize(T_PLAYER2).y, {200,100}, Player::EPlayerType::PL2);
+	
+	//Walls
+
+	//PowerUps
+
+	//Bomb
+	
+#pragma endregion
+
+	//-->AUDIO
+	//au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() {}
@@ -111,34 +127,61 @@ void Play::ReadMap()
 	}
 }
 
+void Play::AddPlayer(int texWidth, int texHeight, VEC2 pos, Player::EPlayerType type)
+{
+	Player* p = new Player();
+	p->SetPlayerValues(texWidth, texHeight, 3, 4, { pos.x, pos.y }, type);
+	players.push_back(p);
+}
+
 void Play::Update()
 {
-
+	for (Player* p : players)
+		p->Update(InputManager::GetInstance());
 }
 
 void Play::Draw() 
 {
-	//-->Background
-	Renderer::GetInstance()->PushImage(T_BG, T_BG);
+	//-->BACKGROUND
+	r->PushImage(T_BG, T_BG);
 	
 	//-->HUD
 	// -- Timer --
-	Renderer::GetInstance()->PushImage(T_TXT_TIME, T_TXT_TIME);
-	// -- PL11 -- 
-	Renderer::GetInstance()->PushImage(T_PL1_SCORE_TEXT, T_PL1_SCORE_TEXT);
-	Renderer::GetInstance()->PushImage(T_PL1_SCORE, T_PL1_SCORE);
+	r->PushImage(T_TXT_TIME, T_TXT_TIME);
+	// -- PL1 -- 
+	r->PushImage(T_PL1_SCORE_TEXT, T_PL1_SCORE_TEXT);
+	r->PushImage(T_PL1_SCORE, T_PL1_SCORE);
 	// -- PL2 --
-	Renderer::GetInstance()->PushImage(T_PL2_SCORE_TEXT, T_PL2_SCORE_TEXT);
-	Renderer::GetInstance()->PushImage(T_PL2_SCORE, T_PL2_SCORE);
+	r->PushImage(T_PL2_SCORE_TEXT, T_PL2_SCORE_TEXT);
+	r->PushImage(T_PL2_SCORE, T_PL2_SCORE);
+
+	//-->LEVELS
+	// -- LEVEL 1 --
+	//for (int i = 0; i < MAP_ROWS; i++)
+	//{
+	//	for (int j = 0; j < MAP_COLS; j++)
+	//	{
+	//		//if (levels.at(j).IsPlayer({ i,j }, j)) {}
+	//		//Renderer::GetInstance()->PushImage()
+	//		//if (levels.at(0).IsNotDestructibleWall())
+	//	}
+	//}
+	// -- LEVEL 2 -- 
 	
-	// -- LEVEL 1--
-	for (int i = 0; i < MAP_ROWS; i++)
-	{
-		for (int j = 0; j < MAP_COLS; j++)
-		{
-			//if (levels.at(j).IsPlayer({ i,j }, j)) {}
-			//Renderer::GetInstance()->PushImage()
-			//if (levels.at(0).IsNotDestructibleWall())
-		}
-	}
+	//-->PLAYERS
+	r->PushSprite(T_PLAYER1, players.at(0)->GetFrame(), players.at(0)->GetPosition());
+	r->PushSprite(T_PLAYER2, players.at(1)->GetFrame(), players.at(1)->GetPosition());
+	
+	//-->WALLS
+	// -- Desctructible Walls --
+	// -- Not desctructible Walls --
+	
+	//-->POWERUPS
+	// -- 1 --
+	// -- 2 --
+	// -- 3 --
+
+	//-->BOMB
+	// -- Bomb --
+	// -- Explosion Bomb --
 }

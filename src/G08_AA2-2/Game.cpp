@@ -97,6 +97,9 @@ void Game::Update()
 			gameState = GameState::MENU;
 		}
 
+		// -- Update Scene --
+		scenes.at(1)->Update();
+
 		// -- Update HUD -- 
 		if (gameState == GameState::PLAY) timeDown -= *input->GetDeltaTime();;
 		if (timeDown <= 0.f) gameState = GameState::MENU;

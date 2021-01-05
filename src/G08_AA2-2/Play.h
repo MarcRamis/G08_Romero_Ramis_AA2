@@ -8,6 +8,7 @@ class Play : public Scene
 {
 private:
 	
+	std::vector<Player*> players;
 	std::vector<Map> levels;
 
 public:
@@ -19,4 +20,6 @@ public:
 
 private:
 	void ReadMap();
+	
+	void AddPlayer(int, int, VEC2, Player::EPlayerType type);
 };

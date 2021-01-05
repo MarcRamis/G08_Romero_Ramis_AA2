@@ -6,7 +6,10 @@
 
 class Scene
 {
-private:
+protected:
+
+	Renderer* r = Renderer::GetInstance();
+	Audio* au = Audio::GetInstance();
 
 public:
 	Scene();
