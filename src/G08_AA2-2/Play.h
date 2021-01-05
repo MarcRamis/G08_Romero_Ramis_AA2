@@ -21,5 +21,8 @@ public:
 private:
 	void ReadMap();
 	
-	void AddPlayer(int, int, VEC2, Player::EPlayerType type);
+	void AddPlayer(VEC2, Player::EPlayerType type);
+	void AddWall(VEC2, bool _destructible);
+	void AddBomb(VEC2, Player::EPlayerType type);
+	void AddPowerUp(VEC2, Player::EPlayerType type);
 };

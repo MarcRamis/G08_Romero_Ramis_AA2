@@ -2,8 +2,8 @@
 
 Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) 
 {
-	//Renderer::GetInstance()->LoadTexture(T_PLAYERS, P_PLAYER1);
-	//Renderer::GetInstance()->LoadTexture(T_PLAYERS, P_PLAYER2);
+	Renderer::GetInstance()->LoadTexture(T_PLAYER1, P_PLAYER1);
+	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);
 }
 
 Player::~Player()
@@ -57,8 +57,8 @@ bool Player::Move(InputManager* input)
 	}
 
 	// Check player collisions
-	//if (newPosition.x > input->GetScreenSize()->x - frame.w || newPosition.x < 0) newPosition.x = position.x;
-	//if (newPosition.y > input->GetScreenSize()->y - frame.h || newPosition.y < 0 + input->GetScreenSize()->y / 4) newPosition.y = position.y;
+	if (newPosition.x > (input->GetScreenSize()->x - frame.w) - SPRITE_RES || newPosition.x < SPRITE_RES) newPosition.x = position.x;
+	if (newPosition.y > (input->GetScreenSize()->y - frame.h) - SPRITE_RES || newPosition.y < SPRITE_RES + SPRITE_HUD_HEIGHT) newPosition.y = position.y;
 
 	//Update Positions
 	if (newPosition.x != position.x || newPosition.y != position.y) {
@@ -103,19 +103,29 @@ void Player::UpdateSprite()
 		break;
 	}
 }
-void Player::SetPlayerValues(int textWidth, int textHeight, int nCol, int nRow, VEC2 pos, EPlayerType _type)
+void Player::SetPlayerValues(VEC2 pos, EPlayerType _type)
 {
 	type = _type;
 
-	frame.w = textWidth / nCol;
-	frame.h = textHeight / nRow;
+	switch (type)
+	{
+		case EPlayerType::PL1:
+			frame.w = Renderer::GetInstance()->GetTextureSize(T_PLAYER1).x / SPRITE_PL_COLS;
+			frame.h = Renderer::GetInstance()->GetTextureSize(T_PLAYER1).y / SPRITE_PL_ROWS;
+			break;
+		case EPlayerType::PL2:
+			frame.w = Renderer::GetInstance()->GetTextureSize(T_PLAYER2).x / SPRITE_PL_COLS;
+			frame.h = Renderer::GetInstance()->GetTextureSize(T_PLAYER2).y / SPRITE_PL_ROWS;
+			break;
+	}
 
 	initCol = 0;
-	lastCol = initCol + 3;
+	lastCol = initCol + SPRITE_PL_COLS;
 	initRow = 0;
-	lastRow = initRow + 4;
-	frame.x = frame.w * initCol;
-	frame.y = frame.h * initRow;
+	lastRow = initRow + SPRITE_PL_ROWS;
+	
+	//frame.x = frame.w * initCol;
+	//frame.y = frame.h * initRow;
 
 	position.x = pos.x;
 	position.y = pos.y;

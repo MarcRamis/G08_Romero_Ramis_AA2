@@ -50,13 +50,14 @@ Play::Play()
 #pragma region Sprite
 
 	// -- PLAYERS --
-	r->LoadTexture(T_PLAYER1, P_PLAYER1);
-	r->LoadTexture(T_PLAYER2, P_PLAYER2);
-	AddPlayer(r->GetTextureSize(T_PLAYER1).x, r->GetTextureSize(T_PLAYER1).y, {100,100}, Player::EPlayerType::PL1);
-	AddPlayer(r->GetTextureSize(T_PLAYER2).x, r->GetTextureSize(T_PLAYER2).y, {200,100}, Player::EPlayerType::PL2);
+	AddPlayer({100,300}, Player::EPlayerType::PL1);
+	AddPlayer({200,300}, Player::EPlayerType::PL2);
 	
 	//Walls
-
+	// INSERTAR FOR DE TODAS LAS WALLS---------------------------
+	AddWall({ 500,500 }, false);
+	AddWall({ 500,600 }, true);
+	
 	//PowerUps
 
 	//Bomb
@@ -73,7 +74,7 @@ void Play::ReadMap()
 {
 	// -- Read XML file --
 	rapidxml::xml_document<> doc;						// VARIABLE DECLARATION WHERE "doc" IS AN OBJECT FROM xml_document CLASS
-	std::ifstream file("../../res/files/config.xml");	// VARIABLE FILE DECLARATION
+	std::ifstream file(P_CONFIG);	// VARIABLE FILE DECLARATION
 	std::stringstream buffer;					// BUFFER DECLARATION BECAUSE STRINGSTREAM CAN CONTAIN MASSIVE INFORMATION OF THIS TYPE
 	buffer << file.rdbuf();				// SAVE INFORMATION IN BUFFER WHERE "file.rdbuf()" IS A FUNCTION FROM "ifstream" 
 	file.close();						// CLOSE FILE BECAUSE WE UPDATED EVERYTHING
@@ -127,10 +128,10 @@ void Play::ReadMap()
 	}
 }
 
-void Play::AddPlayer(int texWidth, int texHeight, VEC2 pos, Player::EPlayerType type)
+void Play::AddPlayer(VEC2 pos, Player::EPlayerType type)
 {
 	Player* p = new Player();
-	p->SetPlayerValues(texWidth, texHeight, 3, 4, { pos.x, pos.y }, type);
+	p->SetPlayerValues({ pos.x, pos.y }, type);
 	players.push_back(p);
 }
 

@@ -24,6 +24,7 @@ const std::string P_EXPLOSION{ "../../res/img/explosion.png" };
 const std::string P_GAME_THEME{ "../../res/au/game_theme.mp3" };
 const std::string P_MENU{ "../../res/au/menu.mp3" };
 // -- FILES
+const std::string P_CONFIG{ "../../res/files/config.xml" };
 // -- TTF
 const std::string P_TTF_GAMEOVER{ "../../res/ttf/game_over.ttf" };
 const std::string P_TTF_SAIYAN{ "../../res/ttf/saiyan.ttf" };
@@ -36,8 +37,11 @@ const int TEXT_HUD_VERTICAL_SPACING{ 10 };
 
 // -- SPRITES --
 const int SPRITE_RES{ 48 };
+const int SPRITE_PL_ROWS{ 4 };
+const int SPRITE_PL_COLS{ 3 };
 
 // -- PLAY HUD --
+const int SPRITE_HUD_HEIGHT{ 80 };
 const std::string T_TXT_TIME{ "TextTime" };
 const float MAX_GAMETIME{ 75.f };
 const std::string T_PL1_SCORE_TEXT{ "Player1ScoreText" };
@@ -46,9 +50,6 @@ const std::string T_PL2_SCORE_TEXT{ "Player2ScoreText" };
 const std::string T_PL2_SCORE{ "Player2Score" };
 
 const std::string T_PL1_LIVES{ "Player1Lives" };
-//const std::string T_PLAY_LEFT_SIDE_TIMER{ "PlayLeftTime" };
-//const std::string T_PLAY_MIDDLE_SIDE_TIMER{ "PlayMidTime" };
-//const std::string T_PLAY_RIGHT_SIDE_TIMER{ "PlayRightTime" };
 const std::string T_PL2_LIVES{ "Player2Lives" };
 
 
