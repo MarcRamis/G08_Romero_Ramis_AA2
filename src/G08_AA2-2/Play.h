@@ -11,6 +11,7 @@ private:
 	std::vector<Player*> players;
 	std::vector<Wall*> walls;
 	std::vector<PowerUp*> powerUps;
+
 	std::vector<Map> levels;
 
 public:
