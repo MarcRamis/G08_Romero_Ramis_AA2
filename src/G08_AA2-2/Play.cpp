@@ -59,6 +59,8 @@ Play::Play()
 	AddWall({ 500,600 }, true);
 	
 	//PowerUps
+	AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);
+	AddPowerUp({ 300,600 }, PowerUp::EPowerUpType::HELMET);
 
 	//Bomb
 	
@@ -142,10 +144,20 @@ void Play::AddWall(VEC2 pos, bool _destr)
 	walls.push_back(w);
 }
 
+void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
+{
+	PowerUp* pw = new PowerUp();
+	pw->SetValues({ pos.x, pos.y }, type);
+	powerUps.push_back(pw);
+}
+
 void Play::Update()
 {
 	for (Player* p : players)
 		p->Update(InputManager::GetInstance());
+	
+	// AQUI COLISIONES DEL PLAYER PERO NO SÉ SI INPUT TIENE QUE IR
+	// DE MOMENTO PONEMOS EL INPUT CON SUS COLISIONES AQUI :)
 }
 
 void Play::Draw() 
@@ -190,9 +202,8 @@ void Play::Draw()
 	// -- Not desctructible Walls --
 
 	//-->POWERUPS
-	// -- 1 --
-	// -- 2 --
-	// -- 3 --
+	for (PowerUp* pw : powerUps)
+		r->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());
 
 	//-->BOMB
 	// -- Bomb --

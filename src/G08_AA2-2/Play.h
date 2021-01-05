@@ -10,6 +10,7 @@ private:
 	
 	std::vector<Player*> players;
 	std::vector<Wall*> walls;
+	std::vector<PowerUp*> powerUps;
 	std::vector<Map> levels;
 
 public:
@@ -22,8 +23,8 @@ public:
 private:
 	void ReadMap();
 	
-	void AddPlayer(VEC2, Player::EPlayerType type);
+	void AddPlayer(VEC2, Player::EPlayerType);
 	void AddWall(VEC2, bool _destructible);
 	void AddBomb(VEC2, Player::EPlayerType type);
-	void AddPowerUp(VEC2, Player::EPlayerType type);
+	void AddPowerUp(VEC2, PowerUp::EPowerUpType);
 };
