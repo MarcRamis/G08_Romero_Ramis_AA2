@@ -1,10 +1,6 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) 
-{
-	Renderer::GetInstance()->LoadTexture(T_PLAYER1, P_PLAYER1);
-	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);
-}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) {}
 
 Player::~Player()
 {

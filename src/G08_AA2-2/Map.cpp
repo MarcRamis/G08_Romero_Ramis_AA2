@@ -2,6 +2,18 @@
 
 Map::Map()
 {
+	grid.resize(MAP_ROWS);
+	for (int i = 0; i < grid.size(); i++)
+		grid.at(i).resize(MAP_COLS);
+
+	for (int i = 0; i < MAP_ROWS; i++)
+	{
+		for (int j = 0; j < MAP_COLS; j++)
+		{
+			grid[i][j] = Cell::NONE;
+		}
+	}
+
 	// -- Read XML file --
 	rapidxml::xml_document<> doc;						// VARIABLE DECLARATION WHERE "doc" IS AN OBJECT FROM xml_document CLASS
 	std::ifstream file(P_CONFIG);						// VARIABLE FILE DECLARATION
@@ -42,11 +54,23 @@ Map::Map()
 		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
 		{
 			Wall tmpWall;
-			tmpWall.SetDestructible(atoi(pMap->first_attribute("destructible")->value()));
+			
 			tmpWall.SetPosition(RECT(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
+			
+			std::string sTmp = pMap->first_attribute("destructible")->value();
+			if (sTmp == "false")
+			{
+				grid[tmpWall.GetPosition()->y][tmpWall.GetPosition()->x] = Cell::WALLINDES;
+				tmpWall.SetDestructible(false);
+			}
+			else if (sTmp == "true")
+			{
+				grid[tmpWall.GetPosition()->y][tmpWall.GetPosition()->x] = Cell::WALLDES;
+				tmpWall.SetDestructible(true);
+			}
 
 			//std::cout << "\t\t\t" << pMap->name() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
+			//std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << tmpWall.GetDestructible() << "\n";
 			//std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
 			//std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
 
@@ -54,57 +78,25 @@ Map::Map()
 		}
 	}
 
-	grid.resize(MAP_ROWS);
-	for (int i = 0; i < grid.size(); i++)
-		grid.at(i).resize(MAP_COLS);
-
-	for (int i = 0; i < MAP_ROWS; i++)
-	{
-		for (int j = 0; j < MAP_COLS; j++)
-		{
-			grid.at(i).at(j) = Cell::NONE;
-		}
-	}
-
-	for (int i = 0; i < MAP_ROWS; i++)
-	{
-		int k = 0;
-		for (int j = 0; j < MAP_COLS; j++)
-		{
-			while (k < wall.size())
-			{
-				if ( i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && !wall.at(k).GetDestructibleWall())
-				{
-					grid.at(i).at(j) = Cell::WALLINDES;
-				}
-				if (i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && !wall.at(k).GetDestructibleWall())
-				{
-					grid.at(i).at(j) = Cell::WALLDES;
-				}
-				k++;
-			}
-		}
-	}	
+	//for (int i = 0; i < MAP_ROWS; i++)
+	//{
+	//	for (int j = 0; j < MAP_COLS; j++)
+	//	{
+	//		int k = 0;
+	//		while(k < wall.size())
+	//		{
+	//			if (i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && !wall[k].GetDestructible())
+	//			{
+	//				grid.at(i).at(j) = Cell::WALLINDES;
+	//			}
+	//			if (i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && wall[k].GetDestructible())
+	//			{
+	//				grid.at(i).at(j) = Cell::WALLDES;
+	//			}
+	//			k++;
+	//		}
+	//	}
+	//}
 }
 
-Map::~Map()
-{
-
-}
-
-inline const bool Map::IsNotDestructibleWall(const VEC2 gridPos, const int wallIt)
-{
-	return gridPos.x == wall.at(wallIt).GetPosition()->x && gridPos.y == wall.at(wallIt).GetPosition()->y
-		&& !wall.at(wallIt).GetDestructibleWall();
-}
-
-inline const bool Map::IsDestructibleWall(const VEC2 gridPos, const int wallIt)
-{
-	return gridPos.x == wall.at(wallIt).GetPosition()->x && gridPos.y == wall.at(wallIt).GetPosition()->y
-		&& wall.at(wallIt).GetDestructibleWall();
-}
-
-inline const bool Map::IsPlayer(const VEC2 gridPos, const int playerIt)
-{
-	return gridPos.x == _player.at(playerIt).GetPosition()->x && gridPos.y == _player.at(playerIt).GetPosition()->y;
-}
+Map::~Map() {}

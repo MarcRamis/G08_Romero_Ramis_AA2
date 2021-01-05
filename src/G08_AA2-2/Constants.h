@@ -9,8 +9,8 @@
 // -- SCREEN SIZE--
 #define SCREEN_WIDTH 720
 #define SCREEN_HEIGHT 704
-const int MAP_ROWS{ 13 };
-const int MAP_COLS{ 14 };
+const int MAP_ROWS{ 11 };
+const int MAP_COLS{ 13 };
 const int FPS{ 60 };
 
 // -- PATH GAME FILE--

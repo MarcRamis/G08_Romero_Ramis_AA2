@@ -54,13 +54,31 @@ Play::Play()
 
 	//-->PLAYERS
 	// -- Player1 --
-	int i = 0;
-	AddPlayer({ levels.at(0)->GetPlayer()->at(i).GetPosition()->x + SPRITE_RES, levels.at(0)->GetPlayer()->at(i).GetPosition()->y + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL1);
+	Renderer::GetInstance()->LoadTexture(T_PLAYER1, P_PLAYER1);
+	int l = 0;
+	AddPlayer({ (levels.at(0)->GetPlayer()->at(l).GetPosition()->x * SPRITE_RES) + SPRITE_RES, 
+		(levels.at(0)->GetPlayer()->at(l).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL1);
 	// -- Player2 --
-	i = 1;
-	AddPlayer({ levels.at(0)->GetPlayer()->at(i).GetPosition()->x + SPRITE_RES, levels.at(0)->GetPlayer()->at(i).GetPosition()->y + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL2);
+	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);
+	l = 1;
+	AddPlayer({ (levels.at(0)->GetPlayer()->at(l).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+		(levels.at(0)->GetPlayer()->at(l).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL2);
+
 
 	//Walls
+	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);
+	for (int i = 0; i < MAP_ROWS; i++)
+	{
+		for (int j = 0;  j < MAP_COLS; j++)
+		{
+			for (int k = 0; k < 30; k++)
+			{
+				AddWall({ (levels.at(0)->GetWall()->at(k).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+					(levels.at(0)->GetWall()->at(k).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, 
+					false/*levels.at(0)->GetWall()->at(k).GetDestructible()*/);
+			}
+		}
+	}
 	// INSERTAR FOR DE TODAS LAS WALLS---------------------------
 	//for (int k = 0; k < levels.size(); k++)
 	//{
@@ -83,8 +101,8 @@ Play::Play()
 
 	//}
 
-	//AddWall({ 500,500 }, false);
-	//AddWall({ 500,600 }, true);
+	//AddWall({ 500,500 }, levels.at(0)->GetWall()->at(62).GetDestructible());
+	//AddWall({ 500,600 }, levels.at(0)->GetWall()->at(25).GetDestructible());
 
 	//PowerUps
 	AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);

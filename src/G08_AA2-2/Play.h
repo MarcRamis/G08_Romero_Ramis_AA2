@@ -9,6 +9,7 @@ class Play : public Scene
 private:
 	
 	std::vector<Player*> players;
+	
 	std::vector<Wall*> walls;
 	std::vector<PowerUp*> powerUps;
 

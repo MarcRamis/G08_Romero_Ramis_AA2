@@ -90,6 +90,12 @@
       <Wall destructible = "false" x="7" y="9"/>
       <Wall destructible = "false" x="9" y="9"/>
       <Wall destructible = "false" x="11" y="9"/>
+      
+      <Wall destructible = "true" x="1" y="2"/>
+      <Wall destructible = "true" x="1" y="4"/>
+      <Wall destructible = "true" x="1" y="6"/>
+      <Wall destructible = "true" x="1" y="8"/>
+      <Wall destructible = "true" x="1" y="10"/>
 		</Map>
 	</Level2>
 </Game>

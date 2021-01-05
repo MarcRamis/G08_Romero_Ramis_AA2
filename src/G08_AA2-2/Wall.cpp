@@ -1,9 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall() : position({ 0, 0, SPRITE_RES, SPRITE_RES }), frame({0,0,0,0}), destructible(false)
-{
-	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);
-}
+Wall::Wall() : position({ 0, 0, SPRITE_RES, SPRITE_RES }), frame({ 0,0,0,0 }) {}
 
 Wall::~Wall()
 {

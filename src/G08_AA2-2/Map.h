@@ -15,10 +15,10 @@ class Map
 {
 public:
 	
-	enum class Cell {NONE, WALLDES, WALLINDES, POWERUP, BOMB, PL1, PL2, COUNT};
+	enum class Cell {NONE, WALL, WALLINDES, WALLDES, POWERUP, BOMB, PL1, PL2, COUNT};
 	
 private:
-	
+
 	std::vector<std::vector<Cell>> grid;
 	std::vector<Wall> wall;
 	std::vector<Player> _player;
@@ -30,8 +30,4 @@ public:
 	std::vector<Wall> *GetWall() { return &wall; };
 	std::vector<Player> *GetPlayer() { return &_player; };
 	std::vector<std::vector<Cell>>* GetGrid() { return &grid; };
-
-	inline const bool IsNotDestructibleWall(const VEC2, const int);
-	inline const bool IsDestructibleWall(const VEC2, const int);
-	inline const bool IsPlayer(const VEC2, const int);
 };

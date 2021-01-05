@@ -147,6 +147,7 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Menu.h" />
