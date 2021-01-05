@@ -12,7 +12,7 @@ private:
 	std::vector<Wall*> walls;
 	std::vector<PowerUp*> powerUps;
 
-	std::vector<Map> levels;
+	std::vector<Map*> levels;
 
 public:
 	Play();

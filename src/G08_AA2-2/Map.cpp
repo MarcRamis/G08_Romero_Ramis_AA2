@@ -16,7 +16,6 @@ Map::Map()
 	//std::cout << doc.first_node()->name() << "\n";
 	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
 	{
-		Map tmpMap;
 		//std::cout << "\t" << pLevel->name() << "\n";
 		//std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
 
@@ -34,7 +33,7 @@ Map::Map()
 			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
 			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
 
-			player.push_back(tmpPlayer);
+			_player.push_back(tmpPlayer);
 		}
 
 		//std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
@@ -55,22 +54,37 @@ Map::Map()
 		}
 	}
 
-	int k = 0;
+	grid.resize(MAP_ROWS);
+	for (int i = 0; i < grid.size(); i++)
+		grid.at(i).resize(MAP_COLS);
 
 	for (int i = 0; i < MAP_ROWS; i++)
 	{
 		for (int j = 0; j < MAP_COLS; j++)
 		{
+			grid.at(i).at(j) = Cell::NONE;
+		}
+	}
+
+	for (int i = 0; i < MAP_ROWS; i++)
+	{
+		int k = 0;
+		for (int j = 0; j < MAP_COLS; j++)
+		{
 			while (k < wall.size())
 			{
-				if (VEC2(i,j) == &wall.at(k).GetPosition())
+				if ( i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && !wall.at(k).GetDestructibleWall())
 				{
-
+					grid.at(i).at(j) = Cell::WALLINDES;
+				}
+				if (i == wall.at(k).GetPosition()->x && j == wall.at(k).GetPosition()->y && !wall.at(k).GetDestructibleWall())
+				{
+					grid.at(i).at(j) = Cell::WALLDES;
 				}
 				k++;
 			}
 		}
-	}
+	}	
 }
 
 Map::~Map()
@@ -78,17 +92,19 @@ Map::~Map()
 
 }
 
-//inline const bool Map::IsNotDestructibleWall(const VEC2 gridPos, const int wallIt)
-//{
-//	return gridPos.x == int(wall.at(wallIt).GetPosition()) && !wall.at(wallIt).GetDestructibleWall();
-//}
-//
-//inline const bool Map::IsDestructibleWall(const VEC2 gridPos, const int wallIt)
-//{
-//	return grid[gridPos.x][gridPos.y] == int(wall.at(wallIt).GetPosition()) && wall.at(wallIt).GetDestructibleWall();
-//}
-//
-//inline const bool Map::IsPlayer(const VEC2 gridPos, const int playerIt)
-//{
-//	return grid[gridPos.x][gridPos.y] == int(player.at(playerIt).GetPosition());
-//}
+inline const bool Map::IsNotDestructibleWall(const VEC2 gridPos, const int wallIt)
+{
+	return gridPos.x == wall.at(wallIt).GetPosition()->x && gridPos.y == wall.at(wallIt).GetPosition()->y
+		&& !wall.at(wallIt).GetDestructibleWall();
+}
+
+inline const bool Map::IsDestructibleWall(const VEC2 gridPos, const int wallIt)
+{
+	return gridPos.x == wall.at(wallIt).GetPosition()->x && gridPos.y == wall.at(wallIt).GetPosition()->y
+		&& wall.at(wallIt).GetDestructibleWall();
+}
+
+inline const bool Map::IsPlayer(const VEC2 gridPos, const int playerIt)
+{
+	return gridPos.x == _player.at(playerIt).GetPosition()->x && gridPos.y == _player.at(playerIt).GetPosition()->y;
+}

@@ -36,6 +36,8 @@ public:
 
 	int AddScore() { return score++; };
 
+	inline const EPlayerType GetPlayerType() { return type; };
+
 	inline const RECT* GetPosition() { return &position; };
 	inline const void SetPosition(RECT _position) { position = _position; };
 	

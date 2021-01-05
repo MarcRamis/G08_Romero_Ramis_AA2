@@ -3,8 +3,11 @@
 Play::Play() 
 {
 #pragma region GRID
+
 	ReadMap();
 
+	Map* tmpMap = new Map();
+	levels.push_back(tmpMap);
 
 #pragma endregion
 
@@ -49,15 +52,40 @@ Play::Play()
 
 #pragma region Sprite
 
-	// -- PLAYERS --
-	AddPlayer({100,300}, Player::EPlayerType::PL1);
-	AddPlayer({200,300}, Player::EPlayerType::PL2);
-	
+	//-->PLAYERS
+	// -- Player1 --
+	int i = 0;
+	AddPlayer({ levels.at(0)->GetPlayer()->at(i).GetPosition()->x + SPRITE_RES, levels.at(0)->GetPlayer()->at(i).GetPosition()->y + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL1);
+	// -- Player2 --
+	i = 1;
+	AddPlayer({ levels.at(0)->GetPlayer()->at(i).GetPosition()->x + SPRITE_RES, levels.at(0)->GetPlayer()->at(i).GetPosition()->y + SPRITE_HUD_HEIGHT + SPRITE_RES }, Player::EPlayerType::PL2);
+
 	//Walls
 	// INSERTAR FOR DE TODAS LAS WALLS---------------------------
-	AddWall({ 500,500 }, false);
-	AddWall({ 500,600 }, true);
-	
+	//for (int k = 0; k < levels.size(); k++)
+	//{
+	//	for (int i = 0; i < MAP_ROWS; i++)
+	//	{
+	//		int p = 0;
+	//		for (int j = 0; j < MAP_COLS; j++)
+	//		{
+	//			while (p < levels.at(k)->GetWall()->size())
+	//			{
+	//				if (i == levels.at(k)->GetWall()->at(p).GetPosition()->x && j == levels.at(k)->GetWall()->at(p).GetPosition()->y)
+	//				{
+	//					AddWall({ i,j }, levels.at(k)->GetWall()->at(p).GetDestructibleWall());
+	//				}
+	//				p++;
+	//			}
+
+	//		}
+	//	}
+
+	//}
+
+	//AddWall({ 500,500 }, false);
+	//AddWall({ 500,600 }, true);
+
 	//PowerUps
 	AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);
 	AddPowerUp({ 300,600 }, PowerUp::EPowerUpType::HELMET);
