@@ -39,6 +39,8 @@ const int TEXT_HUD_VERTICAL_SPACING{ 10 };
 const int SPRITE_RES{ 48 };
 const int SPRITE_PL_ROWS{ 4 };
 const int SPRITE_PL_COLS{ 3 };
+const int SPRITE_ITEMS_ROWS{ 2 };
+const int SPRITE_ITEMS_COLS{ 3 };
 
 // -- PLAY HUD --
 const int SPRITE_HUD_HEIGHT{ 80 };
@@ -51,7 +53,6 @@ const std::string T_PL2_SCORE{ "Player2Score" };
 
 const std::string T_PL1_LIVES{ "Player1Lives" };
 const std::string T_PL2_LIVES{ "Player2Lives" };
-
 
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };

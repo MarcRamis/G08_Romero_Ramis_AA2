@@ -3,7 +3,7 @@
 Play::Play() 
 {
 #pragma region GRID
-	//ReadMap();
+	ReadMap();
 
 
 #pragma endregion
@@ -83,12 +83,12 @@ void Play::ReadMap()
 
 	rapidxml::xml_node<>* pGame = doc.first_node();
 
-	std::cout << doc.first_node()->name() << "\n";
+	//std::cout << doc.first_node()->name() << "\n";
 	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
 	{
 		Map tmpMap;
-		std::cout << "\t" << pLevel->name() << "\n";
-		std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
+		//std::cout << "\t" << pLevel->name() << "\n";
+		//std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
 
 		rapidxml::xml_node<>* pPlayers = pLevel->first_node("Players");
 		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
@@ -98,16 +98,16 @@ void Play::ReadMap()
 			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
 			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
 
-			std::cout << "\t\t\t" << pPlayer->name() << "\n";
-			std::cout << "\t\t\t\t" << pPlayer->first_attribute()->name() << ':' << pPlayer->first_attribute("lives")->value() << "\n";
-			std::cout << "\t\t\t\t" << pPlayer->first_node()->name() << "\n";
-			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
-			std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
+			//std::cout << "\t\t\t" << pPlayer->name() << "\n";
+			//std::cout << "\t\t\t\t" << pPlayer->first_attribute()->name() << ':' << pPlayer->first_attribute("lives")->value() << "\n";
+			//std::cout << "\t\t\t\t" << pPlayer->first_node()->name() << "\n";
+			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
+			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
 			
 			tmpMap.GetPlayer()->push_back(tmpPlayer);
 		}
 
-		std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
+		//std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
 
 		rapidxml::xml_node<>* pMaps = pLevel->first_node("Map");
 		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
@@ -116,10 +116,10 @@ void Play::ReadMap()
 			tmpWall.SetDestructible(atoi(pMap->first_attribute("destructible")->value()));
 			tmpWall.SetPosition(RECT(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
 
-			std::cout << "\t\t\t" << pMap->name() << "\n";
-			std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
-			std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
-			std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
+			//std::cout << "\t\t\t" << pMap->name() << "\n";
+			//std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << pMap->first_attribute("destructible")->value() << "\n";
+			//std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
+			//std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
 			
 			tmpMap.GetWall()->push_back(tmpWall);
 		}
@@ -133,6 +133,13 @@ void Play::AddPlayer(VEC2 pos, Player::EPlayerType type)
 	Player* p = new Player();
 	p->SetPlayerValues({ pos.x, pos.y }, type);
 	players.push_back(p);
+}
+
+void Play::AddWall(VEC2 pos, bool _destr)
+{
+	Wall* w = new Wall();
+	w->SetValues({ pos.x, pos.y }, _destr);
+	walls.push_back(w);
 }
 
 void Play::Update()
@@ -174,9 +181,14 @@ void Play::Draw()
 	r->PushSprite(T_PLAYER2, players.at(1)->GetFrame(), players.at(1)->GetPosition());
 	
 	//-->WALLS
+	//r->PushSprite(T_ITEMS, walls.at(0)->GetFrame(), walls.at(0)->GetPosition());
+	//r->PushSprite(T_ITEMS, walls.at(1)->GetFrame(), walls.at(1)->GetPosition());
+	
+	for (Wall* w: walls)
+		r->PushSprite(T_ITEMS, w->GetFrame(), w->GetPosition());
 	// -- Desctructible Walls --
 	// -- Not desctructible Walls --
-	
+
 	//-->POWERUPS
 	// -- 1 --
 	// -- 2 --

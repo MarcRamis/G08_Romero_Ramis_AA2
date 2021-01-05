@@ -124,8 +124,8 @@ void Player::SetPlayerValues(VEC2 pos, EPlayerType _type)
 	initRow = 0;
 	lastRow = initRow + SPRITE_PL_ROWS;
 	
-	//frame.x = frame.w * initCol;
-	//frame.y = frame.h * initRow;
+	frame.x = frame.w * initCol;
+	frame.y = frame.h * initRow;
 
 	position.x = pos.x;
 	position.y = pos.y;

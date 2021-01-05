@@ -2,8 +2,7 @@
 
 Wall::Wall() : position({ 0, 0, SPRITE_RES, SPRITE_RES }), destructible(false)
 {
-	//Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);
-	//Renderer::GetInstance()->LoadRect(T_ITEMS, { 0, 0, Renderer::GetInstance()->GetTextureSize(T_ITEMS).x, Renderer::GetInstance()->GetTextureSize(T_ITEMS).y });
+	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);
 }
 
 Wall::~Wall()
@@ -11,13 +10,34 @@ Wall::~Wall()
 	
 }
 
-void Wall::SetSprite(int textWidth, int textHeight, int nCol, int nRow)
+void Wall::SetValues(VEC2 pos, bool _destr)
 {
-	frame.w = textWidth / nCol;
-	frame.h = textHeight / nRow;
-	
-	initCol = 0;
-	lastCol = initCol + 0;
-	initRow = 0;
-	lastRow = initRow + 0;
+	frame.w = Renderer::GetInstance()->GetTextureSize(T_ITEMS).x / SPRITE_ITEMS_COLS;
+	frame.h = Renderer::GetInstance()->GetTextureSize(T_ITEMS).y / SPRITE_ITEMS_ROWS;
+
+	switch (_destr)
+	{
+	case false:
+		initCol = 0;
+		lastCol = initCol + SPRITE_ITEMS_COLS;
+		initRow = 0;
+		lastRow = initRow + SPRITE_ITEMS_ROWS;
+		break;
+	case true:
+
+		initCol = 1;
+		lastCol = initCol + SPRITE_ITEMS_COLS;
+		initRow = 0;
+		lastRow = initRow + SPRITE_ITEMS_ROWS;
+		break;
+
+	default:
+		break;
+	}
+
+	frame.x = frame.w * initCol;
+	frame.y = frame.h * initRow;
+
+	position.x = pos.x;
+	position.y = pos.y;
 }

@@ -18,7 +18,7 @@ private:
 	int initCol, lastCol;
 	int initRow, lastRow;
 	float frameCount = 0;
-
+	
 	float speed;
 	int score;
 
