@@ -66,6 +66,15 @@ void InputManager::UpdateDeltaTime() {
 	deltaTime = (clock() - lastTime);
 	lastTime = clock();
 	deltaTime /= CLOCKS_PER_SEC;
+	deltaFrameTime = (clock() - lastFrameTime);
+	if (deltaFrameTime >= MOVEMENT_FRAME_TIME)
+	{
+		lastFrameTime = clock();
+		itsFrameTime = true;
+	}
+	else
+		itsFrameTime = false;
+	deltaFrameTime /= CLOCKS_PER_SEC;
 }
 
 const float* InputManager::GetDeltaTime() const { return &deltaTime; };

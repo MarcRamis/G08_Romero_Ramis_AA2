@@ -9,11 +9,15 @@ class Player
 public:
 	enum class EPlayerType { NONE = -1, PL1, PL2, COUNT };
 
+	bool movementCheck;
+
 private:
 	RECT position;
 	RECT frame;
 	EPlayerType type;
 	EDirection dir = EDirection::NONE;
+	VEC2 newPosition;
+	VEC2 lastPosition;
 
 	int initCol, lastCol;
 	int initRow, lastRow;
@@ -29,6 +33,8 @@ public:
 	~Player();
 	
 	void Update(InputManager*);
+
+	void secondUpdate(InputManager*);
 
 	void SetPlayerValues(VEC2 pos, EPlayerType _type);
 
@@ -50,6 +56,6 @@ public:
 	void SetLive(int _lives) { lives = _lives; };
 
 private:
-	bool Move(InputManager*);
+	void Move(InputManager*);
 	void UpdateSprite();
 };

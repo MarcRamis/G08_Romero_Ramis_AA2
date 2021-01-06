@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "Types.h"
+#include "Constants.h"
 
 enum class InputKeys {
 	NONE, LEFT, RIGHT, UP, DOWN, SPACE, A, D, W, S, P, ESC, MOUSE_LEFT, MOUSE_RIGHT, QUIT, COUNT
@@ -28,7 +29,13 @@ private:
 	clock_t lastTime = clock();
 	float deltaTime = 0.f;
 
+	//Play "movement" control
+	clock_t lastFrameTime = clock();
+	float deltaFrameTime = 0.f;
+
+
 public:
+	bool itsFrameTime = false;
 
 	static InputManager* GetInstance()
 	{

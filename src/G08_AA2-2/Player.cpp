@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0) {}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true) {}
 
 Player::~Player()
 {
@@ -13,58 +13,73 @@ void Player::Update(InputManager* input)
 	UpdateSprite();
 }
 
-bool Player::Move(InputManager* input)
+void Player::Move(InputManager* input)
 {
 	dir = EDirection::NONE;
-	VEC2 newPosition = { position.x, position.y };
+	newPosition = { position.x, position.y };
+	lastPosition = { position.x, position.y };
 
 	switch (type)
 	{
 	case Player::EPlayerType::PL1:
 		if (input->isPressed(InputKeys::W)) {
-			newPosition.y -= speed; dir = EDirection::UP;
+			newPosition.y -= SPRITE_RES; dir = EDirection::UP;
 		}
-		if (input->isPressed(InputKeys::S)) {
-			newPosition.y += speed; dir = EDirection::DOWN;
+		else if (input->isPressed(InputKeys::S)) {
+			newPosition.y += SPRITE_RES; dir = EDirection::DOWN;
 		}
-		if (input->isPressed(InputKeys::A)) {
-			newPosition.x -= speed; dir = EDirection::LEFT;
+		else if (input->isPressed(InputKeys::A)) {
+			newPosition.x -= SPRITE_RES; dir = EDirection::LEFT;
 		}
-		if (input->isPressed(InputKeys::D)) {
-			newPosition.x += speed; dir = EDirection::RIGHT;
+		else if (input->isPressed(InputKeys::D)) {
+			newPosition.x += SPRITE_RES; dir = EDirection::RIGHT;
 		}
 		break;
 	case Player::EPlayerType::PL2:
 		if (input->isPressed(InputKeys::UP)) {
-			newPosition.y -= speed; dir = EDirection::UP;
+			newPosition.y -= SPRITE_RES; dir = EDirection::UP;
 		}
-		if (input->isPressed(InputKeys::DOWN)) {
-			newPosition.y += speed; dir = EDirection::DOWN;
+		else if (input->isPressed(InputKeys::DOWN)) {
+			newPosition.y += SPRITE_RES; dir = EDirection::DOWN;
 		}
-		if (input->isPressed(InputKeys::LEFT)) {
-			newPosition.x -= speed; dir = EDirection::LEFT;
+		else if (input->isPressed(InputKeys::LEFT)) {
+			newPosition.x -= SPRITE_RES; dir = EDirection::LEFT;
 		}
-		if (input->isPressed(InputKeys::RIGHT)) {
-			newPosition.x += speed; dir = EDirection::RIGHT;
+		else if (input->isPressed(InputKeys::RIGHT)) {
+			newPosition.x += SPRITE_RES; dir = EDirection::RIGHT;
 		}
 		break;
 	default:
 		break;
 	}
-
-	// Check player collisions
-	if (newPosition.x > (input->GetScreenSize()->x - frame.w) - SPRITE_RES || newPosition.x < SPRITE_RES) newPosition.x = position.x;
-	if (newPosition.y > (input->GetScreenSize()->y - frame.h) - SPRITE_RES || newPosition.y < SPRITE_RES + SPRITE_HUD_HEIGHT) newPosition.y = position.y;
-
-	//Update Positions
-	if (newPosition.x != position.x || newPosition.y != position.y) {
+	if (input->itsFrameTime)
+	{
 		position.x = newPosition.x;
 		position.y = newPosition.y;
-		return true;
 	}
-
-	return false;
 }
+
+void Player::secondUpdate(InputManager* input)
+{
+	// Check player collisions
+	if (newPosition.x > (input->GetScreenSize()->x - frame.w) - SPRITE_RES || newPosition.x < SPRITE_RES) newPosition.x = lastPosition.x;
+	if (newPosition.y > (input->GetScreenSize()->y - frame.h) - SPRITE_RES || newPosition.y < SPRITE_RES + SPRITE_HUD_HEIGHT) newPosition.y = lastPosition.y;
+
+	if (!movementCheck)
+	{
+		position.x = lastPosition.x;
+		position.y = lastPosition.y;
+		newPosition.x = position.x;
+		newPosition.y = position.y;
+		movementCheck = !movementCheck;
+	}
+	//Update Positions
+	else if ((newPosition.x != position.x || newPosition.y != position.y) && input->itsFrameTime) {
+		position.x = newPosition.x;
+		position.y = newPosition.y;
+	}
+}
+
 void Player::UpdateSprite()
 {
 	if (dir != EDirection::NONE) frameCount++;

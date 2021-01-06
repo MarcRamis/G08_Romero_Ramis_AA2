@@ -146,10 +146,27 @@ void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
 void Play::Update()
 {
 	for (Player* p : players)
+	{
 		p->Update(InputManager::GetInstance());
+
+		for (int i = 0; i < 30; i++)
+		{
+			if (Collisions::ExistCollision(*p->GetPosition(), 
+				{ (levels.at(0)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+				(levels.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+				(levels.at(0)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+				(levels.at(0)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+			{
+				p->movementCheck = false;
+			}
+		}
+		p->secondUpdate(InputManager::GetInstance());
+	}
 	
 	// AQUI COLISIONES DEL PLAYER PERO NO SÉ SI INPUT TIENE QUE IR
 	// DE MOMENTO PONEMOS EL INPUT CON SUS COLISIONES AQUI :)
+
+	
 }
 
 void Play::Draw() 

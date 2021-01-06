@@ -6,7 +6,6 @@
 #include "Renderer.h"
 
 // ----- MODELS
-#include "Collisions.h"
 #include "Scene.h"
 #include "Menu.h"
 #include "Play.h"
