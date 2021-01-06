@@ -25,25 +25,31 @@ Play::Play()
 	r->LoadRect(T_PL1_SCORE_TEXT, { TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 	// PL2 SCORE TEXT
 	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE_TEXT, "PL2: ", { 0,0,0,255 }, 0, 0 });
-	r->LoadRect(T_PL2_SCORE_TEXT, { SCREEN_WIDTH - vTemp.x - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	r->LoadRect(T_PL2_SCORE_TEXT, { SCREEN_WIDTH - vTemp.x - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING + 10, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 
 	// PLAYER 1 SCORE
 	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE, " ", { 0,0,0,255 }, 0, 0 });
 	r->LoadRect(T_PL1_SCORE, { vTemp.x + TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 	// PLAYER 2 SCORE
 	vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, " ", { 0,0,0,255 }, 0, 0 });
-	r->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+	r->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING + 10, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 
 	//// PLAYER 2 SCORE_TEXT
 
 	//Renderer::GetInstance()->LoadTexture(T_PLAYER1, "../../res/img/player1.png");
 	//// PLAYER 1 LIVES
+	Renderer::GetInstance()->LoadTexture(T_PL1_LIVES, P_PLAYER1);
+	PL1_LIFE_FRAME = { 48, 96, 48, 48 };
+	PL1_LIFE_POSITION = { SPRITE_RES * 3, TEXT_HUD_VERTICAL_SPACING * 2, SPRITE_RES, SPRITE_RES };
 	///*Renderer::GetInstance()->GetTextureSize(T_PLAYER1).x, Renderer::GetInstance()->GetTextureSize(T_PLAYER1).y, Player::EPlayerType::PL1
 	//	vTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL1_LIVES, " ", { 0,0,0,255 }, 0, 0 });
 	//Renderer::GetInstance()->LoadRect(T_PL1_LIVES, { vP1SCTemp.x, 0, vTemp.x, vTemp.y });*/
 
 	//Renderer::GetInstance()->LoadTexture(T_PLAYER2, "../../res/img/player2.png");
 	//// PLAYER 2 LIVES
+	Renderer::GetInstance()->LoadTexture(T_PL2_LIVES, P_PLAYER2);
+	PL2_LIFE_FRAME = { 48, 96, 48, 48 };
+	PL2_LIFE_POSITION = { SCREEN_WIDTH - SPRITE_RES * 5, TEXT_HUD_VERTICAL_SPACING * 2, SPRITE_RES, SPRITE_RES };
 	///*vTemp = Renderer::GetInstance()->LoadTextureText(F_PLAYERS_HUD, { T_PL2_LIVES, " ", { 0,0,0,255 }, 0, 0 });
 	//Renderer::GetInstance()->LoadRect(T_PL2_LIVES, { vP2SCTTemp, 0, vTemp.x, vTemp.y });
 	//PLAYER2_LIVES_WIDTH = vTemp.x;*/
@@ -180,9 +186,23 @@ void Play::Draw()
 	// -- PL1 -- 
 	r->PushImage(T_PL1_SCORE_TEXT, T_PL1_SCORE_TEXT);
 	r->PushImage(T_PL1_SCORE, T_PL1_SCORE);
+	for (int i = 0; i < levels.at(0)->GetPlayer()->at(0).GetLives(); i++)
+	{
+		PL1_LIFE_POSITION.x = SPRITE_RES * 3;
+		PL1_LIFE_POSITION.x += SPRITE_RES * i;
+		r->PushSprite(T_PL1_LIVES, &PL1_LIFE_FRAME, &PL1_LIFE_POSITION);
+	}
+	
+
 	// -- PL2 --
 	r->PushImage(T_PL2_SCORE_TEXT, T_PL2_SCORE_TEXT);
 	r->PushImage(T_PL2_SCORE, T_PL2_SCORE);
+	for (int i = 0; i < levels.at(0)->GetPlayer()->at(1).GetLives(); i++)
+	{
+		PL2_LIFE_POSITION.x = SCREEN_WIDTH - SPRITE_RES * 5;
+		PL2_LIFE_POSITION.x -= SPRITE_RES * i;
+		r->PushSprite(T_PL2_LIVES, &PL2_LIFE_FRAME, &PL2_LIFE_POSITION);
+	}
 
 	//-->LEVELS
 	// -- LEVEL 1 --

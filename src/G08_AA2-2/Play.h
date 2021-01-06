@@ -15,6 +15,11 @@ private:
 
 	std::vector<Map*> levels;
 
+	RECT PL1_LIFE_FRAME;
+	RECT PL1_LIFE_POSITION;
+	RECT PL2_LIFE_FRAME;
+	RECT PL2_LIFE_POSITION;
+
 public:
 	Play();
 	~Play();
