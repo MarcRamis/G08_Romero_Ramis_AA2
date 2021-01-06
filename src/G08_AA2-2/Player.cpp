@@ -59,7 +59,7 @@ void Player::Move(InputManager* input)
 	}
 }
 
-void Player::secondUpdate(InputManager* input)
+void Player::UpdateCheck(InputManager* input)
 {
 	// Check player collisions
 	if (newPosition.x > (input->GetScreenSize()->x - frame.w) - SPRITE_RES || newPosition.x < SPRITE_RES) newPosition.x = lastPosition.x;

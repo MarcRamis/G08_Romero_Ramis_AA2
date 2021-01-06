@@ -160,7 +160,7 @@ void Play::Update()
 				p->movementCheck = false;
 			}
 		}
-		p->secondUpdate(InputManager::GetInstance());
+		p->UpdateCheck(InputManager::GetInstance());
 	}
 	
 	// AQUI COLISIONES DEL PLAYER PERO NO SÉ SI INPUT TIENE QUE IR

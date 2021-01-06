@@ -34,7 +34,7 @@ public:
 	
 	void Update(InputManager*);
 
-	void secondUpdate(InputManager*);
+	void UpdateCheck(InputManager*);
 
 	void SetPlayerValues(VEC2 pos, EPlayerType _type);
 
