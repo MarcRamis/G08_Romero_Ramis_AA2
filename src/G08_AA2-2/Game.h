@@ -19,7 +19,7 @@ class Game
 private:
 	
 	GameState gameState;
-	std::vector<Scene*> scenes;
+	Scene* scenes;
 	
 	Renderer *r = Renderer::GetInstance();
 	InputManager *input = InputManager::GetInstance();

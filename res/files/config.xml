@@ -49,10 +49,10 @@
 	<Level2>
 		<Players>
 			<Player1 lives = "3">
-				<Positon x="0" y="0"/>
+				<Positon x="1" y="0"/>
 			</Player1>
 			<Player2 lives = "3">
-				<Positon x="12" y="10"/>
+				<Positon x="11" y="10"/>
 			</Player2>
 		</Players>
 		<Map>

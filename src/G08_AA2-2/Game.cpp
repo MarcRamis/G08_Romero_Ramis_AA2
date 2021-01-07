@@ -5,16 +5,10 @@ Game::Game()
 	gameState = GameState::MENU;
 	input->SetScreenSize(VEC2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-	Scene* sc;
-	sc = new Menu();
-	scenes.push_back(sc);
-	sc = new Play();
-	scenes.push_back(sc);
+	scenes = new Menu();
 
 	au->PlayMusic(S_MENU, -1);
 	au->VolumeMusic(S_MENU, 1);
-
-	timeDown = MAX_GAMETIME;
 }
 
 Game::~Game()
@@ -39,18 +33,30 @@ void Game::Update()
 			if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
 				au->PlayMusic(S_GAME_THEME, -1);
 				au->VolumeMusic(S_GAME_THEME, 1);
+
+				timeDown = MAX_GAMETIME;
+
+				delete scenes;
+				scenes = new Play(Level::ELevelType::LEVEL1);
+
 				gameState = GameState::PLAY;
 			}
 			r->SetTexture(T_BTN_PLAY_LV1, T_BTN_PLAY_LV1_H);
 		}
 		else r->SetTexture(T_BTN_PLAY_LV1, T_BTN_PLAY_LV1_N);
-
+		
 		// -- Play LV2
 		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV2))) {
 
 			if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
 				au->PlayMusic(S_GAME_THEME, -1);
 				au->VolumeMusic(S_GAME_THEME, 1);
+
+				timeDown = MAX_GAMETIME;
+
+				delete scenes;
+				scenes = new Play(Level::ELevelType::LEVEL2);
+
 				gameState = GameState::PLAY;
 			}
 			r->SetTexture(T_BTN_PLAY_LV2, T_BTN_PLAY_LV2_H);
@@ -94,11 +100,15 @@ void Game::Update()
 		{
 			au->PlayMusic(S_MENU, -1);
 			au->VolumeMusic(S_MENU, 1);
+
+			delete scenes;
+			scenes = new Menu();
+
 			gameState = GameState::MENU;
 		}
 
 		// -- Update Scene --
-		scenes.at(1)->Update();
+		scenes->Update();
 
 		// -- Update HUD -- 
 		if (gameState == GameState::PLAY) timeDown -= *input->GetDeltaTime();;
@@ -134,7 +144,7 @@ void Game::Update()
 	}
 
 
-//#pragma endregion
+#pragma endregion
 
 }
 void Game::Render()
@@ -144,10 +154,10 @@ void Game::Render()
 	switch (gameState)
 	{
 	case GameState::MENU:
-		scenes.at(0)->Draw();
+		scenes->Draw();
 		break;
 	case GameState::PLAY:
-		scenes.at(1)->Draw();
+		scenes->Draw();
 		break;
 	case GameState::RANKING:
 		break;
