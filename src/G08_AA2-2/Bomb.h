@@ -33,7 +33,7 @@ public:
 
 	void SetValues(VEC2, EBombState);
 
-	void Update(EBombState state);
+	void Update();
 
 
 };

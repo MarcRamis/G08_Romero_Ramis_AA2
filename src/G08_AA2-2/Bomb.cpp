@@ -34,11 +34,11 @@ void Bomb::SetValues(VEC2 pos, EBombState _state)
 	position.y = pos.y;
 
 	bombTickingCheckpoint = clock();
-	deltaBombTick = bombTickingCheckpoint;
+	deltaBombTick = (clock() - bombTickingCheckpoint);
 	deltaBombTick /= CLOCKS_PER_SEC;
 }
 
-void Bomb::Update(EBombState state)
+void Bomb::Update()
 {
 	deltaBombTick = (clock() - bombTickingCheckpoint);
 	deltaBombTick /= CLOCKS_PER_SEC;

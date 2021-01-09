@@ -155,7 +155,10 @@ void Level::Update()
 			p->bombPlanted = true;
 			AddBomb({ p->GetPosition()->x, p->GetPosition()->y }, Bomb::EBombState::NORMAL, p->GetPlayerType());
 		}
-		
+
+		if (p->bombPlanted)
+			p->GetBomb().Update();
+		std::cout << (int)p->GetBomb().GetState() << std::endl;
 		p->UpdateCheck(InputManager::GetInstance());
 	}
 }
