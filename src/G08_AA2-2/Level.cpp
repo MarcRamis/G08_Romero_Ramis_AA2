@@ -99,6 +99,11 @@ Level::Level(ELevelType _type)
 				(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(0)->GetWall()->at(i).destructible);
 		}
 
+		/*AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
+		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());*/
+		AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
+		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());
+
 		break;
 	case ELevelType::LEVEL2:
 
@@ -113,6 +118,11 @@ Level::Level(ELevelType _type)
 			AddWall({ (map.at(1)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 				(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(1)->GetWall()->at(i).destructible);
 		}
+
+		/*AddBomb({ 0, 0 }, map.at(1)->GetPlayer()->at(0).GetPlayerType());
+		AddBomb({ 0, 0 }, map.at(1)->GetPlayer()->at(1).GetPlayerType());*/
+		AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
+		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());
 
 		break;
 	}
@@ -169,22 +179,40 @@ void Level::Update(ELevelType _type)
 			}
 			break;
 		}
-
-
-
-		if (p->colocateBomb && !p->bombPlanted)
+		if (p->GetPlayerType() == Player::EPlayerType::PL1)
 		{
-			p->colocateBomb = false;
-			p->bombPlanted = true;
-			AddBomb({ p->GetPosition()->x, p->GetPosition()->y }, Bomb::EBombState::NORMAL, p->GetPlayerType());
+			if (p->colocateBomb && !p->bombPlanted)
+			{
+				p->colocateBomb = false;
+				p->bombPlanted = true;
+				bomb1.planted = true;
+				bomb1.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+			}
+
+			if (bomb1.planted)
+				bomb1.Update();
+
+			if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
+				p->bombPlanted = false;
+
+			std::cout << "Planted:" << bomb1.planted << std::endl;
+			std::cout << "Flickering:" << bomb1.flickering << std::endl;
+			std::cout << "Exploded:" << bomb1.exploded << std::endl;
+		}
+		else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+		{
+			if (p->colocateBomb && !p->bombPlanted)
+			{
+				p->colocateBomb = false;
+				p->bombPlanted = true;
+				bomb2.planted = true;
+				bomb2.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+			}
+
+			if (bomb2.planted)
+				bomb2.Update();
 		}
 
-		if (p->bombPlanted)
-			//p->GetBomb().SetState(p->GetBomb().Update());
-			//p->GetBomb().Update();
-
-		std::cout << "UpdateState:" << (int)p->GetBomb().Update() << std::endl;
-		std::cout << "GetState:" << (int)p->GetBomb().GetState() << std::endl;
 		p->UpdateCheck(InputManager::GetInstance());
 	}
 }
@@ -193,8 +221,28 @@ void Level::Draw(ELevelType _type)
 {
 	for (Player* p : player)
 	{
-		if (p->bombPlanted && p->GetBomb().GetState() == Bomb::EBombState::NORMAL)
-			Renderer::GetInstance()->PushSprite(T_ITEMS, p->GetBomb().GetFrame(), p->GetBomb().GetPosition());
+		//Bomb 1
+		//First 2 sec
+		if (player.at(0)->GetPlayerType() == Player::EPlayerType::PL1 && bomb1.planted && !bomb1.flickering && !bomb1.exploded)
+			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb1.GetFrame(), bomb1.GetPosition());
+		//Flickering 3rd second
+		else if (player.at(0)->GetPlayerType() == Player::EPlayerType::PL1 && bomb1.planted && bomb1.flickering && !bomb1.exploded &&
+			(bomb1.GetDeltaBombTick() > 2.f && bomb1.GetDeltaBombTick() <= 2.2f) ||
+			(bomb1.GetDeltaBombTick() > 2.4f && bomb1.GetDeltaBombTick() <= 2.6f) ||
+			(bomb1.GetDeltaBombTick() > 2.8f && bomb1.GetDeltaBombTick() < 3.f))
+			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb1.GetFrame(), bomb1.GetPosition());
+		//Exploding 4th second
+
+		//Bomb 2
+		//First 2 sec
+		if (player.at(1)->GetPlayerType() == Player::EPlayerType::PL2 && bomb2.planted && !bomb2.flickering && !bomb2.exploded)
+			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb2.GetFrame(), bomb2.GetPosition());
+		//Flickering 3rd second
+		else if (player.at(1)->GetPlayerType() == Player::EPlayerType::PL2 && bomb2.planted && bomb2.flickering && !bomb2.exploded &&
+			(bomb2.GetDeltaBombTick() > 2.f && bomb2.GetDeltaBombTick() <= 2.2f) ||	(bomb2.GetDeltaBombTick() > 2.4f && bomb2.GetDeltaBombTick() <= 2.6f) ||
+			(bomb2.GetDeltaBombTick() > 2.8f && bomb2.GetDeltaBombTick() < 3.f))
+			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb2.GetFrame(), bomb2.GetPosition());
+		//Exploding 4th second
 	}
 	for (int i = 0; i < map.at(0)->GetPlayer()->at(0).GetLives(); i++)
 	{
@@ -231,24 +279,23 @@ void Level::AddWall(VEC2 pos, bool des)
 	walls.push_back(w);
 }
 
-void Level::AddBomb(VEC2 pos, Bomb::EBombState state, Player::EPlayerType type)
+void Level::AddBomb(VEC2 pos, Player::EPlayerType type)
 {
-	Bomb* b = new Bomb();
-	b->SetValues({ pos.x, pos.y }, Bomb::EBombState::NORMAL);
+	//Bomb* b = new Bomb();
+	//b->SetValues({ pos.x, pos.y });
 	switch (type)
 	{
 	case Player::EPlayerType::PL1:
-		player.at(0)->SetBomb(*b);
+		bomb1.SetValues({ pos.x, pos.y });
+		//player.at(0)->SetBomb(*b);
 		//map.at(0)->GetPlayer()->at(0).SetBomb(*b);
 		break;
 	case Player::EPlayerType::PL2:
-		player.at(1)->SetBomb(*b);
+		bomb2.SetValues({ pos.x, pos.y });
+		//player.at(1)->SetBomb(*b);
 		//map.at(0)->GetPlayer()->at(1).SetBomb(*b);
 		break;
 	default:
 		break;
 	}
-	//player->GetBomb().SetValues({ pos.x, pos.y }, state);
-	//player->SetBomb(*b);
-	//powerUps.push_back(pw);
 }

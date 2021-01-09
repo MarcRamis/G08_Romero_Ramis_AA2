@@ -14,6 +14,8 @@ private:
 
 	std::vector<Player*> player;
 	std::vector<Wall*> walls;
+	Bomb bomb1;
+	Bomb bomb2;
 	
 	RECT pl1_life_frame;
 	RECT pl1_life_position;
@@ -37,5 +39,5 @@ private:
 
 	void AddPlayer(VEC2 pos, Player::EPlayerType type);
 	void AddWall(VEC2 pos, bool des);
-	void AddBomb(VEC2 pos, Bomb::EBombState state, Player::EPlayerType type);
+	void AddBomb(VEC2 pos, Player::EPlayerType type);
 };

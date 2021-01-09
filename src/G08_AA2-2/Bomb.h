@@ -8,7 +8,9 @@ class Bomb
 {
 public:
 
-enum class EBombState { NONE = -1, NORMAL, FLICKERING, EXPLODING, DISSAPEAR, COUNT };
+	enum class EBombState { NONE = -1, NORMAL, FLICKERING, EXPLODING, DISSAPEAR, COUNT };
+
+	bool planted, flickering, exploded;
 
 private:
 	clock_t bombTickingCheckpoint;
@@ -17,7 +19,7 @@ private:
 	RECT position;
 	RECT frame;
 	EBombState state;
-	bool planted;
+	
 
 	int initCol, lastCol;
 	int initRow, lastRow;
@@ -31,10 +33,11 @@ public:
 	inline const RECT* GetFrame() const { return &frame; };
 	inline const EBombState GetState() { return state; };
 	void SetState(EBombState _state) { state = _state; };
+	 float GetDeltaBombTick() { return deltaBombTick; };
+	void SetValues(VEC2);
+	void SetBomb(VEC2);
 
-	void SetValues(VEC2, EBombState);
-
-	EBombState Update();
+	void Update();
 
 
 };

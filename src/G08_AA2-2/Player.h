@@ -20,7 +20,7 @@ private:
 	VEC2 newPosition;
 	VEC2 lastPosition;
 
-	Bomb bomb;
+	//Bomb bomb;
 
 	int initCol, lastCol;
 	int initRow, lastRow;
@@ -58,8 +58,8 @@ public:
 	int GetLives() { return lives; };
 	void SetLive(int _lives) { lives = _lives; };
 
-	Bomb GetBomb() { return bomb; };
-	void SetBomb(Bomb _bomb) { bomb = _bomb; };
+	//Bomb GetBomb() { return bomb; };
+	//void SetBomb(Bomb _bomb) { bomb = _bomb; };
 
 private:
 	void Move(InputManager*);
