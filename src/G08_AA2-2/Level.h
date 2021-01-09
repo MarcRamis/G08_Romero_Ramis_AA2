@@ -1,5 +1,6 @@
 #pragma once
 #include "Map.h"
+//#include "Bomb.h"
 #include "Collisions.h"
 
 class Level
@@ -36,4 +37,5 @@ private:
 
 	void AddPlayer(VEC2 pos, Player::EPlayerType type);
 	void AddWall(VEC2 pos);
+	void AddBomb(VEC2 pos, Bomb::EBombState state, Player::EPlayerType type);
 };

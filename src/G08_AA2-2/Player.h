@@ -3,13 +3,14 @@
 #include "Constants.h"
 #include "InputManager.h"
 #include "Renderer.h"
+#include "Bomb.h"
 
 class Player
 {
 public:
 	enum class EPlayerType { NONE = -1, PL1, PL2, COUNT };
 
-	bool movementCheck;
+	bool movementCheck, bombPlanted, colocateBomb;
 
 private:
 	RECT position;
@@ -18,6 +19,8 @@ private:
 	EDirection dir = EDirection::NONE;
 	VEC2 newPosition;
 	VEC2 lastPosition;
+
+	Bomb bomb;
 
 	int initCol, lastCol;
 	int initRow, lastRow;
@@ -54,6 +57,9 @@ public:
 
 	int GetLives() { return lives; };
 	void SetLive(int _lives) { lives = _lives; };
+
+	Bomb GetBomb() { return bomb; };
+	void SetBomb(Bomb _bomb) { bomb = _bomb; };
 
 private:
 	void Move(InputManager*);

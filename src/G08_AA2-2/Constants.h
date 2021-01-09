@@ -42,6 +42,8 @@ const int SPRITE_PL_ROWS{ 4 };
 const int SPRITE_PL_COLS{ 3 };
 const int SPRITE_ITEMS_ROWS{ 2 };
 const int SPRITE_ITEMS_COLS{ 3 };
+const int SPRITE_EXPLOSION_ROWS{ 7 };
+const int SPRITE_EXPLOSION_COLS{ 4 };
 
 // -- PLAY HUD --
 const int SPRITE_HUD_HEIGHT{ 80 };

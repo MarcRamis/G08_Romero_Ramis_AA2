@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true) {}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true), bombPlanted(false), colocateBomb(false) {}
 
 Player::~Player()
 {
@@ -34,6 +34,10 @@ void Player::Move(InputManager* input)
 		else if (input->isPressed(InputKeys::D)) {
 			newPosition.x += SPRITE_RES; dir = EDirection::RIGHT;
 		}
+		if (input->JustPressed(InputKeys::SPACE) && !bombPlanted)
+		{
+			colocateBomb = true;
+		}
 		break;
 	case Player::EPlayerType::PL2:
 		if (input->isPressed(InputKeys::UP)) {
@@ -47,6 +51,10 @@ void Player::Move(InputManager* input)
 		}
 		else if (input->isPressed(InputKeys::RIGHT)) {
 			newPosition.x += SPRITE_RES; dir = EDirection::RIGHT;
+		}
+		if (input->JustPressed(InputKeys::RIGHT_CTRL) && !bombPlanted)
+		{
+			colocateBomb = true;
 		}
 		break;
 	default:

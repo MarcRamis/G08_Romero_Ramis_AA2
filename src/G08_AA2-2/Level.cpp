@@ -148,12 +148,25 @@ void Level::Update()
 				p->movementCheck = false;
 			}
 		}
+
+		if (p->colocateBomb && !p->bombPlanted)
+		{
+			p->colocateBomb = false;
+			p->bombPlanted = true;
+			AddBomb({ p->GetPosition()->x, p->GetPosition()->y }, Bomb::EBombState::NORMAL, p->GetPlayerType());
+		}
+		
 		p->UpdateCheck(InputManager::GetInstance());
 	}
 }
 
 void Level::Draw(ELevelType _type)
 {
+	for (Player* p : player)
+	{
+		if (p->bombPlanted && p->GetBomb().GetState() == Bomb::EBombState::NORMAL)
+			Renderer::GetInstance()->PushSprite(T_ITEMS, p->GetBomb().GetFrame(), p->GetBomb().GetPosition());
+	}
 	for (int i = 0; i < map.at(0)->GetPlayer()->at(0).GetLives(); i++)
 	{
 		pl1_life_position.x = SPRITE_RES * 3;
@@ -187,4 +200,26 @@ void Level::AddWall(VEC2 pos)
 	w->SetValues({ pos.x, pos.y }, false);
 	
 	walls.push_back(w);
+}
+
+void Level::AddBomb(VEC2 pos, Bomb::EBombState state, Player::EPlayerType type)
+{
+	Bomb* b = new Bomb();
+	b->SetValues({ pos.x, pos.y }, Bomb::EBombState::NORMAL);
+	switch (type)
+	{
+	case Player::EPlayerType::PL1:
+		player.at(0)->SetBomb(*b);
+		//map.at(0)->GetPlayer()->at(0).SetBomb(*b);
+		break;
+	case Player::EPlayerType::PL2:
+		player.at(1)->SetBomb(*b);
+		//map.at(0)->GetPlayer()->at(1).SetBomb(*b);
+		break;
+	default:
+		break;
+	}
+	//player->GetBomb().SetValues({ pos.x, pos.y }, state);
+	//player->SetBomb(*b);
+	//powerUps.push_back(pw);
 }

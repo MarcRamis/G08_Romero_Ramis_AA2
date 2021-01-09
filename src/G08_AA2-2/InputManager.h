@@ -9,7 +9,7 @@
 #include "Constants.h"
 
 enum class InputKeys {
-	NONE, LEFT, RIGHT, UP, DOWN, SPACE, A, D, W, S, P, ESC, MOUSE_LEFT, MOUSE_RIGHT, QUIT, COUNT
+	NONE, LEFT, RIGHT, UP, DOWN, SPACE, A, D, W, S, RIGHT_CTRL, P, ESC, MOUSE_LEFT, MOUSE_RIGHT, QUIT, COUNT
 };
 
 class InputManager {
