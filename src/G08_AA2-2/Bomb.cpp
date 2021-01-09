@@ -38,7 +38,7 @@ void Bomb::SetValues(VEC2 pos, EBombState _state)
 	deltaBombTick /= CLOCKS_PER_SEC;
 }
 
-void Bomb::Update()
+Bomb::EBombState Bomb::Update()
 {
 	deltaBombTick = (clock() - bombTickingCheckpoint);
 	deltaBombTick /= CLOCKS_PER_SEC;
@@ -55,5 +55,9 @@ void Bomb::Update()
 	{
 		state = EBombState::EXPLODING;
 	}
-
+	else if (deltaBombTick > 4.f)
+	{
+		state = EBombState::DISSAPEAR;
+	}
+	return state;
 }

@@ -157,8 +157,10 @@ void Level::Update()
 		}
 
 		if (p->bombPlanted)
-			p->GetBomb().Update();
-		std::cout << (int)p->GetBomb().GetState() << std::endl;
+			//p->GetBomb().state = p->GetBomb().Update();
+
+		std::cout << "UpdateState:" << (int)p->GetBomb().Update() << std::endl;
+		std::cout << "GetState:" << (int)p->GetBomb().GetState() << std::endl;
 		p->UpdateCheck(InputManager::GetInstance());
 	}
 }
