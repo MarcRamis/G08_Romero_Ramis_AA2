@@ -157,7 +157,8 @@ void Level::Update()
 		}
 
 		if (p->bombPlanted)
-			//p->GetBomb().state = p->GetBomb().Update();
+			//p->GetBomb().SetState(p->GetBomb().Update());
+			//p->GetBomb().Update();
 
 		std::cout << "UpdateState:" << (int)p->GetBomb().Update() << std::endl;
 		std::cout << "GetState:" << (int)p->GetBomb().GetState() << std::endl;
