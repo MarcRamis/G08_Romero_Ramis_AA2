@@ -49,10 +49,10 @@
 	<Level2>
 		<Players>
 			<Player1 lives = "3">
-				<Positon x="1" y="0"/>
+				<Positon x="0" y="0"/>
 			</Player1>
 			<Player2 lives = "3">
-				<Positon x="11" y="10"/>
+				<Positon x="12" y="10"/>
 			</Player2>
 		</Players>
 		<Map>
@@ -91,13 +91,114 @@
       <Wall destructible = "false" x="9" y="9"/>
       <Wall destructible = "false" x="11" y="9"/>
       
-      
-      
+      <Wall destructible = "true" x="1" y="0"/>
       <Wall destructible = "true" x="1" y="2"/>
       <Wall destructible = "true" x="1" y="4"/>
       <Wall destructible = "true" x="1" y="6"/>
       <Wall destructible = "true" x="1" y="8"/>
       <Wall destructible = "true" x="1" y="10"/>
-		</Map>
+
+      <Wall destructible = "true" x="2" y="0"/>
+      <Wall destructible = "true" x="2" y="1"/>
+      <Wall destructible = "true" x="2" y="2"/>
+      <Wall destructible = "true" x="2" y="3"/>
+      <Wall destructible = "true" x="2" y="4"/>
+      <Wall destructible = "true" x="2" y="5"/>
+      <Wall destructible = "true" x="2" y="6"/>
+      <Wall destructible = "true" x="2" y="7"/>
+      <Wall destructible = "true" x="2" y="8"/>
+      <Wall destructible = "true" x="2" y="9"/>
+      <Wall destructible = "true" x="2" y="10"/>
+
+      <Wall destructible = "true" x="3" y="0"/>
+      <Wall destructible = "true" x="3" y="2"/>
+      <Wall destructible = "false" x="3" y="4"/>
+      <Wall destructible = "true" x="3" y="6"/>
+      <Wall destructible = "true" x="3" y="8"/>
+      <Wall destructible = "true" x="3" y="10"/>
+
+      <Wall destructible = "true" x="4" y="0"/>
+      <Wall destructible = "true" x="4" y="1"/>
+      <Wall destructible = "false" x="4" y="2"/>
+      <Wall destructible = "false" x="4" y="3"/>
+      <Wall destructible = "true" x="4" y="4"/>
+      <Wall destructible = "true" x="4" y="5"/>
+      <Wall destructible = "true" x="4" y="6"/>
+      <Wall destructible = "true" x="4" y="7"/>
+      <Wall destructible = "false" x="4" y="8"/>
+      <Wall destructible = "false" x="4" y="9"/>
+      <Wall destructible = "false" x="4" y="10"/>
+
+      <Wall destructible = "true" x="5" y="0"/>
+      <Wall destructible = "true" x="5" y="2"/>
+      <Wall destructible = "true" x="5" y="4"/>
+      <Wall destructible = "true" x="5" y="6"/>
+      <Wall destructible = "true" x="5" y="8"/>
+      <Wall destructible = "true" x="5" y="10"/>
+
+      <Wall destructible = "true" x="6" y="0"/>
+      <Wall destructible = "true" x="6" y="1"/>
+      <Wall destructible = "true" x="6" y="2"/>
+      <Wall destructible = "false" x="6" y="3"/>
+      <Wall destructible = "true" x="6" y="4"/>
+      <Wall destructible = "true" x="6" y="5"/>
+      <Wall destructible = "true" x="6" y="6"/>
+      <Wall destructible = "false" x="6" y="7"/>
+      <Wall destructible = "true" x="6" y="8"/>
+      <Wall destructible = "true" x="6" y="9"/>
+      <Wall destructible = "true" x="6" y="10"/>
+
+      <Wall destructible = "true" x="7" y="0"/>
+      <Wall destructible = "true" x="7" y="2"/>
+      <Wall destructible = "true" x="7" y="4"/>
+      <Wall destructible = "false" x="7" y="6"/>
+      <Wall destructible = "true" x="7" y="8"/>
+      <Wall destructible = "true" x="7" y="10"/>
+
+      <Wall destructible = "true" x="8" y="0"/>
+      <Wall destructible = "true" x="8" y="1"/>
+      <Wall destructible = "true" x="8" y="2"/>
+      <Wall destructible = "false" x="8" y="3"/>
+      <Wall destructible = "true" x="8" y="4"/>
+      <Wall destructible = "true" x="8" y="5"/>
+      <Wall destructible = "true" x="8" y="6"/>
+      <Wall destructible = "true" x="8" y="7"/>
+      <Wall destructible = "true" x="8" y="8"/>
+      <Wall destructible = "true" x="8" y="9"/>
+      <Wall destructible = "true" x="8" y="10"/>
+      <Wall destructible = "true" x="8" y="10"/>
+
+      <Wall destructible = "true" x="9" y="0"/>
+      <Wall destructible = "false" x="9" y="2"/>
+      <Wall destructible = "true" x="9" y="4"/>
+      <Wall destructible = "true" x="9" y="6"/>
+      <Wall destructible = "true" x="9" y="8"/>
+      <Wall destructible = "true" x="9" y="10"/>
+
+      <Wall destructible = "true" x="10" y="0"/>
+      <Wall destructible = "true" x="10" y="1"/>
+      <Wall destructible = "true" x="10" y="2"/>
+      <Wall destructible = "true" x="10" y="3"/>
+      <Wall destructible = "false" x="10" y="4"/>
+      <Wall destructible = "true" x="10" y="5"/>
+      <Wall destructible = "true" x="10" y="6"/>
+      <Wall destructible = "true" x="10" y="7"/>
+      <Wall destructible = "true" x="10" y="8"/>
+      <Wall destructible = "true" x="10" y="9"/>
+      <Wall destructible = "false" x="10" y="10"/>
+
+      <Wall destructible = "true" x="11" y="0"/>
+      <Wall destructible = "true" x="11" y="2"/>
+      <Wall destructible = "true" x="11" y="4"/>
+      <Wall destructible = "true" x="11" y="6"/>
+      <Wall destructible = "true" x="11" y="8"/>
+      <Wall destructible = "true" x="11" y="10"/>
+
+      <Wall destructible = "false" x="12" y="5"/>
+      <Wall destructible = "true" x="12" y="2"/>
+      <Wall destructible = "true" x="0" y="4"/>
+      <Wall destructible = "true" x="0" y="7"/>
+
+    </Map>
 	</Level2>
 </Game>

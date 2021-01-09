@@ -5,13 +5,13 @@ Level::Level(ELevelType _type)
 	type = _type;
 
 	// -- Read XML file --
-	rapidxml::xml_document<> doc;						// VARIABLE DECLARATION WHERE "doc" IS AN OBJECT FROM xml_document CLASS
-	std::ifstream file(P_CONFIG);						// VARIABLE FILE DECLARATION
-	std::stringstream buffer;					// BUFFER DECLARATION BECAUSE STRINGSTREAM CAN CONTAIN MASSIVE INFORMATION OF THIS TYPE
-	buffer << file.rdbuf();				// SAVE INFORMATION IN BUFFER WHERE "file.rdbuf()" IS A FUNCTION FROM "ifstream" 
-	file.close();						// CLOSE FILE BECAUSE WE UPDATED EVERYTHING
-	std::string content(buffer.str());	// VARIABLE DECLARATION AND SAVING BUFFER INSIDE. WE DO THIS BECAUSE "doc.parse()" function WORKS WITH STRING NOT STRINGSTREAM
-	doc.parse<0>(&content[0]);			// LOOK AT FIRST ELEMENT					
+	rapidxml::xml_document<> doc;		
+	std::ifstream file(P_CONFIG);		
+	std::stringstream buffer;			
+	buffer << file.rdbuf();				
+	file.close();						
+	std::string content(buffer.str());	
+	doc.parse<0>(&content[0]);			
 
 	rapidxml::xml_node<>* pGame = doc.first_node();
 
@@ -51,13 +51,13 @@ Level::Level(ELevelType _type)
 			std::string sTmp = pMap->first_attribute("destructible")->value();
 			if (sTmp == "false")
 			{
-				tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x}, Map::Cell::WALLINDES);
+				//tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x}, Map::Cell::WALLINDES);
 				//tmpWall.SetDestructible(false);
 				tmpWall.destructible = false;
 			}
 			else if (sTmp == "true")
 			{
-				tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x }, Map::Cell::WALLDES);
+				//tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x }, Map::Cell::WALLDES);
 				//tmpWall.SetDestructible(true);
 				tmpWall.destructible = true;
 			}
@@ -82,6 +82,7 @@ Level::Level(ELevelType _type)
 	Renderer::GetInstance()->LoadTexture(T_PLAYER1, P_PLAYER1);		//PL1 CHARACTER
 	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);		//PL2 CHARACTER
 	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);			//ITEMS
+
 	switch (_type)
 	{
 	case ELevelType::LEVEL1:
@@ -133,23 +134,43 @@ void Level::InitLevelScene(ELevelType _type)
 	}
 }
 
-void Level::Update()
+void Level::Update(ELevelType _type)
 {
 	for (Player* p : player)
 	{
 		p->Update(InputManager::GetInstance());
 		
-		for (int i = 0; i < map.at(0)->GetWall()->size(); i++)
+		switch (_type)
 		{
-			if (Collisions::ExistCollision(*p->GetPosition(),
-				{ (map.at(0)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-				(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
-				(map.at(0)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-				(map.at(0)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+		case ELevelType::LEVEL1:
+			for (int i = 0; i < map.at(0)->GetWall()->size(); i++)
 			{
-				p->movementCheck = false;
+				if (Collisions::ExistCollision(*p->GetPosition(),
+					{ (map.at(0)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+					(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+					(map.at(0)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+					(map.at(0)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+				{
+					p->movementCheck = false;
+				}
 			}
+			break;
+		case ELevelType::LEVEL2:
+			for (int i = 0; i < map.at(1)->GetWall()->size(); i++)
+			{
+				if (Collisions::ExistCollision(*p->GetPosition(),
+					{ (map.at(1)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+					(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+					(map.at(1)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+					(map.at(1)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+				{
+					p->movementCheck = false;
+				}
+			}
+			break;
 		}
+
+
 
 		if (p->colocateBomb && !p->bombPlanted)
 		{
@@ -187,7 +208,7 @@ void Level::Draw(ELevelType _type)
 		pl2_life_position.x -= SPRITE_RES * i;
 		Renderer::GetInstance()->PushSprite(T_PL2_LIVES, &pl2_life_frame, &pl2_life_position);
 	}
-
+	
 	Renderer::GetInstance()->PushSprite(T_PLAYER1, player.at(0)->GetFrame(), player.at(0)->GetPosition());
 	Renderer::GetInstance()->PushSprite(T_PLAYER2, player.at(1)->GetFrame(), player.at(1)->GetPosition());
 	for (Wall *w : walls)

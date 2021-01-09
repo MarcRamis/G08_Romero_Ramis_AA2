@@ -32,8 +32,6 @@ public:
 	~Game();
 
 	void Run();
-	
-	//void addPlayerLifeSprite(int texWidth, int texHeight, Player::EPlayerType type);
 
 private:
 	

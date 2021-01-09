@@ -28,7 +28,7 @@ public:
 	std::vector<Map*> GetMap() { return map; };
 	std::vector<Player*> GetPlayer() { return player; };
 	
-	void Update();
+	void Update(ELevelType);
 	void Draw(ELevelType);
 
 private:

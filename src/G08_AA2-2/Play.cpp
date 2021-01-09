@@ -61,7 +61,7 @@ void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
 
 void Play::Update()
 {
-	level->Update();
+	level->Update(level->GetType());
 	// AQUI COLISIONES DEL PLAYER PERO NO SÉ SI INPUT TIENE QUE IR
 	// DE MOMENTO PONEMOS EL INPUT CON SUS COLISIONES AQUI :)
 }
