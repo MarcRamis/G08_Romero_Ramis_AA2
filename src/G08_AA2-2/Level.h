@@ -36,6 +36,6 @@ private:
 	void InitLevelScene(ELevelType _type);
 
 	void AddPlayer(VEC2 pos, Player::EPlayerType type);
-	void AddWall(VEC2 pos);
+	void AddWall(VEC2 pos, bool des);
 	void AddBomb(VEC2 pos, Bomb::EBombState state, Player::EPlayerType type);
 };

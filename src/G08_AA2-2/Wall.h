@@ -5,6 +5,9 @@
 
 class Wall
 {
+public:
+	bool destructible;
+	
 private:
 	RECT position;
 	RECT frame;
@@ -13,7 +16,7 @@ private:
 	int initRow, lastRow;
 	float frameCount = 0;
 
-	bool destructible;
+
 
 public:
 	

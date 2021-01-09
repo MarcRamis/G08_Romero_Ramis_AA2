@@ -52,12 +52,14 @@ Level::Level(ELevelType _type)
 			if (sTmp == "false")
 			{
 				tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x}, Map::Cell::WALLINDES);
-				tmpWall.SetDestructible(false);
+				//tmpWall.SetDestructible(false);
+				tmpWall.destructible = false;
 			}
 			else if (sTmp == "true")
 			{
 				tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x }, Map::Cell::WALLDES);
-				tmpWall.SetDestructible(true);
+				//tmpWall.SetDestructible(true);
+				tmpWall.destructible = true;
 			}
 
 			//std::cout << "\t\t\t" << pMap->name() << "\n";
@@ -93,7 +95,7 @@ Level::Level(ELevelType _type)
 		for (int i = 0; i < map.at(0)->GetWall()->size(); i++)
 		{
 			AddWall({ (map.at(0)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-				(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES });
+				(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(0)->GetWall()->at(i).destructible);
 		}
 
 		break;
@@ -108,7 +110,7 @@ Level::Level(ELevelType _type)
 		for (int i = 0; i < map.at(1)->GetWall()->size(); i++)
 		{
 			AddWall({ (map.at(1)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-				(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES });
+				(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(1)->GetWall()->at(i).destructible);
 		}
 
 		break;
@@ -199,11 +201,11 @@ void Level::AddPlayer(VEC2 pos, Player::EPlayerType type)
 	player.push_back(p);
 }
 
-void Level::AddWall(VEC2 pos)
+void Level::AddWall(VEC2 pos, bool des)
 {
 	Wall* w = new Wall();
 
-	w->SetValues({ pos.x, pos.y }, false);
+	w->SetValues({ pos.x, pos.y }, des);
 	
 	walls.push_back(w);
 }
