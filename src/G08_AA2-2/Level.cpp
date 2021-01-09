@@ -211,6 +211,9 @@ void Level::Update(ELevelType _type)
 
 			if (bomb2.planted)
 				bomb2.Update();
+
+			if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
+				p->bombPlanted = false;
 		}
 
 		p->UpdateCheck(InputManager::GetInstance());
