@@ -112,7 +112,12 @@ void Game::Update()
 
 		// -- Update HUD -- 
 		if (gameState == GameState::PLAY) timeDown -= *input->GetDeltaTime();;
-		if (timeDown <= 0.f) gameState = GameState::MENU;
+		if (timeDown <= 0.f)
+		{
+			delete scenes;
+			scenes = new Menu();
+			gameState = GameState::MENU;
+		}
 		
 		else 
 		{

@@ -49,7 +49,7 @@ const int EXPLOSION_BLOCKS{ 9 };
 // -- PLAY HUD --
 const int SPRITE_HUD_HEIGHT{ 80 };
 const std::string T_TXT_TIME{ "TextTime" };
-const float MAX_GAMETIME{ 75.f };
+const float MAX_GAMETIME{ 80.f };
 const std::string T_PL1_SCORE_TEXT{ "Player1ScoreText" };
 const std::string T_PL1_SCORE{ "Player1Score" };
 const std::string T_PL2_SCORE_TEXT{ "Player2ScoreText" };
