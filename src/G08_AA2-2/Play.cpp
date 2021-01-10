@@ -11,7 +11,7 @@ Play::Play(Level::ELevelType _level)
 #pragma region HUD
 
 	//-->TEXT TIMER
-	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 100 });
+	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 90 });
 
 	VEC2 vTemp =r->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, " ", { 0,0,0,255 }, 0, 0 });
 	r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2, 10, vTemp.x, vTemp.y });

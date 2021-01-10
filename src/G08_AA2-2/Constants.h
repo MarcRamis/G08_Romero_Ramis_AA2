@@ -58,6 +58,9 @@ const std::string T_PL2_SCORE{ "Player2Score" };
 const std::string T_PL1_LIVES{ "Player1Lives" };
 const std::string T_PL2_LIVES{ "Player2Lives" };
 
+const int KILL_PLAYER_SCORE{ 100 };
+const int DESTROY_WALL_SCORE{ 15 };
+
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };
 const std::string T_TITLE{ "TitleGame" };

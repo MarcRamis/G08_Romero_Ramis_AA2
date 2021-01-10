@@ -45,7 +45,7 @@ public:
 
 	void ResetPos(VEC2);
 
-	int AddScore() { return score++; };
+	void AddScore(int _score) {  score += _score; };
 
 	inline const EPlayerType GetPlayerType() { return type; };
 

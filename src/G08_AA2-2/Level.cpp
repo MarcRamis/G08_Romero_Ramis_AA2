@@ -428,6 +428,7 @@ void Level::Update(ELevelType _type)
 					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
 					{
 						p->ResetPos({ initPlayer2Pos.x, initPlayer2Pos.y });
+						p->AddScore(KILL_PLAYER_SCORE);
 					}
 				}
 				if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
@@ -439,6 +440,7 @@ void Level::Update(ELevelType _type)
 					if (p->GetPlayerType() == Player::EPlayerType::PL1)
 					{
 						p->ResetPos({ initPlayer1Pos.x, initPlayer1Pos.y });
+						p->AddScore(KILL_PLAYER_SCORE);
 					}
 					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
 					{
@@ -635,12 +637,19 @@ void Level::Update(ELevelType _type)
 			}
 			break;
 		}
-
 		
-
 		//Second check for player Collisions
 		p->UpdateCheck(InputManager::GetInstance());
 	}
+	 //Score Player 1
+	std::string sp1 = F2StrFormat(player.at(0)->GetScore(), 0);
+	VEC2 vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE, sp1.c_str(), { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL1_SCORE, { vTemp.x + TEXT_HUD_HORIZONTAL_SPACING + 50, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
+
+	 //Score Player 2
+	/*std::string sp2 = F2StrFormat(player.at(1)->GetScore(), 0);
+	vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, sp2.c_str(), { 0,0,0,255 }, 0, 0 });
+	Renderer::GetInstance()->LoadRect(T_PL1_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });*/
 }
 
 void Level::Draw(ELevelType _type)
@@ -696,7 +705,7 @@ void Level::Draw(ELevelType _type)
 	}
 	for (int i = 0; i < map.at(0)->GetPlayer()->at(0).GetLives(); i++)
 	{
-		pl1_life_position.x = SPRITE_RES * 3;
+		pl1_life_position.x = SPRITE_RES * 3.5f;
 		pl1_life_position.x += SPRITE_RES * i;
 		Renderer::GetInstance()->PushSprite(T_PL1_LIVES, &pl1_life_frame, &pl1_life_position);
 	}
