@@ -6,8 +6,8 @@
 class Wall
 {
 public:
-	bool destructible;
-	
+	bool destructible, destructed;
+
 private:
 	RECT position;
 	RECT frame;
@@ -32,6 +32,7 @@ public:
 
 	void Update();
 	void SetValues(VEC2, bool);
+	void Draw();
 	
 private:
 	

@@ -65,7 +65,9 @@ VEC2 Renderer::LoadTextureText(const std::string& fontId, Text text) {
 	if (tmpSurf == nullptr) throw "Unable to create the SDL text surface";
 	SDL_DestroyTexture(m_textureData[text.id]);
 	m_textureData[text.id] = SDL_CreateTextureFromSurface(m_renderer, tmpSurf); //hace un new
-	return { tmpSurf->w,tmpSurf->h };
+	VEC2 size = { tmpSurf->w, tmpSurf->h };
+	SDL_FreeSurface(tmpSurf);
+	return size;
 };
 void Renderer::LoadRect(const std::string& idRect, const RECT &rect) {
 	m_rects[idRect] = new SDL_Rect{ rect.x,rect.y,rect.w,rect.h };

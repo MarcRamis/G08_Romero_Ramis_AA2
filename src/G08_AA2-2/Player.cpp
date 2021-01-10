@@ -150,23 +150,8 @@ void Player::SetPlayerValues(VEC2 pos, EPlayerType _type)
 	position.y = pos.y;
 }
 
-void Player::Reset()
+void Player::ResetPos(VEC2 pos)
 {
-	switch (type)
-	{
-	case Player::EPlayerType::PL1:
-		position.x = 100;
-		position.y = 250;
-		speed = 1.f;
-		score = 0;
-		break;
-	case Player::EPlayerType::PL2:
-		position.x = 650;
-		position.y = 250;
-		speed = 1.f;
-		score = 0;
-		break;
-	default:
-		break;
-	}
+	position.x = (pos.x * SPRITE_RES) + SPRITE_RES;
+	position.y = (pos.y * SPRITE_RES) + SPRITE_HUD_HEIGHT;
 }

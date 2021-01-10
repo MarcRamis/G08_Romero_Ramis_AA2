@@ -168,6 +168,169 @@ void Level::Update(ELevelType _type)
 					p->movementCheck = false;
 				}
 			}
+
+			//Bomb & Explosion Control & Update
+			if (p->GetPlayerType() == Player::EPlayerType::PL1)
+			{
+				if (p->colocateBomb && !p->bombPlanted)
+				{
+					p->colocateBomb = false;
+					p->bombPlanted = true;
+					bomb1.planted = true;
+					bomb1.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+				}
+
+				if (bomb1.planted)
+					bomb1.Update();
+
+				//Check if explosion must start
+				if (bomb1.exploded && !explosionBomb1.at(0)->exploding)
+				{
+					for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+					{
+						int j = 0;
+						for (; j < map.at(0)->GetWall()->size(); j++)
+						{
+							explosionBomb1.at(i)->SetExplosionPosition(bomb1.GetPosition(), explosionBomb1.at(i)->GetExplosionType());
+							if (Collisions::ExistCollision(*explosionBomb1.at(i)->GetPosition(),
+								{ (map.at(0)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+							{
+								explosionBomb1.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb1.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb1.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb1.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb1.at(8)->exploding = false;
+								j = map.at(0)->GetWall()->size();
+								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
+							}
+							else if (explosionBomb1.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
+								explosionBomb1.at(i)->GetPosition()->x + explosionBomb1.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
+								explosionBomb1.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
+								explosionBomb1.at(i)->GetPosition()->y + explosionBomb1.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
+							{
+								explosionBomb1.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb1.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb1.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb1.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb1.at(8)->exploding = false;
+							}
+							else
+							{
+								explosionBomb1.at(i)->exploding = true;
+							}
+						}
+					}
+				}
+
+				if (explosionBomb1.at(0)->exploding)
+				{
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb1.at(i)->UpdateSprite(bomb1.GetDeltaBombTick());
+					}
+				}
+
+				if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
+				{
+					p->bombPlanted = false;
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb1.at(i)->exploding = false;
+					}
+				}
+
+			}
+			else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+			{
+				if (p->colocateBomb && !p->bombPlanted)
+				{
+					p->colocateBomb = false;
+					p->bombPlanted = true;
+					bomb2.planted = true;
+					bomb2.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+				}
+
+				if (bomb2.planted)
+					bomb2.Update();
+
+				//Check if explosion must start
+				if (bomb2.exploded && !explosionBomb2.at(0)->exploding)
+				{
+					for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+					{
+						int j = 0;
+						for (; j < map.at(0)->GetWall()->size(); j++)
+						{
+							explosionBomb2.at(i)->SetExplosionPosition(bomb2.GetPosition(), explosionBomb2.at(i)->GetExplosionType());
+							if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
+								{ (map.at(0)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+								(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+							{
+								explosionBomb2.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb2.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb2.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb2.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb2.at(8)->exploding = false;
+								j = map.at(0)->GetWall()->size();
+								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
+							}
+							else if (explosionBomb2.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
+								explosionBomb2.at(i)->GetPosition()->x + explosionBomb2.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
+								explosionBomb2.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
+								explosionBomb2.at(i)->GetPosition()->y + explosionBomb2.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
+							{
+								explosionBomb2.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb2.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb2.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb2.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb2.at(8)->exploding = false;
+							}
+							else
+							{
+								explosionBomb2.at(i)->exploding = true;
+							}
+						}
+					}
+				}
+
+				if (explosionBomb2.at(0)->exploding)
+				{
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb2.at(i)->UpdateSprite(bomb2.GetDeltaBombTick());
+					}
+				}
+
+				if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
+				{
+					p->bombPlanted = false;
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb2.at(i)->exploding = false;
+					}
+				}
+			}
 			break;
 		case ELevelType::LEVEL2:
 			for (int i = 0; i < map.at(1)->GetWall()->size(); i++)
@@ -176,176 +339,183 @@ void Level::Update(ELevelType _type)
 					{ (map.at(1)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 					(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
 					(map.at(1)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-					(map.at(1)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+					(map.at(1)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }) && !map.at(1)->GetWall()->at(i).destructed)
 				{
 					p->movementCheck = false;
+				}
+			}
+
+			//Bomb & Explosion Control & Update
+			if (p->GetPlayerType() == Player::EPlayerType::PL1)
+			{
+				if (p->colocateBomb && !p->bombPlanted)
+				{
+					p->colocateBomb = false;
+					p->bombPlanted = true;
+					bomb1.planted = true;
+					bomb1.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+				}
+
+				if (bomb1.planted)
+					bomb1.Update();
+
+				//Check if explosion must start
+				if (bomb1.exploded && !explosionBomb1.at(0)->exploding)
+				{
+					for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+					{
+						int j = 0;
+						for (; j < map.at(1)->GetWall()->size(); j++)
+						{
+							explosionBomb1.at(i)->SetExplosionPosition(bomb1.GetPosition(), explosionBomb1.at(i)->GetExplosionType());
+							if (Collisions::ExistCollision(*explosionBomb1.at(i)->GetPosition(),
+								{ (map.at(1)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+							{
+								explosionBomb1.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb1.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb1.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb1.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb1.at(8)->exploding = false;
+								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
+								if (map.at(1)->GetWall()->at(j).destructible)
+								{
+									map.at(1)->GetWall()->at(j).destructed = true;
+									//AQUI FEM SETVALUES DEL POWER-UP
+								}
+								j = map.at(1)->GetWall()->size();
+							}
+							else if (explosionBomb1.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
+								explosionBomb1.at(i)->GetPosition()->x + explosionBomb1.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
+								explosionBomb1.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
+								explosionBomb1.at(i)->GetPosition()->y + explosionBomb1.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
+							{
+								explosionBomb1.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb1.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb1.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb1.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb1.at(8)->exploding = false;
+							}
+							else
+							{
+								explosionBomb1.at(i)->exploding = true;
+							}
+						}
+					}
+				}
+
+				if (explosionBomb1.at(0)->exploding)
+				{
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb1.at(i)->UpdateSprite(bomb1.GetDeltaBombTick());
+					}
+				}
+
+				if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
+				{
+					p->bombPlanted = false;
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb1.at(i)->exploding = false;
+					}
+				}
+
+			}
+			else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+			{
+				if (p->colocateBomb && !p->bombPlanted)
+				{
+					p->colocateBomb = false;
+					p->bombPlanted = true;
+					bomb2.planted = true;
+					bomb2.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
+				}
+
+				if (bomb2.planted)
+					bomb2.Update();
+
+				//Check if explosion must start
+				if (bomb2.exploded && !explosionBomb2.at(0)->exploding)
+				{
+					for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+					{
+						int j = 0;
+						for (; j < map.at(1)->GetWall()->size(); j++)
+						{
+							explosionBomb2.at(i)->SetExplosionPosition(bomb2.GetPosition(), explosionBomb2.at(i)->GetExplosionType());
+							if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
+								{ (map.at(1)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+								(map.at(1)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+							{
+								explosionBomb2.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb2.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb2.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb2.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb2.at(8)->exploding = false;
+								j = map.at(1)->GetWall()->size();
+								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
+							}
+							else if (explosionBomb2.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
+								explosionBomb2.at(i)->GetPosition()->x + explosionBomb2.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
+								explosionBomb2.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
+								explosionBomb2.at(i)->GetPosition()->y + explosionBomb2.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
+							{
+								explosionBomb2.at(i)->exploding = false;
+								if (i == 1)
+									explosionBomb2.at(5)->exploding = false;
+								else if (i == 2)
+									explosionBomb2.at(6)->exploding = false;
+								else if (i == 3)
+									explosionBomb2.at(7)->exploding = false;
+								else if (i == 4)
+									explosionBomb2.at(8)->exploding = false;
+							}
+							else
+							{
+								explosionBomb2.at(i)->exploding = true;
+							}
+						}
+					}
+				}
+
+				if (explosionBomb2.at(0)->exploding)
+				{
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb2.at(i)->UpdateSprite(bomb2.GetDeltaBombTick());
+					}
+				}
+
+				if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
+				{
+					p->bombPlanted = false;
+					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+					{
+						explosionBomb2.at(i)->exploding = false;
+					}
 				}
 			}
 			break;
 		}
 
-		//Bomb & Explosion Control & Update
-		if (p->GetPlayerType() == Player::EPlayerType::PL1)
-		{
-			if (p->colocateBomb && !p->bombPlanted)
-			{
-				p->colocateBomb = false;
-				p->bombPlanted = true;
-				bomb1.planted = true;
-				bomb1.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
-			}
-
-			if (bomb1.planted)
-				bomb1.Update();
-
-			//Check if explosion must start
-			if (bomb1.exploded && !explosionBomb1.at(0)->exploding)
-			{
-				for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
-				{
-					int j = 0;
-					for (; j < map.at(0)->GetWall()->size(); j++)
-					{
-						explosionBomb1.at(i)->SetExplosionPosition(bomb1.GetPosition(), explosionBomb1.at(i)->GetExplosionType());
-						if (Collisions::ExistCollision(*explosionBomb1.at(i)->GetPosition(),
-							{ (map.at(0)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
-						{
-							explosionBomb1.at(i)->exploding = false;
-							if (i == 1)
-								explosionBomb1.at(5)->exploding = false;
-							else if (i == 2)
-								explosionBomb1.at(6)->exploding = false;
-							else if (i == 3)
-								explosionBomb1.at(7)->exploding = false;
-							else if (i == 4)
-								explosionBomb1.at(8)->exploding = false;
-							j = map.at(0)->GetWall()->size();
-							//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
-						}
-						else if (explosionBomb1.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
-							explosionBomb1.at(i)->GetPosition()->x + explosionBomb1.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
-							explosionBomb1.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
-							explosionBomb1.at(i)->GetPosition()->y + explosionBomb1.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
-						{
-							explosionBomb1.at(i)->exploding = false;
-							if (i == 1)
-								explosionBomb1.at(5)->exploding = false;
-							else if (i == 2)
-								explosionBomb1.at(6)->exploding = false;
-							else if (i == 3)
-								explosionBomb1.at(7)->exploding = false;
-							else if (i == 4)
-								explosionBomb1.at(8)->exploding = false;
-						}
-						else
-						{
-							explosionBomb1.at(i)->exploding = true;
-						}
-					}
-				}
-			}
-			
-			if (explosionBomb1.at(0)->exploding)
-			{
-				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
-				{
-					explosionBomb1.at(i)->UpdateSprite(bomb1.GetDeltaBombTick());
-				}
-			}
-
-			if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
-			{
-				p->bombPlanted = false;
-				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
-				{
-					explosionBomb1.at(i)->exploding = false;
-				}
-			}
-
-		}
-		else if (p->GetPlayerType() == Player::EPlayerType::PL2)
-		{
-			if (p->colocateBomb && !p->bombPlanted)
-			{
-				p->colocateBomb = false;
-				p->bombPlanted = true;
-				bomb2.planted = true;
-				bomb2.SetBomb({ p->GetPosition()->x, p->GetPosition()->y });
-			}
-
-			if (bomb2.planted)
-				bomb2.Update();
-
-			//Check if explosion must start
-			if (bomb2.exploded && !explosionBomb2.at(0)->exploding)
-			{
-				for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
-				{
-					int j = 0;
-					for (; j < map.at(0)->GetWall()->size(); j++)
-					{
-						explosionBomb2.at(i)->SetExplosionPosition(bomb2.GetPosition(), explosionBomb2.at(i)->GetExplosionType());
-						if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
-							{ (map.at(0)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-							(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
-						{
-							explosionBomb2.at(i)->exploding = false;
-							if (i == 1)
-								explosionBomb2.at(5)->exploding = false;
-							else if (i == 2)
-								explosionBomb2.at(6)->exploding = false;
-							else if (i == 3)
-								explosionBomb2.at(7)->exploding = false;
-							else if (i == 4)
-								explosionBomb2.at(8)->exploding = false;
-							j = map.at(0)->GetWall()->size();
-							//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
-						}
-						else if (explosionBomb2.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
-							explosionBomb2.at(i)->GetPosition()->x + explosionBomb2.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
-							explosionBomb2.at(i)->GetPosition()->y < SPRITE_HUD_HEIGHT + SPRITE_RES ||		//top border of the map
-							explosionBomb2.at(i)->GetPosition()->y + explosionBomb2.at(i)->GetPosition()->h > SCREEN_HEIGHT - SPRITE_RES)			//bottom border of the map
-						{
-							explosionBomb2.at(i)->exploding = false;
-							if (i == 1)
-								explosionBomb2.at(5)->exploding = false;
-							else if (i == 2)
-								explosionBomb2.at(6)->exploding = false;
-							else if (i == 3)
-								explosionBomb2.at(7)->exploding = false;
-							else if (i == 4)
-								explosionBomb2.at(8)->exploding = false;
-						}
-						else
-						{
-							explosionBomb2.at(i)->exploding = true;
-						}
-					}
-				}
-			}
-
-			if (explosionBomb2.at(0)->exploding)
-			{
-				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
-				{
-					explosionBomb2.at(i)->UpdateSprite(bomb2.GetDeltaBombTick());
-				}
-			}
-
-			if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
-			{
-				p->bombPlanted = false;
-				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
-				{
-					explosionBomb2.at(i)->exploding = false;
-				}
-			}
-		}
+		
 
 		//Second check for player Collisions
 		p->UpdateCheck(InputManager::GetInstance());
@@ -354,8 +524,18 @@ void Level::Update(ELevelType _type)
 
 void Level::Draw(ELevelType _type)
 {
+	/*for (int i = 0; i < map.at(1)->GetWall()->size(); i++)
+	{
+		if (!map.at(1)->GetWall()->at(i).destructed)
+		{
+			Renderer::GetInstance()->PushSprite(T_ITEMS, map.at(1)->GetWall()->at(i).GetFrame(), map.at(1)->GetWall()->at(i).GetPosition());
+		}
+	}*/
 	for (Wall* w : walls)
-		Renderer::GetInstance()->PushSprite(T_ITEMS, w->GetFrame(), w->GetPosition());
+	{
+		w->Draw();
+		//Renderer::GetInstance()->PushSprite(T_ITEMS, w->GetFrame(), w->GetPosition());
+	}
 	for (Player* p : player)
 	{
 		//Bomb 1

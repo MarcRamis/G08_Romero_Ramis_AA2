@@ -169,15 +169,6 @@ void Explosion::SetExplosionPosition(const RECT* bombPos, EExplosionDirection di
 
 void Explosion::UpdateSprite(float time)
 {
-	/*if (dir != EDirection::NONE) frameCount++;
-
-	if (FPS / frameCount <= 4)
-	{
-		frameCount = 0;
-		frame.x += frame.w;
-		if (frame.x >= frame.w * lastCol)
-			frame.x = frame.w * initCol;
-	}*/
 	if ((time > 3.f && time <= 3.1f) || (time > 3.9f && time < 4.f))
 	{
 		frame.x = 0 * SPRITE_RES;

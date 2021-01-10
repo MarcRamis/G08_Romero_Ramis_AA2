@@ -41,7 +41,7 @@ public:
 
 	void SetPlayerValues(VEC2 pos, EPlayerType _type);
 
-	void Reset();
+	void ResetPos(VEC2);
 
 	int AddScore() { return score++; };
 
