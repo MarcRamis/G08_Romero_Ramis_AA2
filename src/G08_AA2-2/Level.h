@@ -30,6 +30,9 @@ private:
 	RECT pl2_life_frame;
 	RECT pl2_life_position;
 
+	bool onceExplPl1 = false;
+	bool onceExplPl2 = false;
+
 public:
 	Level(ELevelType);
 	~Level();
@@ -45,7 +48,7 @@ private:
 	
 	void InitLevelScene(ELevelType _type);
 
-	void AddPlayer(VEC2 pos, Player::EPlayerType type);
+	void AddPlayer(VEC2 pos, Player::EPlayerType type, int lives);
 	void AddWall(VEC2 pos, bool des);
 	void AddBomb(VEC2 pos, Player::EPlayerType type);
 	void AddExplosion(VEC2 pos, Player::EPlayerType type);

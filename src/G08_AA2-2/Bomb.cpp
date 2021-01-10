@@ -3,7 +3,7 @@ Bomb::Bomb() : position(0, 0, SPRITE_RES, SPRITE_RES),
 frame(0, SPRITE_RES, SPRITE_RES, SPRITE_RES),
 planted(false),
 flickering(false),
-exploded(false) {}
+exploded(false){}
 Bomb::~Bomb() {}
 
 void Bomb::SetValues(VEC2 pos)
@@ -69,7 +69,7 @@ void Bomb::Update()
 }
 Explosion::Explosion() : position(0, 0, SPRITE_RES, SPRITE_RES),
 frame(0, SPRITE_RES, SPRITE_RES, SPRITE_RES),
-exploding(false) {}
+exploding(false){}
 Explosion::~Explosion() {}
 
 void Explosion::SetValues(VEC2 pos, int direction)

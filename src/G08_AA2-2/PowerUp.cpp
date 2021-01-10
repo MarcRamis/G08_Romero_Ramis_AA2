@@ -23,7 +23,7 @@ void PowerUp::SetValues(VEC2 pos)
     EPowerUpType _type;
     int rnd = rand() % 100;
 
-    if (rnd < 100)
+    if (rnd < 20)
     {
         int rnd2 = rand() % 100;
 
@@ -33,6 +33,14 @@ void PowerUp::SetValues(VEC2 pos)
         else if (rnd < 100) {
             _type = EPowerUpType::HELMET;
         }
+        else
+        {
+            _type = EPowerUpType::NONE;
+        }
+    }
+    else
+    {
+        _type = EPowerUpType::NONE;
     }
 
     type = _type;
@@ -54,6 +62,7 @@ void PowerUp::SetValues(VEC2 pos)
         break;
 
     default:
+    case EPowerUpType::NONE:
         break;
     }
 

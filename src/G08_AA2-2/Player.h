@@ -13,7 +13,7 @@ public:
 
 	bool movementCheck, bombPlanted, colocateBomb;
 	bool immunity;
-
+	
 private:
 	RECT position;
 	RECT frame;
@@ -46,6 +46,7 @@ public:
 	void ResetPos(VEC2);
 
 	void AddScore(int _score) {  score += _score; };
+	void RestLives(int _lives) {  lives -= _lives; };
 
 	inline const EPlayerType GetPlayerType() { return type; };
 

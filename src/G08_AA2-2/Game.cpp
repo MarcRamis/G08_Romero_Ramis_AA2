@@ -126,16 +126,6 @@ void Game::Update()
 			s += ":" + F2StrFormat(static_cast<int>(timeDown) % 60, 0);
 			VEC2 vTemp = r->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, s.c_str(), { 0,0,0,255 }, 0, 0 });
 			r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2 - vTemp.x, 10, vTemp.x, vTemp.y });
-														
-			// Score Player 1
-			//std::string sp1 = F2StrFormat(200, 0);
-			//vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL1_SCORE, sp1.c_str(), { 0,0,0,255 }, 0, 0 });
-			//r->LoadRect(T_PL1_SCORE, { vTemp.x + TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
-
-			// Score Player 2
-			//std::string sp2 = F2StrFormat(220, 0);
-			//vTemp = r->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, sp2.c_str(), { 0,0,0,255 }, 0, 0 });
-			//r->LoadRect(T_PL1_SCORE, { SCREEN_WIDTH - vTemp.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp.x, vTemp.y });
 		}
 
 
