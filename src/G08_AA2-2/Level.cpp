@@ -159,7 +159,11 @@ void Level::Update(ELevelType _type)
 		
 		for (PowerUp* pw : powerUps)
 		{
-
+			if (Collisions::ExistCollision(*p->GetPosition(), *pw->GetPosition()) && pw->isActive)
+			{
+				pw->isActive = false;
+				p->SetBuff(pw->GetType());
+			}
 		}
 
 		//Collision Player-Wall
@@ -184,7 +188,8 @@ void Level::Update(ELevelType _type)
 					{ p->GetPosition()->x,
 					p->GetPosition()->y,
 					p->GetPosition()->w,
-					p->GetPosition()->h }) && explosionBomb1.at(i)->exploding)
+					p->GetPosition()->h }) && explosionBomb1.at(i)->exploding 
+					&& !p->immunity)
 				{
 					if (p->GetPlayerType() == Player::EPlayerType::PL1)
 					{
@@ -328,7 +333,8 @@ void Level::Update(ELevelType _type)
 								{ (map.at(0)->GetWall()->at(j).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 								(map.at(0)->GetWall()->at(j).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
 								(map.at(0)->GetWall()->at(j).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-								(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }) && !map.at(1)->GetWall()->at(j).destructed)
+								(map.at(0)->GetWall()->at(j).GetPosition()->h * SPRITE_RES) + SPRITE_RES }) 
+								&& !map.at(1)->GetWall()->at(j).destructed)
 							{
 								explosionBomb2.at(i)->exploding = false;
 								if (i == 1)
@@ -411,7 +417,9 @@ void Level::Update(ELevelType _type)
 					{ p->GetPosition()->x,
 					p->GetPosition()->y,
 					p->GetPosition()->w,
-					p->GetPosition()->h}) && explosionBomb1.at(i)->exploding)
+					p->GetPosition()->h}) 
+					&& explosionBomb1.at(i)->exploding
+					&& !p->immunity)
 				{
 					if (p->GetPlayerType() == Player::EPlayerType::PL1)
 					{
@@ -438,8 +446,6 @@ void Level::Update(ELevelType _type)
 					}
 				}
 			}
-			std::cout << "Player 0: " << p->GetPosition()->x << " / " << p->GetPosition()->y << std::endl;
-			std::cout << "Explosion 0: " << explosionBomb1.at(0)->GetPosition()->x << " / " << explosionBomb1.at(0)->GetPosition()->y << std::endl;
 
 			//Bomb & Explosion Control & Update
 			if (p->GetPlayerType() == Player::EPlayerType::PL1)
@@ -647,13 +653,10 @@ void Level::Draw(ELevelType _type)
 		}
 	}*/
 	for (Wall* w : walls)
-	{
 		w->Draw();
-		//Renderer::GetInstance()->PushSprite(T_ITEMS, w->GetFrame(), w->GetPosition());
-	}
-
+		
 	for (PowerUp* pw : powerUps)
-		Renderer::GetInstance()->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());
+		pw->Draw();
 
 	for (Player* p : player)
 	{

@@ -1,6 +1,6 @@
 #include "PowerUp.h"
 
-PowerUp::PowerUp() : position({ 0, 0, SPRITE_RES, SPRITE_RES }), frame({ 0,0,0,0 })
+PowerUp::PowerUp() : position({ 0, 0, SPRITE_RES, SPRITE_RES }), frame({ 0,0,0,0 }), isActive(false)
 {
 	//Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);
 }
@@ -17,6 +17,8 @@ void PowerUp::SetValues(VEC2 pos)
 
     position.x = pos.x;
     position.y = pos.y;
+
+    isActive = true;
 
     EPowerUpType _type;
     int rnd = rand() % 100;
@@ -57,4 +59,12 @@ void PowerUp::SetValues(VEC2 pos)
 
     frame.x = frame.w * initCol;
     frame.y = frame.h * initRow;
+}
+
+void PowerUp::Draw()
+{
+    if (isActive)
+    {
+        Renderer::GetInstance()->PushSprite(T_ITEMS, GetFrame(), GetPosition());
+    }
 }

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true), bombPlanted(false), colocateBomb(false) {}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true), bombPlanted(false), colocateBomb(false), immunity(false){}
 
 Player::~Player()
 {
@@ -11,6 +11,15 @@ void Player::Update(InputManager* input)
 {
 	Move(input);
 	UpdateSprite();
+
+	powerUpTick = (clock() - powerUpInit);
+	powerUpTick /= CLOCKS_PER_SEC;
+
+	if (powerUpTick > 10.f)
+	{
+		speed = 1.0f;
+		immunity = false;
+	}
 }
 
 void Player::Move(InputManager* input)
@@ -148,6 +157,29 @@ void Player::SetPlayerValues(VEC2 pos, EPlayerType _type)
 
 	position.x = pos.x;
 	position.y = pos.y;
+}
+
+void Player::SetBuff(PowerUp::EPowerUpType _pwType)
+{
+	if (_pwType == PowerUp::EPowerUpType::SKATES)
+	{
+		speed = 0.8f; 
+		immunity = false;
+	}
+	else if (_pwType == PowerUp::EPowerUpType::HELMET)
+	{
+		speed = 1.0f; 
+		immunity = true;
+	}
+	
+	powerUpInit = clock();
+	powerUpTick = (clock() - powerUpInit);
+	powerUpTick /= CLOCKS_PER_SEC;
+}
+
+void UpdatePowerUp(PowerUp::EPowerUpType _pwType)
+{
+
 }
 
 void Player::ResetPos(VEC2 pos)

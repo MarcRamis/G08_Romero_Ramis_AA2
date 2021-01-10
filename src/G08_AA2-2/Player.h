@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "Renderer.h"
 #include "Bomb.h"
+#include "PowerUp.h"
 
 class Player
 {
@@ -11,6 +12,7 @@ public:
 	enum class EPlayerType { NONE = -1, PL1, PL2, COUNT };
 
 	bool movementCheck, bombPlanted, colocateBomb;
+	bool immunity;
 
 private:
 	RECT position;
@@ -20,8 +22,6 @@ private:
 	VEC2 newPosition;
 	VEC2 lastPosition;
 
-	//Bomb bomb;
-
 	int initCol, lastCol;
 	int initRow, lastRow;
 	float frameCount = 0;
@@ -30,6 +30,8 @@ private:
 	int score;
 
 	int lives;
+	
+	clock_t powerUpTick, powerUpInit;
 
 public:
 	Player();
@@ -57,6 +59,8 @@ public:
 
 	int GetLives() { return lives; };
 	void SetLive(int _lives) { lives = _lives; };
+	
+	void SetBuff(PowerUp::EPowerUpType);
 
 	//Bomb GetBomb() { return bomb; };
 	//void SetBomb(Bomb _bomb) { bomb = _bomb; };
