@@ -153,5 +153,5 @@ void Player::SetPlayerValues(VEC2 pos, EPlayerType _type)
 void Player::ResetPos(VEC2 pos)
 {
 	position.x = (pos.x * SPRITE_RES) + SPRITE_RES;
-	position.y = (pos.y * SPRITE_RES) + SPRITE_HUD_HEIGHT;
+	position.y = (pos.y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES;
 }

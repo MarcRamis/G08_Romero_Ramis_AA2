@@ -21,6 +21,8 @@ private:
 	std::vector<Explosion*> explosionBomb2;
 	std::vector<PowerUp*> powerUps;
 
+	RECT initPlayer1Pos;
+	RECT initPlayer2Pos;
 	
 	RECT pl1_life_frame;
 	RECT pl1_life_position;
