@@ -195,16 +195,18 @@ void Level::Update(ELevelType _type)
 					p->GetPosition()->h }) && explosionBomb1.at(i)->exploding 
 					&& !p->immunity)
 				{
-					if (p->GetPlayerType() == Player::EPlayerType::PL1)
+					if (p->GetPlayerType() == Player::EPlayerType::PL1 && !p->bomb1DmgDone)
 					{
 						p->ResetPos({ initPlayer1Pos.x, initPlayer1Pos.y });
 						p->RestLives(1);
+						p->bomb1DmgDone = true;
 					}
-					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+					else if (p->GetPlayerType() == Player::EPlayerType::PL2 && !p->bomb1DmgDone)
 					{
 						p->ResetPos({ initPlayer2Pos.x, initPlayer2Pos.y });
 						p->RestLives(1);
 						player.at(0)->AddScore(KILL_PLAYER_SCORE);
+						p->bomb1DmgDone = true;
 					}
 				}
 				if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
@@ -213,16 +215,18 @@ void Level::Update(ELevelType _type)
 					p->GetPosition()->w,
 					p->GetPosition()->h }) && explosionBomb2.at(i)->exploding)
 				{
-					if (p->GetPlayerType() == Player::EPlayerType::PL1)
+					if (p->GetPlayerType() == Player::EPlayerType::PL1 && !p->bomb2DmgDone)
 					{
 						p->ResetPos({ initPlayer1Pos.x, initPlayer1Pos.y });
 						p->RestLives(1);
 						player.at(1)->AddScore(KILL_PLAYER_SCORE);
+						p->bomb2DmgDone = true;
 					}
-					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+					else if (p->GetPlayerType() == Player::EPlayerType::PL2 && !p->bomb2DmgDone)
 					{
 						p->ResetPos({ initPlayer2Pos.x, initPlayer2Pos.y });
 						p->RestLives(1);
+						p->bomb2DmgDone = true;
 					}
 				}
 			}
@@ -311,6 +315,8 @@ void Level::Update(ELevelType _type)
 				if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
 				{
 					p->bombPlanted = false;
+					p->bomb1DmgDone = false;
+					p->bomb2DmgDone = false;
 					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 					{
 						explosionBomb1.at(i)->exploding = false;
@@ -399,6 +405,8 @@ void Level::Update(ELevelType _type)
 				if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
 				{
 					p->bombPlanted = false;
+					p->bomb1DmgDone = false;
+					p->bomb2DmgDone = false;
 					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 					{
 						explosionBomb2.at(i)->exploding = false;

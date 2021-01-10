@@ -44,7 +44,7 @@ Play::Play(Level::ELevelType _level)
 #pragma endregion
 
 	//-->AUDIO
-	//au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
+	au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() 

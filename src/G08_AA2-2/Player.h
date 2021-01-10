@@ -13,6 +13,7 @@ public:
 
 	bool movementCheck, bombPlanted, colocateBomb;
 	bool immunity;
+	bool bomb1DmgDone, bomb2DmgDone;
 	
 private:
 	RECT position;

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true), bombPlanted(false), colocateBomb(false), immunity(false){}
+Player::Player() : position({ 1, 1, SPRITE_RES, SPRITE_RES}), frame({ 0, 0, 20, 20 }), type(EPlayerType::NONE), speed(1.f), score(0), movementCheck(true), bombPlanted(false), colocateBomb(false), immunity(false), bomb1DmgDone(false), bomb2DmgDone(false){}
 
 Player::~Player()
 {
