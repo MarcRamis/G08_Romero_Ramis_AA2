@@ -1,6 +1,7 @@
 #pragma once
 #include "Map.h"
 //#include "Bomb.h"
+#include "PowerUp.h"
 #include "Collisions.h"
 
 class Level
@@ -18,6 +19,7 @@ private:
 	Bomb bomb2;
 	std::vector<Explosion*> explosionBomb1;
 	std::vector<Explosion*> explosionBomb2;
+	std::vector<PowerUp*> powerUps;
 
 	
 	RECT pl1_life_frame;
@@ -44,4 +46,5 @@ private:
 	void AddWall(VEC2 pos, bool des);
 	void AddBomb(VEC2 pos, Player::EPlayerType type);
 	void AddExplosion(VEC2 pos, Player::EPlayerType type);
+	void AddPowerUp(VEC2 pos);
 };

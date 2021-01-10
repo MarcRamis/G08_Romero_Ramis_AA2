@@ -36,8 +36,8 @@ Play::Play(Level::ELevelType _level)
 
 
 	//PowerUps
-	AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);
-	AddPowerUp({ 300,600 }, PowerUp::EPowerUpType::HELMET);
+	/*AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);
+	AddPowerUp({ 300,600 }, PowerUp::EPowerUpType::HELMET);*/
 
 	//Bomb
 	
@@ -52,12 +52,12 @@ Play::~Play()
 	delete level;
 }
 
-void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
-{
-	PowerUp* pw = new PowerUp();
-	pw->SetValues({ pos.x, pos.y }, type);
-	powerUps.push_back(pw);
-}
+//void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
+//{
+//	PowerUp* pw = new PowerUp();
+//	pw->SetValues({ pos.x, pos.y }, type);
+//	powerUps.push_back(pw);
+//}
 
 void Play::Update()
 {
@@ -86,8 +86,8 @@ void Play::Draw()
 	level->Draw(level->GetType());
 
 	//-->POWERUPS
-	for (PowerUp* pw : powerUps)
-		r->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());
+	/*for (PowerUp* pw : powerUps)
+		r->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());*/
 
 	//-->BOMB
 	// -- Bomb --

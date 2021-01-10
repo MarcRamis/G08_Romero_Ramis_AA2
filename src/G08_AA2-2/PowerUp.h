@@ -26,4 +26,5 @@ public:
 	inline const RECT* GetFrame() const { return &frame; };
 
 	void SetValues(VEC2, EPowerUpType);
+	void SetBuff(VEC2);
 };

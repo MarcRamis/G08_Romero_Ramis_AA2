@@ -2,7 +2,6 @@
 
 #include "Scene.h"
 #include "Level.h"
-#include "PowerUp.h"
 
 class Play : public Scene
 {
@@ -11,7 +10,7 @@ private:
 	//std::vector<Player*> players;
 	
 	//std::vector<Wall*> walls;
-	std::vector<PowerUp*> powerUps;
+	//std::vector<PowerUp*> powerUps;
 	//std::vector<Map*> levels;
 
 	Level *level;
@@ -25,5 +24,5 @@ public:
 
 private:
 	
-	void AddPowerUp(VEC2, PowerUp::EPowerUpType);
+	//void AddPowerUp(VEC2, PowerUp::EPowerUpType);
 };
