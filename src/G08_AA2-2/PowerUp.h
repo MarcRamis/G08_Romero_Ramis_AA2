@@ -25,6 +25,5 @@ public:
 	inline const RECT* GetPosition() { return &position; };
 	inline const RECT* GetFrame() const { return &frame; };
 
-	void SetValues(VEC2, EPowerUpType);
-	void SetBuff(VEC2);
+	void SetValues(VEC2);
 };

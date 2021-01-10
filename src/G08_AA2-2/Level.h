@@ -19,7 +19,7 @@ private:
 	Bomb bomb2;
 	std::vector<Explosion*> explosionBomb1;
 	std::vector<Explosion*> explosionBomb2;
-	std::vector<PowerUp*> powerUps;
+	std::vector<PowerUp*>powerUps;
 
 	RECT initPlayer1Pos;
 	RECT initPlayer2Pos;

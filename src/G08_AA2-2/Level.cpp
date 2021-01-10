@@ -157,6 +157,11 @@ void Level::Update(ELevelType _type)
 	{
 		p->Update(InputManager::GetInstance());
 		
+		for (PowerUp* pw : powerUps)
+		{
+
+		}
+
 		//Collision Player-Wall
 		switch (_type)
 		{
@@ -245,13 +250,13 @@ void Level::Update(ELevelType _type)
 									explosionBomb1.at(7)->exploding = false;
 								else if (i == 4)
 									explosionBomb1.at(8)->exploding = false;
-								if (map.at(1)->GetWall()->at(j).destructible)
+								if (map.at(0)->GetWall()->at(j).destructible)
 								{
 									//map.at(1)->GetWall()->erase(j);
-									map.at(1)->GetWall()->at(j).destructed = true;
+									map.at(0)->GetWall()->at(j).destructed = true;
 									walls.at(j)->destructed = true;
 									//AQUI FEM SETVALUES DEL POWER-UP
-									//std::cout << map.at(1)->GetWall()->at(j).GetPosition()->x << " / " << map.at(1)->GetWall()->at(j).GetPosition()->y << std::endl;
+									AddPowerUp({ map.at(0)->GetWall()->at(j).GetPosition()->x, map.at(0)->GetWall()->at(j).GetPosition()->y });
 								}
 								j = map.at(0)->GetWall()->size();
 								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
@@ -340,7 +345,7 @@ void Level::Update(ELevelType _type)
 									map.at(1)->GetWall()->at(j).destructed = true;
 									walls.at(j)->destructed = true;
 									//AQUI FEM SETVALUES DEL POWER-UP
-									//std::cout << map.at(1)->GetWall()->at(j).GetPosition()->x << " / " << map.at(1)->GetWall()->at(j).GetPosition()->y << std::endl;
+									AddPowerUp({ map.at(0)->GetWall()->at(j).GetPosition()->x, map.at(0)->GetWall()->at(j).GetPosition()->y });
 								}
 								j = map.at(0)->GetWall()->size();
 								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
@@ -387,6 +392,7 @@ void Level::Update(ELevelType _type)
 			}
 			break;
 		case ELevelType::LEVEL2:
+			//Colisió player_wall
 			for (int i = 0; i < map.at(1)->GetWall()->size(); i++)
 			{
 				if (Collisions::ExistCollision(*p->GetPosition(),
@@ -400,6 +406,7 @@ void Level::Update(ELevelType _type)
 			}
 			for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 			{
+				//colisió explosió -wall
 				if (Collisions::ExistCollision(*explosionBomb1.at(i)->GetPosition(),
 					{ p->GetPosition()->x,
 					p->GetPosition()->y,
@@ -486,7 +493,8 @@ void Level::Update(ELevelType _type)
 									//	explosionBomb1.at(8)->exploding = false;
 									walls.at(j)->destructed = true;
 									//AQUI FEM SETVALUES DEL POWER-UP
-									//std::cout << map.at(1)->GetWall()->at(j).GetPosition()->x << " / " << map.at(1)->GetWall()->at(j).GetPosition()->y << std::endl;
+									AddPowerUp({ map.at(1)->GetWall()->at(j).GetPosition()->x, map.at(1)->GetWall()->at(j).GetPosition()->y });
+									
 								}
 								j = map.at(1)->GetWall()->size();
 							}
@@ -574,7 +582,7 @@ void Level::Update(ELevelType _type)
 									map.at(1)->GetWall()->at(j).destructed = true;
 									walls.at(j)->destructed = true;
 									//AQUI FEM SETVALUES DEL POWER-UP
-									//std::cout << map.at(1)->GetWall()->at(j).GetPosition()->x << " / " << map.at(1)->GetWall()->at(j).GetPosition()->y << std::endl;
+									AddPowerUp({ map.at(1)->GetWall()->at(j).GetPosition()->x, map.at(1)->GetWall()->at(j).GetPosition()->y });
 								}
 								j = map.at(1)->GetWall()->size();
 								//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
@@ -643,6 +651,10 @@ void Level::Draw(ELevelType _type)
 		w->Draw();
 		//Renderer::GetInstance()->PushSprite(T_ITEMS, w->GetFrame(), w->GetPosition());
 	}
+
+	for (PowerUp* pw : powerUps)
+		Renderer::GetInstance()->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());
+
 	for (Player* p : player)
 	{
 		//Bomb 1
@@ -757,6 +769,6 @@ void Level::AddExplosion(VEC2 bombPos, Player::EPlayerType type)
 void Level::AddPowerUp(VEC2 wallPos)
 {
 	PowerUp* pow = new PowerUp();
-	//pow->SetValues();
+	pow->SetValues({ (wallPos.x * SPRITE_RES) + SPRITE_RES, (wallPos.y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES });
 	powerUps.push_back(pow);
 }

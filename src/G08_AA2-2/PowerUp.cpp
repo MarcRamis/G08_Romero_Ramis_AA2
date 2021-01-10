@@ -10,35 +10,51 @@ PowerUp::~PowerUp()
 
 }
 
-void PowerUp::SetValues(VEC2 pos, EPowerUpType _type)
+void PowerUp::SetValues(VEC2 pos)
 {
-	type = _type;
-	frame.w = Renderer::GetInstance()->GetTextureSize(T_ITEMS).x / SPRITE_ITEMS_COLS;
-	frame.h = Renderer::GetInstance()->GetTextureSize(T_ITEMS).y / SPRITE_ITEMS_ROWS;
+    frame.w = Renderer::GetInstance()->GetTextureSize(T_ITEMS).x / SPRITE_ITEMS_COLS;
+    frame.h = Renderer::GetInstance()->GetTextureSize(T_ITEMS).y / SPRITE_ITEMS_ROWS;
 
-	switch (_type)
-	{
-	case EPowerUpType::SKATES:
-		initCol = 1;
-		lastCol = initCol + SPRITE_ITEMS_COLS;
-		initRow = 1;
-		lastRow = initRow + SPRITE_ITEMS_ROWS;
-		break;
-	case EPowerUpType::HELMET:
+    position.x = pos.x;
+    position.y = pos.y;
 
-		initCol = 2;
-		lastCol = initCol + SPRITE_ITEMS_COLS;
-		initRow = 1;
-		lastRow = initRow + SPRITE_ITEMS_ROWS;
-		break;
+    EPowerUpType _type;
+    int rnd = rand() % 100;
 
-	default:
-		break;
-	}
+    if (rnd < 100)
+    {
+        int rnd2 = rand() % 100;
 
-	frame.x = frame.w * initCol;
-	frame.y = frame.h * initRow;
+        if (rnd2 < 50) {
+            _type = EPowerUpType::SKATES;
+        }
+        else if (rnd < 100) {
+            _type = EPowerUpType::HELMET;
+        }
+    }
 
-	position.x = pos.x;
-	position.y = pos.y;
+    type = _type;
+
+    switch (_type)
+    {
+    case EPowerUpType::SKATES:
+        initCol = 1;
+        lastCol = initCol + SPRITE_ITEMS_COLS;
+        initRow = 1;
+        lastRow = initRow + SPRITE_ITEMS_ROWS;
+        break;
+    case EPowerUpType::HELMET:
+
+        initCol = 2;
+        lastCol = initCol + SPRITE_ITEMS_COLS;
+        initRow = 1;
+        lastRow = initRow + SPRITE_ITEMS_ROWS;
+        break;
+
+    default:
+        break;
+    }
+
+    frame.x = frame.w * initCol;
+    frame.y = frame.h * initRow;
 }
