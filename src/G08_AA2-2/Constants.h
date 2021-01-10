@@ -42,8 +42,9 @@ const int SPRITE_PL_ROWS{ 4 };
 const int SPRITE_PL_COLS{ 3 };
 const int SPRITE_ITEMS_ROWS{ 2 };
 const int SPRITE_ITEMS_COLS{ 3 };
-const int SPRITE_EXPLOSION_ROWS{ 7 };
-const int SPRITE_EXPLOSION_COLS{ 4 };
+const int SPRITE_EXPLOSION_ROWS{ 6 };
+const int SPRITE_EXPLOSION_COLS{ 3 };
+const int EXPLOSION_BLOCKS{ 9 };
 
 // -- PLAY HUD --
 const int SPRITE_HUD_HEIGHT{ 80 };
@@ -63,6 +64,7 @@ const std::string T_TITLE{ "TitleGame" };
 const std::string T_PLAYER1{ "Player1" };
 const std::string T_PLAYER2{ "Player2" };
 const std::string T_ITEMS{ "Items" };
+const std::string T_EXPLOSION{ "Explosion" };
 
 // -- MENU BUTTONS
 const std::string T_BTN_PLAY_LV1{ "BtnPlayLv1" };

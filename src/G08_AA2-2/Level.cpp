@@ -82,6 +82,7 @@ Level::Level(ELevelType _type)
 	Renderer::GetInstance()->LoadTexture(T_PLAYER1, P_PLAYER1);		//PL1 CHARACTER
 	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);		//PL2 CHARACTER
 	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);			//ITEMS
+	Renderer::GetInstance()->LoadTexture(T_EXPLOSION, P_EXPLOSION);			//BOMB EXPLOSION
 
 	switch (_type)
 	{
@@ -99,10 +100,11 @@ Level::Level(ELevelType _type)
 				(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(0)->GetWall()->at(i).destructible);
 		}
 
-		/*AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
-		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());*/
 		AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
 		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());
+
+		AddExplosion({ 0, 0 }, player.at(0)->GetPlayerType());
+		AddExplosion({ 0, 0 }, player.at(1)->GetPlayerType());
 
 		break;
 	case ELevelType::LEVEL2:
@@ -119,10 +121,11 @@ Level::Level(ELevelType _type)
 				(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map.at(1)->GetWall()->at(i).destructible);
 		}
 
-		/*AddBomb({ 0, 0 }, map.at(1)->GetPlayer()->at(0).GetPlayerType());
-		AddBomb({ 0, 0 }, map.at(1)->GetPlayer()->at(1).GetPlayerType());*/
 		AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
 		AddBomb({ 0, 0 }, player.at(1)->GetPlayerType());
+
+		AddExplosion({ 0, 0 }, player.at(0)->GetPlayerType());
+		AddExplosion({ 0, 0 }, player.at(1)->GetPlayerType());
 
 		break;
 	}
@@ -150,6 +153,7 @@ void Level::Update(ELevelType _type)
 	{
 		p->Update(InputManager::GetInstance());
 		
+		//Collision Player-Wall
 		switch (_type)
 		{
 		case ELevelType::LEVEL1:
@@ -179,6 +183,8 @@ void Level::Update(ELevelType _type)
 			}
 			break;
 		}
+
+		//Bomb & Explosion Control & Update
 		if (p->GetPlayerType() == Player::EPlayerType::PL1)
 		{
 			if (p->colocateBomb && !p->bombPlanted)
@@ -192,12 +198,45 @@ void Level::Update(ELevelType _type)
 			if (bomb1.planted)
 				bomb1.Update();
 
-			if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
-				p->bombPlanted = false;
+			//Check if explosion must start
+			if (bomb1.exploded && !explosionBomb1.at(0)->exploding)
+			{
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					/*for (int j = 0; j < map.at(1)->GetWall()->size(); j++)
+					{
+						if (Collisions::ExistCollision(*explosionBomb1.at(i)->GetPosition(),
+							{ (map.at(1)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
+							(map.at(1)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
+							(map.at(1)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
+							(map.at(1)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }))
+						{
+							explosionBomb1.at(i)->SetState(bomb1.exploded);
+							explosionBomb1.at(i)->SetExplosionPosition(bomb1.GetPosition(), explosionBomb1.at(i)->GetExplosionType());
+						}
+					}*/
+					explosionBomb1.at(i)->SetState(bomb1.exploded);
+					explosionBomb1.at(i)->SetExplosionPosition(bomb1.GetPosition(), explosionBomb1.at(i)->GetExplosionType());
+				}
+			}
+			
+			if (explosionBomb1.at(0)->exploding)
+			{
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					explosionBomb1.at(i)->UpdateSprite(bomb1.GetDeltaBombTick());
+				}
+			}
 
-			std::cout << "Planted:" << bomb1.planted << std::endl;
-			std::cout << "Flickering:" << bomb1.flickering << std::endl;
-			std::cout << "Exploded:" << bomb1.exploded << std::endl;
+			if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
+			{
+				p->bombPlanted = false;
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					explosionBomb1.at(i)->exploding = false;
+				}
+			}
+
 		}
 		else if (p->GetPlayerType() == Player::EPlayerType::PL2)
 		{
@@ -212,10 +251,35 @@ void Level::Update(ELevelType _type)
 			if (bomb2.planted)
 				bomb2.Update();
 
+			//Check if explosion must start
+			if (bomb2.exploded && !explosionBomb2.at(0)->exploding)
+			{
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					explosionBomb2.at(i)->SetState(bomb2.exploded);
+					explosionBomb2.at(i)->SetExplosionPosition(bomb2.GetPosition(), explosionBomb2.at(i)->GetExplosionType());
+				}
+			}
+
+			if (explosionBomb2.at(0)->exploding)
+			{
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					explosionBomb2.at(i)->UpdateSprite(bomb2.GetDeltaBombTick());
+				}
+			}
+
 			if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
+			{
 				p->bombPlanted = false;
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+				{
+					explosionBomb2.at(i)->exploding = false;
+				}
+			}
 		}
 
+		//Second check for player Collisions
 		p->UpdateCheck(InputManager::GetInstance());
 	}
 }
@@ -235,7 +299,13 @@ void Level::Draw(ELevelType _type)
 			(bomb1.GetDeltaBombTick() > 2.8f && bomb1.GetDeltaBombTick() < 3.f))
 			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb1.GetFrame(), bomb1.GetPosition());
 		//Exploding 4th second
-
+		else if (player.at(0)->GetPlayerType() == Player::EPlayerType::PL1 && explosionBomb1.at(0)->exploding)
+		{
+			for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+			{
+				Renderer::GetInstance()->PushSprite(T_EXPLOSION, explosionBomb1.at(i)->GetFrame(), explosionBomb1.at(i)->GetPosition());
+			}
+		}
 		//Bomb 2
 		//First 2 sec
 		if (player.at(1)->GetPlayerType() == Player::EPlayerType::PL2 && bomb2.planted && !bomb2.flickering && !bomb2.exploded)
@@ -246,6 +316,13 @@ void Level::Draw(ELevelType _type)
 			(bomb2.GetDeltaBombTick() > 2.8f && bomb2.GetDeltaBombTick() < 3.f))
 			Renderer::GetInstance()->PushSprite(T_ITEMS, bomb2.GetFrame(), bomb2.GetPosition());
 		//Exploding 4th second
+		else if (player.at(1)->GetPlayerType() == Player::EPlayerType::PL2 && explosionBomb2.at(0)->exploding)
+		{
+			for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+			{
+				Renderer::GetInstance()->PushSprite(T_EXPLOSION, explosionBomb2.at(i)->GetFrame(), explosionBomb2.at(i)->GetPosition());
+			}
+		}
 	}
 	for (int i = 0; i < map.at(0)->GetPlayer()->at(0).GetLives(); i++)
 	{
@@ -301,4 +378,25 @@ void Level::AddBomb(VEC2 pos, Player::EPlayerType type)
 	default:
 		break;
 	}
+}
+
+void Level::AddExplosion(VEC2 bombPos, Player::EPlayerType type)
+{
+	for (int i = 0; i < EXPLOSION_BLOCKS; i++)
+	{
+		Explosion* ex = new Explosion();
+		ex->SetValues({ bombPos.x, bombPos.y }, i);
+		switch (type)
+		{
+		case Player::EPlayerType::PL1:
+			explosionBomb1.push_back(ex);
+			break;
+		case Player::EPlayerType::PL2:
+			explosionBomb2.push_back(ex);
+			break;
+		default:
+			break;
+		}
+	}
+	
 }

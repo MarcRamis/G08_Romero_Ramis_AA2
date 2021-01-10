@@ -16,6 +16,9 @@ private:
 	std::vector<Wall*> walls;
 	Bomb bomb1;
 	Bomb bomb2;
+	std::vector<Explosion*> explosionBomb1;
+	std::vector<Explosion*> explosionBomb2;
+
 	
 	RECT pl1_life_frame;
 	RECT pl1_life_position;
@@ -40,4 +43,5 @@ private:
 	void AddPlayer(VEC2 pos, Player::EPlayerType type);
 	void AddWall(VEC2 pos, bool des);
 	void AddBomb(VEC2 pos, Player::EPlayerType type);
+	void AddExplosion(VEC2 pos, Player::EPlayerType type);
 };
