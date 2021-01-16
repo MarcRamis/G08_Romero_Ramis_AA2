@@ -15,10 +15,8 @@ enum class InputKeys {
 class InputManager {
 
 private:
-	InputManager();
-	~InputManager();
 
-	static InputManager* input;
+	//static InputManager* input;
 
 	bool keyboardPressed[(int)InputKeys::COUNT] = {};
 	bool keyboardKeyDown[(int)InputKeys::COUNT] = {};
@@ -37,11 +35,11 @@ private:
 public:
 	bool itsFrameTime = false;
 
-	static InputManager* GetInstance()
-	{
-		if (input == nullptr) { input = new InputManager; }
-		return input;
-	};
+	//static InputManager* GetInstance()
+	//{
+	//	if (input == nullptr) { input = new InputManager; }
+	//	return input;
+	//};
 
 	void Update();
 

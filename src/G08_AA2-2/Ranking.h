@@ -1,10 +1,22 @@
 #pragma once
 #include "Scene.h"
-#include "../../dep/inc/XML/rapidxml.hpp"
-#include "../../dep/inc/XML/rapidxml_utils.hpp"
-#include "../../dep/inc/XML/rapidxml_iterators.hpp"
-#include "../../dep/inc/XML/rapidxml_print.hpp"
-class Ranking : Scene
-{
-};
 
+#include "BoardRanking.h"
+
+class Ranking : public Scene
+{
+public:
+	enum class ERankingState { ASKNAME, RUNNING};
+
+private:
+
+	ERankingState state;
+
+public:
+	
+	Ranking(ERankingState);
+	~Ranking();
+	
+	void Update(InputManager& input);
+	void Draw();
+};

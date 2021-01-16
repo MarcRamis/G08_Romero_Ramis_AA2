@@ -14,13 +14,10 @@ Level::Level(ELevelType _type)
 	doc.parse<0>(&content[0]);			
 
 	rapidxml::xml_node<>* pGame = doc.first_node();
-
-	//std::cout << doc.first_node()->name() << "\n";
+	
 	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
 	{
 		Map *tmpMap = new Map();
-		//std::cout << "\t" << pLevel->name() << "\n";
-		//std::cout << "\t\t" << pLevel->first_node("Players")->name() << "\n";
 
 		rapidxml::xml_node<>* pPlayers = pLevel->first_node("Players");
 		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
@@ -29,17 +26,8 @@ Level::Level(ELevelType _type)
 
 			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
 			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
-
-			//std::cout << "\t\t\t" << pPlayer->name() << "\n";
-			//std::cout << "\t\t\t\t" << pPlayer->first_attribute()->name() << ':' << pPlayer->first_attribute("lives")->value() << "\n";
-			//std::cout << "\t\t\t\t" << pPlayer->first_node()->name() << "\n";
-			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("x")->name() << ':' << pPlayer->first_node()->first_attribute("x")->value() << "\n";
-			//std::cout << "\t\t\t\t\t" << pPlayer->first_node()->first_attribute("y")->name() << ':' << pPlayer->first_node()->first_attribute("y")->value() << "\n";
-			
 			tmpMap->GetPlayer()->push_back(tmpPlayer);
 		}
-
-		//std::cout << "\t\t" << pLevel->first_node("Map")->name() << "\n";
 
 		rapidxml::xml_node<>* pMaps = pLevel->first_node("Map");
 		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
@@ -51,21 +39,12 @@ Level::Level(ELevelType _type)
 			std::string sTmp = pMap->first_attribute("destructible")->value();
 			if (sTmp == "false")
 			{
-				//tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x}, Map::Cell::WALLINDES);
-				//tmpWall.SetDestructible(false);
 				tmpWall.destructible = false;
 			}
 			else if (sTmp == "true")
 			{
-				//tmpMap->SetCell({ tmpWall.GetPosition()->y , tmpWall.GetPosition()->x }, Map::Cell::WALLDES);
-				//tmpWall.SetDestructible(true);
 				tmpWall.destructible = true;
 			}
-
-			//std::cout << "\t\t\t" << pMap->name() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("destructible")->name() << ':' << tmpWall.GetDestructible() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("x")->name() << ':' << pMap->first_attribute("x")->value() << "\n";
-			//std::cout << "\t\t\t\t" << pMap->first_attribute("y")->name() << ':' << pMap->first_attribute("y")->value() << "\n";
 			
 			tmpMap->GetWall()->push_back(tmpWall);
 		}
@@ -83,6 +62,8 @@ Level::Level(ELevelType _type)
 	Renderer::GetInstance()->LoadTexture(T_PLAYER2, P_PLAYER2);		//PL2 CHARACTER
 	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);			//ITEMS
 	Renderer::GetInstance()->LoadTexture(T_EXPLOSION, P_EXPLOSION);			//BOMB EXPLOSION
+
+	//timeDown = MAX_GAMETIME;
 
 	switch (_type)
 	{
@@ -144,22 +125,18 @@ Level::~Level()
 	map.clear();
 }
 
-void Level::InitLevelScene(ELevelType _type)
-{
-	switch (_type)
-	{
-	case ELevelType::LEVEL1:
-		break;
-	case ELevelType::LEVEL2:
-		break;
-	}
-}
 
-void Level::Update(ELevelType _type)
+void Level::Update(ELevelType _type, InputManager &input)
 {
+	/*timeDown -= *input.GetDeltaTime();;
+	if (timeDown <= 0.0f)
+	{
+
+	}*/
+
 	for (Player* p : player)
 	{
-		p->Update(InputManager::GetInstance());
+		p->Update(&input);
 		
 		for (PowerUp* pw : powerUps)
 		{
@@ -652,7 +629,7 @@ void Level::Update(ELevelType _type)
 		}
 		
 		//Second check for player Collisions
-		p->UpdateCheck(InputManager::GetInstance());
+		p->UpdateCheck(&input);
 	}
 	//Score Player 1
 	std::string sp1 = F2StrFormat(player.at(0)->GetScore(), 0);

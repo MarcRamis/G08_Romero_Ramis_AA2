@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="BoardRanking.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="BoardRanking.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Constants.h" />

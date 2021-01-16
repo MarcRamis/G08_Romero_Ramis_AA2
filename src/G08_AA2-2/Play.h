@@ -6,23 +6,15 @@
 class Play : public Scene
 {
 private:
-	
-	//std::vector<Player*> players;
-	
-	//std::vector<Wall*> walls;
-	//std::vector<PowerUp*> powerUps;
-	//std::vector<Map*> levels;
 
 	Level *level;
-
+	
+	//float timeDown;
+	
 public:
 	Play(Level::ELevelType);
 	~Play();
-
-	void Draw();
-	void Update();
-
-private:
 	
-	//void AddPowerUp(VEC2, PowerUp::EPowerUpType);
+	void Update(InputManager& input);
+	void Draw();
 };

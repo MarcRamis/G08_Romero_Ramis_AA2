@@ -26,6 +26,7 @@ const std::string P_GAME_THEME{ "../../res/au/game_theme.mp3" };
 const std::string P_MENU{ "../../res/au/menu.mp3" };
 // -- FILES
 const std::string P_CONFIG{ "../../res/files/config.xml" };
+const std::string P_RANKING{ "../../res/files/ranking.bin" };
 // -- TTF
 const std::string P_TTF_GAMEOVER{ "../../res/ttf/game_over.ttf" };
 const std::string P_TTF_SAIYAN{ "../../res/ttf/saiyan.ttf" };
@@ -49,7 +50,7 @@ const int EXPLOSION_BLOCKS{ 9 };
 // -- PLAY HUD --
 const int SPRITE_HUD_HEIGHT{ 80 };
 const std::string T_TXT_TIME{ "TextTime" };
-const float MAX_GAMETIME{ 80.f };
+const float MAX_GAMETIME{ 5.f };
 const std::string T_PL1_SCORE_TEXT{ "Player1ScoreText" };
 const std::string T_PL1_SCORE{ "Player1Score" };
 const std::string T_PL2_SCORE_TEXT{ "Player2ScoreText" };
@@ -64,6 +65,8 @@ const int DESTROY_WALL_SCORE{ 15 };
 // -- TEXTURE|RECT NAMES --
 const std::string T_BG{ "Background" };
 const std::string T_TITLE{ "TitleGame" };
+const std::string T_BOARDNAME{ "BoardName" };
+const std::string T_BOARDSCORE{ "BoardScore" };
 const std::string T_PLAYER1{ "Player1" };
 const std::string T_PLAYER2{ "Player2" };
 const std::string T_ITEMS{ "Items" };
@@ -86,23 +89,10 @@ const std::string T_BTN_EXIT{ "BtnExit" };
 const std::string T_BTN_EXIT_N{ "BtnExitN" };
 const std::string T_BTN_EXIT_H{ "BtnExitH" };
 
-// -- GAME TIME
-//const std::string T_TXT_TIME{ "TextTime" };
-
-// -- SCORE TEXT
-//const std::string T_TXT_SC_NUM{ "TextScNum" };
-//const std::string T_TXT_SC_PLAYERS{ "TextTxtSc" };
-//const std::string R_SC_PLAYERS{ "RectScPl" };
-//const std::string RF_SC_PLAYERS{ "RectTxtSc" };
-//const std::string T_TXT_SC_PL1{ "TextScPl1" };
-//const std::string T_TXT_SC_PL2{ "TextScPl2" };
-
 // -- FONTS 
 const std::string F_SAIYAN{ "FontSaiyan" };
 const std::string F_SAIYAN_TITLE{ "FontSaiyanTitle" };
 const std::string F_GAMEOVER{ "FontGameOver" };
-//const std::string F_PLAYERS_HUD{ "FontGameOverHUD" };
-//const std::string F_TIMER_HUD{ "FontGameOverHUD" };
 
 // -- AUDIO
 const std::string S_MENU{ "SoundMenu" };

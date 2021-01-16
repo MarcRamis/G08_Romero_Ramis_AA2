@@ -33,6 +33,8 @@ private:
 	bool onceExplPl1 = false;
 	bool onceExplPl2 = false;
 
+	//float timeDown;
+
 public:
 	Level(ELevelType);
 	~Level();
@@ -41,7 +43,7 @@ public:
 	std::vector<Map*> GetMap() { return map; };
 	std::vector<Player*> GetPlayer() { return player; };
 	
-	void Update(ELevelType);
+	void Update(ELevelType, InputManager& input);
 	void Draw(ELevelType);
 
 private:

@@ -1,14 +1,16 @@
 #pragma once
 
 // ----- SIGHT
-#include "InputManager.h"
+#include "InputManager.h"			
 #include "Audio.h"
 #include "Renderer.h"
+#include "BoardRanking.h"
 
 // ----- MODELS
 #include "Scene.h"
 #include "Menu.h"
 #include "Play.h"
+#include "Ranking.h"
 
 #include "Utils.h"
 
@@ -22,9 +24,10 @@ private:
 	Scene* scenes;
 	
 	Renderer *r = Renderer::GetInstance();
-	InputManager *input = InputManager::GetInstance();
 	Audio *au = Audio::GetInstance();
 	
+	InputManager input;
+
 	float timeDown;	
 
 public:

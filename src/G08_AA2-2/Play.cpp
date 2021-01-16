@@ -32,19 +32,6 @@ Play::Play(Level::ELevelType _level)
 
 #pragma endregion
 
-#pragma region Sprite
-
-
-	//PowerUps
-	/*AddPowerUp({ 300,500 }, PowerUp::EPowerUpType::SKATES);
-	AddPowerUp({ 300,600 }, PowerUp::EPowerUpType::HELMET);*/
-
-	//Bomb
-	
-#pragma endregion
-
-	//-->AUDIO
-	au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() 
@@ -52,18 +39,14 @@ Play::~Play()
 	delete level;
 }
 
-//void Play::AddPowerUp(VEC2 pos, PowerUp::EPowerUpType type)
-//{
-//	PowerUp* pw = new PowerUp();
-//	pw->SetValues({ pos.x, pos.y }, type);
-//	powerUps.push_back(pw);
-//}
-
-void Play::Update()
+void Play::Update(InputManager& input)
 {
-	level->Update(level->GetType());
-	// AQUI COLISIONES DEL PLAYER PERO NO SÉ SI INPUT TIENE QUE IR
-	// DE MOMENTO PONEMOS EL INPUT CON SUS COLISIONES AQUI :)
+	//timeDown -= *input.GetDeltaTime();;
+	level->Update(level->GetType(), input);
+	//while (timeDown > 0)
+	//{
+	//	
+	//}
 }
 
 void Play::Draw() 
@@ -84,12 +67,4 @@ void Play::Draw()
 
 	//-->LEVELS
 	level->Draw(level->GetType());
-
-	//-->POWERUPS
-	/*for (PowerUp* pw : powerUps)
-		r->PushSprite(T_ITEMS, pw->GetFrame(), pw->GetPosition());*/
-
-	//-->BOMB
-	// -- Bomb --
-	// -- Explosion Bomb --
 }

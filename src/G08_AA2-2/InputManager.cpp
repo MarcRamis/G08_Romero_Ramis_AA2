@@ -1,12 +1,6 @@
 #include "InputManager.h"
 
-InputManager::InputManager() 
-{
-}
-
-InputManager::~InputManager() {}
-
-InputManager* InputManager::input = nullptr;
+//InputManager* InputManager::input = nullptr;
 
 void InputManager::Update()
 {

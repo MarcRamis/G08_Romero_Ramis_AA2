@@ -3,7 +3,7 @@
 Game::Game()
 {
 	gameState = GameState::MENU;
-	input->SetScreenSize(VEC2(SCREEN_WIDTH, SCREEN_HEIGHT));
+	input.SetScreenSize(VEC2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	scenes = new Menu();
 
@@ -22,20 +22,20 @@ void Game::Update()
 	{
 	case GameState::MENU:
 
-		if (input->isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
-		if (input->JustPressed(InputKeys::ESC)) gameState = GameState::EXIT;
+		if (input.isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
+		if (input.JustPressed(InputKeys::ESC)) gameState = GameState::EXIT;
 
 		// Update Buttons
 #pragma region Buttons
 	// -- Play LV1
-		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV1))) {
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV1))) {
 
-			if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
 				au->PlayMusic(S_GAME_THEME, -1);
 				au->VolumeMusic(S_GAME_THEME, 1);
 
 				timeDown = MAX_GAMETIME;
-
+				
 				delete scenes;
 				scenes = new Play(Level::ELevelType::LEVEL1);
 
@@ -46,9 +46,9 @@ void Game::Update()
 		else r->SetTexture(T_BTN_PLAY_LV1, T_BTN_PLAY_LV1_N);
 		
 		// -- Play LV2
-		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV2))) {
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV2))) {
 
-			if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
 				au->PlayMusic(S_GAME_THEME, -1);
 				au->VolumeMusic(S_GAME_THEME, 1);
 
@@ -64,9 +64,12 @@ void Game::Update()
 		else r->SetTexture(T_BTN_PLAY_LV2, T_BTN_PLAY_LV2_N);
 
 		// -- Ranking
-		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_RANKING))) {
-			if (input->JustPressed(InputKeys::MOUSE_LEFT))
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_RANKING))) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT))
 			{
+				delete scenes;
+				scenes = new Ranking(Ranking::ERankingState::RUNNING);
+				
 				gameState = GameState::RANKING;
 			}
 			r->SetTexture(T_BTN_RANKING, T_BTN_RANKING_H);
@@ -74,8 +77,8 @@ void Game::Update()
 		else r->SetTexture(T_BTN_RANKING, T_BTN_RANKING_N);
 
 		// -- Exit 
-		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
-			if (input->JustPressed(InputKeys::MOUSE_LEFT))
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT))
 			{
 				gameState = GameState::EXIT;
 			}
@@ -84,9 +87,9 @@ void Game::Update()
 		else r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_N);
 		
 		// -- Sound 
-		if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_SOUND)))
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_SOUND)))
 		{
-			if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
 				if (!au->MusicIsPaused(S_MENU)) au->PauseMusic(S_MENU);
 				else au->ResumeMusic(S_MENU);
 			}
@@ -95,8 +98,8 @@ void Game::Update()
 		else r->SetTexture(T_BTN_SOUND, T_BTN_SOUND_N);
 		break;
 	case GameState::PLAY:
-		if (input->isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
-		if (input->JustPressed(InputKeys::ESC)) 
+		if (input.isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
+		if (input.JustPressed(InputKeys::ESC)) 
 		{
 			au->PlayMusic(S_MENU, -1);
 			au->VolumeMusic(S_MENU, 1);
@@ -108,15 +111,15 @@ void Game::Update()
 		}
 
 		// -- Update Scene --
-		scenes->Update();
+		scenes->Update(input);
 
 		// -- Update HUD -- 
-		if (gameState == GameState::PLAY) timeDown -= *input->GetDeltaTime();;
+		timeDown -= *input.GetDeltaTime();;
 		if (timeDown <= 0.f)
 		{
 			delete scenes;
-			scenes = new Menu();
-			gameState = GameState::MENU;
+			scenes = new Ranking(Ranking::ERankingState::ASKNAME);
+			gameState = GameState::RANKING;
 		}
 		
 		else 
@@ -128,11 +131,19 @@ void Game::Update()
 			r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2 - vTemp.x, 10, vTemp.x, vTemp.y });
 		}
 
-
 		break;
 	case GameState::RANKING:
-		if (input->isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
-		if (input->JustPressed(InputKeys::ESC)) gameState = GameState::MENU;
+		
+		scenes->Update(input);
+
+		if (input.isPressed(InputKeys::QUIT)) gameState = GameState::EXIT;
+		if (input.JustPressed(InputKeys::ESC))
+		{
+			delete scenes;
+			scenes = new Menu();
+
+			gameState = GameState::MENU;
+		}
 		break;
 	default:
 		break;
@@ -155,6 +166,7 @@ void Game::Render()
 		scenes->Draw();
 		break;
 	case GameState::RANKING:
+		scenes->Draw();
 		break;
 	default:
 		break;
@@ -167,12 +179,12 @@ void Game::Run()
 {
 	while (gameState != GameState::EXIT)
 	{
-		input->Update();
+		input.Update();
 		
-		Render();
 		Update();
-		
+		Render();
+
 		// --- FRAME CONTROL ---
-		input->UpdateDeltaTime();
+		input.UpdateDeltaTime();
 	}
 }

@@ -21,7 +21,6 @@ private:
 	RECT frame;
 	//EBombState state;
 
-
 	int initCol, lastCol;
 	int initRow, lastRow;
 

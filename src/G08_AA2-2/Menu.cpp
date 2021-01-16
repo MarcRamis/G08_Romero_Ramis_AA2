@@ -51,12 +51,12 @@ Menu::Menu()
 #pragma endregion
 
 	// -- AUDIO --
-	au->LoadAudio(S_MENU, P_MENU);
+	//au->LoadAudio(S_MENU, P_MENU);
 }
 
 Menu::~Menu() {}
 
-void Menu::Update()
+void Menu::Update(InputManager& input)
 {
 
 }

@@ -8,6 +8,6 @@ public:
 	Menu();
 	~Menu();
 
-	void Update();
+	void Update(InputManager& input);
 	void Draw();
 };
