@@ -9,6 +9,10 @@
 #include "Wall.h"
 #include "Player.h"
 
+#include "PowerUp.h"
+#include "Collisions.h"
+#include "Utils.h"
+
 #include "Renderer.h"
 
 class Map
@@ -16,15 +20,16 @@ class Map
 public:
 	
 	//enum class Cell {NONE, WALLINDES, WALLDES, POWERUP, BOMB, PL1, PL2, COUNT};
-
+	enum class ELevelType { NONE, LEVEL1, LEVEL2 };
 private:
-
+	
 	//std::vector<std::vector<Cell>> grid;
+	ELevelType type;
 	std::vector<Player> player;
 	std::vector<Wall> wall;
 
 public:
-	Map();
+	Map(ELevelType);
 	~Map();
 	
 	std::vector<Wall> *GetWall() { return &wall; };

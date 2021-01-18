@@ -37,7 +37,7 @@ void Game::Update()
 				timeDown = MAX_GAMETIME;
 				
 				delete scenes;
-				scenes = new Play(Level::ELevelType::LEVEL1);
+				scenes = new Play(Map::ELevelType::LEVEL1);
 
 				gameState = GameState::PLAY;
 			}
@@ -55,7 +55,7 @@ void Game::Update()
 				timeDown = MAX_GAMETIME;
 
 				delete scenes;
-				scenes = new Play(Level::ELevelType::LEVEL2);
+				scenes = new Play(Map::ELevelType::LEVEL2);
 
 				gameState = GameState::PLAY;
 			}
