@@ -46,7 +46,7 @@ class Explosion
 {
 public:
 	enum class EExplosionDirection { NONE = -1, CENTER, MID_LEFT, MID_TOP, MID_RIGHT, MID_DOWN, FAR_LEFT, FAR_TOP, FAR_RIGHT, FAR_DOWN, COUNT };
-	bool exploding;
+	bool exploding, edgeExplodes;
 private:
 	EExplosionDirection dir;
 	RECT position;

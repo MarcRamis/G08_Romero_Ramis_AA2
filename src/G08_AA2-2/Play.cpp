@@ -177,7 +177,7 @@ void Play::Update(InputManager& input)
 			//Check if explosion must start
 			if (bomb1.exploded && !explosionBomb1.at(0)->exploding)
 			{
-				for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 				{
 					int j = 0;
 					for (; j < map->GetWall()->size(); j++)
@@ -191,21 +191,28 @@ void Play::Update(InputManager& input)
 						{
 							explosionBomb1.at(i)->exploding = false;
 							if (i == 1)
-								explosionBomb1.at(5)->exploding = false;
+								explosionBomb1.at(5)->edgeExplodes = false;
 							else if (i == 2)
-								explosionBomb1.at(6)->exploding = false;
+								explosionBomb1.at(6)->edgeExplodes = false;
 							else if (i == 3)
-								explosionBomb1.at(7)->exploding = false;
+								explosionBomb1.at(7)->edgeExplodes = false;
 							else if (i == 4)
-								explosionBomb1.at(8)->exploding = false;
+								explosionBomb1.at(8)->edgeExplodes = false;
 							if (map->GetWall()->at(j).destructible)
 							{
 								//map.at(1)->GetWall()->erase(j);
-								map->GetWall()->at(j).destructed = true;
-								walls.at(j)->destructed = true;
 								//AQUI FEM SETVALUES DEL POWER-UP
-								player.at(0)->AddScore(DESTROY_WALL_SCORE);
-								AddPowerUp({ map->GetWall()->at(j).GetPosition()->x, map->GetWall()->at(j).GetPosition()->y });
+								if (i == 5 && !explosionBomb1.at(i)->edgeExplodes)	{}
+								else if (i == 6 && !explosionBomb1.at(i)->edgeExplodes) {}
+								else if (i == 7 && !explosionBomb1.at(i)->edgeExplodes) {}
+								else if (i == 8 && !explosionBomb1.at(i)->edgeExplodes) {}
+								else
+								{
+									map->GetWall()->at(j).destructed = true;
+									walls.at(j)->destructed = true;
+									player.at(0)->AddScore(DESTROY_WALL_SCORE);
+									AddPowerUp({ map->GetWall()->at(j).GetPosition()->x, map->GetWall()->at(j).GetPosition()->y });
+								}
 							}
 							j = map->GetWall()->size();
 							//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
@@ -227,6 +234,27 @@ void Play::Update(InputManager& input)
 						}
 						else
 						{
+							if (i == 5 && !explosionBomb1.at(i)->edgeExplodes)
+							{
+								explosionBomb1.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 6 && !explosionBomb1.at(i)->edgeExplodes)
+							{
+								explosionBomb1.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 7 && !explosionBomb1.at(i)->edgeExplodes)
+							{
+								explosionBomb1.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 8 && !explosionBomb1.at(i)->edgeExplodes)
+							{
+								explosionBomb1.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else
 							explosionBomb1.at(i)->exploding = true;
 						}
 					}
@@ -269,7 +297,7 @@ void Play::Update(InputManager& input)
 			//Check if explosion must start
 			if (bomb2.exploded && !explosionBomb2.at(0)->exploding)
 			{
-				for (int i = EXPLOSION_BLOCKS - 1; i >= 0; i--)
+				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 				{
 					int j = 0;
 					for (; j < map->GetWall()->size(); j++)
@@ -284,19 +312,26 @@ void Play::Update(InputManager& input)
 						{
 							explosionBomb2.at(i)->exploding = false;
 							if (i == 1)
-								explosionBomb2.at(5)->exploding = false;
+								explosionBomb2.at(5)->edgeExplodes = false;
 							else if (i == 2)
-								explosionBomb2.at(6)->exploding = false;
+								explosionBomb2.at(6)->edgeExplodes = false;
 							else if (i == 3)
-								explosionBomb2.at(7)->exploding = false;
+								explosionBomb2.at(7)->edgeExplodes = false;
 							else if (i == 4)
-								explosionBomb2.at(8)->exploding = false;
+								explosionBomb2.at(8)->edgeExplodes = false;
 							if (map->GetWall()->at(j).destructible)
 							{
-								map->GetWall()->at(j).destructed = true;
-								walls.at(j)->destructed = true;
-								player.at(1)->AddScore(DESTROY_WALL_SCORE);
-								AddPowerUp({ map->GetWall()->at(j).GetPosition()->x, map->GetWall()->at(j).GetPosition()->y });
+								if (i == 5 && !explosionBomb2.at(i)->edgeExplodes) {}
+								else if (i == 6 && !explosionBomb2.at(i)->edgeExplodes) {}
+								else if (i == 7 && !explosionBomb2.at(i)->edgeExplodes) {}
+								else if (i == 8 && !explosionBomb2.at(i)->edgeExplodes) {}
+								else
+								{
+									map->GetWall()->at(j).destructed = true;
+									walls.at(j)->destructed = true;
+									player.at(1)->AddScore(DESTROY_WALL_SCORE);
+									AddPowerUp({ map->GetWall()->at(j).GetPosition()->x, map->GetWall()->at(j).GetPosition()->y });
+								}
 							}
 							j = map->GetWall()->size();
 						}
@@ -317,7 +352,28 @@ void Play::Update(InputManager& input)
 						}
 						else
 						{
-							explosionBomb2.at(i)->exploding = true;
+							if (i == 5 && !explosionBomb2.at(i)->edgeExplodes)
+							{
+								explosionBomb2.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 6 && !explosionBomb2.at(i)->edgeExplodes)
+							{
+								explosionBomb2.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 7 && !explosionBomb2.at(i)->edgeExplodes)
+							{
+								explosionBomb2.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else if (i == 8 && !explosionBomb2.at(i)->edgeExplodes)
+							{
+								explosionBomb2.at(i)->exploding = false;
+								j = map->GetWall()->size();
+							}
+							else
+								explosionBomb2.at(i)->exploding = true;
 						}
 					}
 				}

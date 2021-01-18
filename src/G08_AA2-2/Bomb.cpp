@@ -69,7 +69,8 @@ void Bomb::Update()
 }
 Explosion::Explosion() : position(0, 0, SPRITE_RES, SPRITE_RES),
 frame(0, SPRITE_RES, SPRITE_RES, SPRITE_RES),
-exploding(false){}
+exploding(false),
+edgeExplodes(true){}
 Explosion::~Explosion() {}
 
 void Explosion::SetValues(VEC2 pos, int direction)
