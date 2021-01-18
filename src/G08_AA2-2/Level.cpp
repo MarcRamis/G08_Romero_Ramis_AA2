@@ -15,24 +15,36 @@ Level::Level(ELevelType _type)
 
 	rapidxml::xml_node<>* pGame = doc.first_node();
 	
-	for (rapidxml::xml_node<>* pLevel = pGame->first_node(); pLevel; pLevel = pLevel->next_sibling())
-	{
-		Map *tmpMap = new Map();
+	Map* tmpMap;
+	Player tmpPlayer;
+	Wall tmpWall;
 
-		rapidxml::xml_node<>* pPlayers = pLevel->first_node("Players");
+	rapidxml::xml_node<>* pLevel;
+	rapidxml::xml_node<>* pPlayers;
+	rapidxml::xml_node<>* pMaps;
+
+	switch (_type)
+	{
+	case Level::ELevelType::LEVEL1:
+	
+		pLevel = pGame->first_node("Level1");
+		
+		tmpMap = new Map();
+
+		pPlayers = pLevel->first_node("Players");
 		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
 		{
-			Player tmpPlayer;
+			//Player tmpPlayer;
 
 			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
 			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
 			tmpMap->GetPlayer()->push_back(tmpPlayer);
 		}
 
-		rapidxml::xml_node<>* pMaps = pLevel->first_node("Map");
+		pMaps = pLevel->first_node("Map");
 		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
 		{
-			Wall tmpWall;
+			//Wall tmpWall;
 
 			tmpWall.SetPosition(RECT(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
 
@@ -45,12 +57,52 @@ Level::Level(ELevelType _type)
 			{
 				tmpWall.destructible = true;
 			}
-			
+
 			tmpMap->GetWall()->push_back(tmpWall);
 		}
 		map.push_back(tmpMap);
+		break;
+	case Level::ELevelType::LEVEL2:
+		pLevel = pGame->first_node("Level2");
+		
+		tmpMap = new Map();
+
+		pPlayers = pLevel->first_node("Players");
+		for (rapidxml::xml_node<>* pPlayer = pPlayers->first_node(); pPlayer; pPlayer = pPlayer->next_sibling())
+		{
+			//Player tmpPlayer;
+
+			tmpPlayer.SetLive(atoi(pPlayer->first_attribute()->value()));
+			tmpPlayer.SetPosition(RECT(atoi(pPlayer->first_node()->first_attribute("x")->value()), atoi(pPlayer->first_node()->first_attribute("y")->value())));
+			tmpMap->GetPlayer()->push_back(tmpPlayer);
+		}
+
+		pMaps = pLevel->first_node("Map");
+		for (rapidxml::xml_node<>* pMap = pMaps->first_node(); pMap; pMap = pMap->next_sibling())
+		{
+			//Wall tmpWall;
+
+			tmpWall.SetPosition(RECT(atoi(pMap->first_attribute("x")->value()), atoi(pMap->first_attribute("y")->value())));
+
+			std::string sTmp = pMap->first_attribute("destructible")->value();
+			if (sTmp == "false")
+			{
+				tmpWall.destructible = false;
+			}
+			else if (sTmp == "true")
+			{
+				tmpWall.destructible = true;
+			}
+
+			tmpMap->GetWall()->push_back(tmpWall);
+		}
+		map.push_back(tmpMap);
+		
+		break;
+	default:
+		break;
 	}
-	
+		
 	Renderer::GetInstance()->LoadTexture(T_PL1_LIVES, P_PLAYER1);	//SC PL1
 	Renderer::GetInstance()->LoadTexture(T_PL2_LIVES, P_PLAYER2);	//SC PL2
 	pl1_life_frame = { 48, 96, 48, 48 };
@@ -157,7 +209,7 @@ void Level::Update(ELevelType _type, InputManager &input)
 					{ (map.at(0)->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 					(map.at(0)->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES,
 					(map.at(0)->GetWall()->at(i).GetPosition()->w * SPRITE_RES) + SPRITE_RES,
-					(map.at(0)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }) && !map.at(1)->GetWall()->at(i).destructed)
+					(map.at(0)->GetWall()->at(i).GetPosition()->h * SPRITE_RES) + SPRITE_RES }) && !map.at(0)->GetWall()->at(i).destructed)
 				{
 					p->movementCheck = false;
 				}
@@ -415,16 +467,18 @@ void Level::Update(ELevelType _type, InputManager &input)
 					&& explosionBomb1.at(i)->exploding
 					&& !p->immunity)
 				{
-					if (p->GetPlayerType() == Player::EPlayerType::PL1)
+					if (p->GetPlayerType() == Player::EPlayerType::PL1 && !p->bomb1DmgDone)
 					{
 						p->ResetPos({ initPlayer1Pos.x, initPlayer1Pos.y });
 						p->RestLives(1);
+						p->bomb1DmgDone = true;
 					}
-					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+					else if (p->GetPlayerType() == Player::EPlayerType::PL2 && !p->bomb1DmgDone)
 					{
 						p->ResetPos({ initPlayer2Pos.x, initPlayer2Pos.y });
 						p->RestLives(1);
 						player.at(0)->AddScore(KILL_PLAYER_SCORE);
+						p->bomb1DmgDone = true;
 					}
 				}
 				if (Collisions::ExistCollision(*explosionBomb2.at(i)->GetPosition(),
@@ -433,17 +487,19 @@ void Level::Update(ELevelType _type, InputManager &input)
 					p->GetPosition()->w,
 					p->GetPosition()->h }) && explosionBomb2.at(i)->exploding)
 				{
-					if (p->GetPlayerType() == Player::EPlayerType::PL1)
+					if (p->GetPlayerType() == Player::EPlayerType::PL1 && !p->bomb2DmgDone)
 					{
 						p->ResetPos({ initPlayer1Pos.x, initPlayer1Pos.y });
 						p->RestLives(1);
 						player.at(1)->AddScore(KILL_PLAYER_SCORE);
+						p->bomb2DmgDone = true;
 					}
-					else if (p->GetPlayerType() == Player::EPlayerType::PL2)
+					else if (p->GetPlayerType() == Player::EPlayerType::PL2 && !p->bomb2DmgDone)
 					{
 						p->ResetPos({ initPlayer2Pos.x, initPlayer2Pos.y });
 						p->RestLives(1);
-						std::cout << p->GetScore() << std::endl;
+						//std::cout << p->GetScore() << std::endl;
+						p->bomb2DmgDone = true;
 					}
 				}
 			}
@@ -530,6 +586,8 @@ void Level::Update(ELevelType _type, InputManager &input)
 				if (!bomb1.planted && !bomb1.flickering && !bomb1.exploded)
 				{
 					p->bombPlanted = false;
+					p->bomb1DmgDone = false;
+					p->bomb2DmgDone = false;
 					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 					{
 						explosionBomb1.at(i)->exploding = false;
@@ -619,6 +677,8 @@ void Level::Update(ELevelType _type, InputManager &input)
 				if (!bomb2.planted && !bomb2.flickering && !bomb2.exploded)
 				{
 					p->bombPlanted = false;
+					p->bomb1DmgDone = false;
+					p->bomb2DmgDone = false;
 					for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 					{
 						explosionBomb2.at(i)->exploding = false;
@@ -652,7 +712,14 @@ void Level::Draw(ELevelType _type)
 		}
 	}*/
 	for (Wall* w : walls)
+	{
 		w->Draw();
+		//std::cout << w->GetPosition()->x << " / " << w->GetPosition()->y << std::endl;
+		if (w->GetPosition()->x == 48 * 2 && w->GetPosition()->y == 80 + 48 * 2)
+		{
+			std::cout << w->destructed << std::endl;
+		}
+	}
 		
 	for (PowerUp* pw : powerUps)
 		pw->Draw();
