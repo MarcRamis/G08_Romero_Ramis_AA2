@@ -40,23 +40,25 @@ Ranking::~Ranking()
 
 void Ranking::Update(InputManager& input)
 {
-	// EXIT
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
-		if (input.JustPressed(InputKeys::MOUSE_LEFT))
-		{
-			SetState(ESceneState::CLICK_EXIT);
-		}
-		r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_H);
-	}
-	else r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_N);
-
 	switch (rankingState)
 	{
 	case ERankingState::ASKNAME:
 		rankingState = ERankingState::RUNNING;
 		break;
 	case ERankingState::RUNNING:
+		
+		// EXIT
+		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
+			if (input.JustPressed(InputKeys::MOUSE_LEFT))
+			{
+				SetState(ESceneState::CLICK_EXIT);
+			}
+			r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_H);
+		}
+		else r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_N);
+
 		BoardRanking::GetInstance();
+
 		break;
 	}
 }

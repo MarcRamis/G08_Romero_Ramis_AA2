@@ -2,7 +2,7 @@
 
 BoardRanking::BoardRanking()
 {
-	std::ifstream rankingFileRead(P_RANKING, std::ios::in | std::ifstream::binary);
+	std::ifstream rankingFileRead(P_RANKING, std::ios::in | std::ios::binary);
 	if (!rankingFileRead)
 	{
 		std::cout << "File no exist" << std::endl;
@@ -53,7 +53,7 @@ void BoardRanking::AskName(const int &scPl1, const int &scPl2)
 
 	std::cout << "Name: " << tmpBg.name << "\nScore1: " << scPl1 << "\nScore2: " << scPl2 << std::endl;
 
-	std::ofstream rankingFileWrite(P_RANKING, std::ios::app | std::ios::out | std::ofstream::binary);
+	std::ofstream rankingFileWrite(P_RANKING, std::ios::app | std::ios::out | std::ios::binary);
 
 	size_t len = tmpBg.name.size();
 	rankingFileWrite.write(reinterpret_cast<char*>(&len), sizeof(size_t));
