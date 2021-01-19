@@ -2,6 +2,13 @@
 
 BoardRanking::BoardRanking()
 {
+	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	{
+		Board tmpBoard;
+		tmpBoard.name = "NOPLAYER";
+		tmpBoard.score = 0;
+		board.push(tmpBoard);
+	}
 }
 BoardRanking::~BoardRanking()
 {
@@ -14,6 +21,14 @@ BoardRanking* BoardRanking::boardRanking = nullptr;
 
 void BoardRanking::ReadRanking()
 {
+	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	{
+		Board tmpBoard;
+		tmpBoard.name = "NOPLAYER";
+		tmpBoard.score = 0;
+		board.push(tmpBoard);
+	}
+
 	std::ifstream rankingFileRead(P_RANKING, std::ios::in | std::ios::binary);
 	if (!rankingFileRead)
 	{
@@ -23,7 +38,6 @@ void BoardRanking::ReadRanking()
 	{
 		Board tmpBg;
 		std::vector<Board> vtmpBg;
-
 
 		while (rankingFileRead)
 		{
@@ -47,7 +61,6 @@ void BoardRanking::ReadRanking()
 			board.push(vtmpBg.at(i));
 		}
 	}
-
 }
 
 void BoardRanking::AskName(const int &scPl1, const int &scPl2)
@@ -93,16 +106,53 @@ void BoardRanking::AskName(const int& scPlWinner)
 	board.push(tmpBg);
 }
 
-std::string BoardRanking::LoadRankingName() {
+void BoardRanking::LoadRanking()
+{
+	Renderer::GetInstance()->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 80 });
 
-	std::string tmpName;
-	std::cout << "Name: " << board.top().name << " - Score: " << board.top().score << std::endl;
-	tmpName = board.top().name;
+	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	{
+		tmpNames[i] = T_BOARDNAME + static_cast<char>(i);
+		tmpScores[i] = T_BOARDSCORE + static_cast<char>(i);
+		std::string name = board.top().name;
+		std::string score = F2StrFormat(board.top().score, 0);
+		VEC2 vTemp, vTemp2;
 
-	board.pop();
+		if (i == 0)
+		{
+			vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpNames[i], name, { 255,215,0,255 }, 0, 0 });
+			vTemp2 = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpScores[i], score, { 255,215,0,255 }, 0, 0 });
+		}
+		else if (i == 1)
+		{
+			vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpNames[i], name, { 192,192,192,255 }, 0, 0 });
+			vTemp2 = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpScores[i], score, { 192,192,192,255 }, 0, 0 });
+		}
+		else if (i == 2)
+		{
+			vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpNames[i], name, {205,127,50,255 }, 0, 0 });
+			vTemp2 = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpScores[i], score, {205,127,50,255 }, 0, 0 });
 
-	return tmpName;
+		}
+		else
+		{
+			vTemp = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpNames[i], name, { 0,0,0,255 }, 0, 0 });
+			vTemp2 = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { tmpScores[i], score, { 0,0,0,255 }, 0, 0 });
+		}
+		Renderer::GetInstance()->LoadRect(tmpNames[i], { SCREEN_WIDTH / 2 - vTemp.x / 2 - 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 40 * (1 + i), vTemp.x, vTemp.y });
+		Renderer::GetInstance()->LoadRect(tmpScores[i], { SCREEN_WIDTH / 2 - vTemp2.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 40 * (1 + i), vTemp2.x, vTemp2.y });
+
+		board.pop();
+	}
+
+	
 }
-int BoardRanking::LoadRankingScore() {
-	return 0;
+
+void BoardRanking::Draw()
+{
+	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	{
+		Renderer::GetInstance()->PushImage(tmpNames[i], tmpNames[i]);
+		Renderer::GetInstance()->PushImage(tmpScores[i], tmpScores[i]);
+	}
 }

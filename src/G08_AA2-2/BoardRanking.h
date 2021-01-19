@@ -7,19 +7,21 @@
 
 #include "Constants.h"
 
+#include "Ranking.h"
+
 class BoardRanking
 {
 public:
+
+private:
 	struct Board
 	{
 		std::string name;
 		int score;
 	};
-
-private:
-
-	
 	std::priority_queue<Board> board;
+	std::string tmpNames[MAX_RANKING_PLAYERS];
+	std::string tmpScores[MAX_RANKING_PLAYERS];
 
 	static BoardRanking* boardRanking;
 
@@ -38,6 +40,6 @@ public:
 	void ReadRanking();
 	friend bool operator<(const BoardRanking::Board& bg1, const BoardRanking::Board& bg2) { return bg1.score < bg2.score; }
 	
-	std::string LoadRankingName();
-	int LoadRankingScore();
+	void LoadRanking();
+	void Draw();
 };

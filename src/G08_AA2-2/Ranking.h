@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "BoardRanking.h"
+#include "Utils.h"
 
 class Ranking : public Scene
 {
@@ -10,12 +11,11 @@ public:
 
 private:
 
-	//ERankingState rankingState;
-	std::vector<BoardRanking::Board> board;
+	
 
 public:
 	
-	Ranking(/*ERankingState*/);
+	Ranking();
 	~Ranking();
 	
 	void Update(InputManager& input);

@@ -24,23 +24,14 @@ Ranking::Ranking(/*ERankingState _state*/)
 	// NAME - SCORE
 	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 100 });
 	
-	vTemp = r->LoadTextureText(F_GAMEOVER, { T_BOARDNAME, "Name", { 0,0,100,255 }, 0, 0 });
+	vTemp = r->LoadTextureText(F_GAMEOVER, { T_BOARDNAME, "Name", { 0,0,200,255 }, 0, 0 });
 	r->LoadRect(T_BOARDNAME, { SCREEN_WIDTH / 2 - vTemp.x / 2 - 150, SPRITE_HUD_HEIGHT + SPRITE_RES, vTemp.x, vTemp.y });
 	
-	r->LoadTextureText(F_GAMEOVER, { T_BOARDSCORE, "Score", { 0,0,100,255 }, 0, 0 });
+	r->LoadTextureText(F_GAMEOVER, { T_BOARDSCORE, "Score", { 0,0,200,255 }, 0, 0 });
 	r->LoadRect(T_BOARDSCORE, { SCREEN_WIDTH / 2 - vTemp.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES, vTemp.x, vTemp.y });
 	
 	BoardRanking::GetInstance()->ReadRanking();
-
-
-	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
-	{
-		r->LoadTextureText(F_GAMEOVER, { T_BOARDNAME, BoardRanking::GetInstance()->LoadRankingName(), { 0,0,100,255 }, 0, 0 });
-		r->LoadRect(T_BOARDNAME, { SCREEN_WIDTH / 2 - vTemp.x / 2 - 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 80 * i, vTemp.x, vTemp.y });
-
-		//r->LoadTextureText(F_GAMEOVER, { T_BOARDSCORE, "Score", { 0,0,100,255 }, 0, 0 });
-		//r->LoadRect(T_BOARDSCORE, { SCREEN_WIDTH / 2 - vTemp.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES, vTemp.x, vTemp.y });
-	}
+	BoardRanking::GetInstance()->LoadRanking();
 }
 
 Ranking::~Ranking()
@@ -49,17 +40,6 @@ Ranking::~Ranking()
 
 void Ranking::Update(InputManager& input)
 {
-	//switch (rankingState)
-	//{
-	//case ERankingState::ASKNAME:
-	//	rankingState = ERankingState::RUNNING;
-	//	break;
-	//case ERankingState::RUNNING:
-	//	
-
-
-	//	break;
-	//}
 	// EXIT
 	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
 		if (input.JustPressed(InputKeys::MOUSE_LEFT))
@@ -85,4 +65,6 @@ void Ranking::Draw()
 
 	// -- Button exit --
 	r->PushImage(T_BTN_EXIT, T_BTN_EXIT);
+
+	BoardRanking::GetInstance()->Draw();
 }

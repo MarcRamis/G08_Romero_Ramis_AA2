@@ -52,15 +52,15 @@ Play::Play(Map::ELevelType _map)
 	Renderer::GetInstance()->LoadTexture(T_EXPLOSION, P_EXPLOSION);			//BOMB EXPLOSION
 
 	AddPlayer({ (map->GetPlayer()->at(0).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-		(map->GetPlayer()->at(0).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES },
-
+		(map->GetPlayer()->at(0).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, 
 		Player::EPlayerType::PL1, map->GetPlayer()->at(0).GetLives());
+	
 	initPlayer1Pos = *map->GetPlayer()->at(0).GetPosition();
 
 	AddPlayer({ (map->GetPlayer()->at(1).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 		(map->GetPlayer()->at(1).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES },
-
 		Player::EPlayerType::PL2, map->GetPlayer()->at(1).GetLives());
+	
 	initPlayer2Pos = *map->GetPlayer()->at(1).GetPosition();
 
 	for (int i = 0; i < map->GetWall()->size(); i++)
@@ -439,7 +439,6 @@ void Play::Update(InputManager& input)
 	std::string sp2 = F2StrFormat(player.at(1)->GetScore(), 0);
 	VEC2 vTemp2 = Renderer::GetInstance()->LoadTextureText(F_GAMEOVER, { T_PL2_SCORE, sp2.c_str(), { 0,0,0,255 }, 0, 0 });
 	Renderer::GetInstance()->LoadRect(T_PL2_SCORE, { SCREEN_WIDTH - vTemp2.x - TEXT_HUD_HORIZONTAL_SPACING, TEXT_HUD_VERTICAL_SPACING, vTemp2.x, vTemp2.y });
-
 }
 
 void Play::Draw() 

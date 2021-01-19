@@ -94,6 +94,7 @@ const std::string T_BTN_EXIT_H{ "BtnExitH" };
 const std::string F_SAIYAN{ "FontSaiyan" };
 const std::string F_SAIYAN_TITLE{ "FontSaiyanTitle" };
 const std::string F_GAMEOVER{ "FontGameOver" };
+const std::string F_GAMEOVER_RANKING_VAL{ "FontGameOverRankingValues" };
 
 // -- AUDIO
 const std::string S_MENU{ "SoundMenu" };
