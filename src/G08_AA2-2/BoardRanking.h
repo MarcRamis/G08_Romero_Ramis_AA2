@@ -20,6 +20,7 @@ private:
 		int score;
 	};
 	std::priority_queue<Board> board;
+	std::vector<Board> tmpBoard;
 	std::string tmpNames[MAX_RANKING_PLAYERS];
 	std::string tmpScores[MAX_RANKING_PLAYERS];
 

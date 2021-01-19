@@ -2,13 +2,13 @@
 
 BoardRanking::BoardRanking()
 {
-	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
-	{
-		Board tmpBoard;
-		tmpBoard.name = "NOPLAYER";
-		tmpBoard.score = 0;
-		board.push(tmpBoard);
-	}
+	//for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	//{
+	//	Board tmpBoard;
+	//	tmpBoard.name = "NOPLAYER";
+	//	tmpBoard.score = 0;
+	//	board.push(tmpBoard);
+	//}
 }
 BoardRanking::~BoardRanking()
 {
@@ -21,13 +21,13 @@ BoardRanking* BoardRanking::boardRanking = nullptr;
 
 void BoardRanking::ReadRanking()
 {
-	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
-	{
-		Board tmpBoard;
-		tmpBoard.name = "NOPLAYER";
-		tmpBoard.score = 0;
-		board.push(tmpBoard);
-	}
+	//for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	//{
+	//	Board tmpBoard;
+	//	tmpBoard.name = "NOPLAYER";
+	//	tmpBoard.score = 0;
+	//	board.push(tmpBoard);
+	//}
 
 	std::ifstream rankingFileRead(P_RANKING, std::ios::in | std::ios::binary);
 	if (!rankingFileRead)
@@ -101,15 +101,13 @@ void BoardRanking::AskName(const int& scPlWinner)
 	rankingFileWrite.write(reinterpret_cast<char*>(&tmpBg.score), sizeof(int));
 
 	rankingFileWrite.close();
-
-	//board.push(tmpBg);
 }
 
 void BoardRanking::LoadRanking()
 {
 	Renderer::GetInstance()->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 80 });
 
-	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	for (int i = 0; i < MAX_RANKING_PLAYERS && !board.empty(); i++)
 	{
 		tmpNames[i] = T_BOARDNAME + static_cast<char>(i);
 		tmpScores[i] = T_BOARDSCORE + static_cast<char>(i);
@@ -142,16 +140,15 @@ void BoardRanking::LoadRanking()
 		}
 		Renderer::GetInstance()->LoadRect(tmpNames[i], { SCREEN_WIDTH / 2 - vTemp.x / 2 - 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 40 * (1 + i), vTemp.x, vTemp.y });
 		Renderer::GetInstance()->LoadRect(tmpScores[i], { SCREEN_WIDTH / 2 - vTemp2.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 40 * (1 + i), vTemp2.x, vTemp2.y });
-
+	
+		tmpBoard.push_back(board.top());
 		board.pop();
 	}
-
-	
 }
 
 void BoardRanking::Draw()
 {
-	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	for (int i = 0; i < MAX_RANKING_PLAYERS && i < tmpBoard.size(); i++)
 	{
 		Renderer::GetInstance()->PushImage(tmpNames[i], tmpNames[i]);
 		Renderer::GetInstance()->PushImage(tmpScores[i], tmpScores[i]);

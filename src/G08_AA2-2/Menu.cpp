@@ -2,8 +2,6 @@
 
 Menu::Menu()
 {
-	//state = ESceneState::RUNNING;
-
 	// -- Background --
 	r->LoadTexture(T_BG, P_BG);
 	r->LoadRect(T_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
@@ -58,19 +56,20 @@ Menu::Menu()
 
 Menu::~Menu() 
 {
+	Audio::GetInstance()->DestroyAudio();
 }
 
-void Menu::Update(InputManager& input)
+void Menu::Update(InputManager* input)
 {	
-	if (input.isPressed(InputKeys::QUIT)) state = ESceneState::CLICK_QUIT;
-	if (input.JustPressed(InputKeys::ESC)) state = ESceneState::CLICK_EXIT;
+	if (input->isPressed(InputKeys::QUIT)) state = ESceneState::CLICK_QUIT;
+	if (input->JustPressed(InputKeys::ESC)) state = ESceneState::CLICK_EXIT;
 	
 #pragma region Buttons
 
 	// PLAY LEVEL 1
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV1))) {
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV1))) {
 
-		if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
 			au->PlayMusic(S_GAME_THEME, -1);
 			au->VolumeMusic(S_GAME_THEME, 1);
 			state = ESceneState::CLICK_PLAY_LV1;
@@ -80,9 +79,9 @@ void Menu::Update(InputManager& input)
 	else r->SetTexture(T_BTN_PLAY_LV1, T_BTN_PLAY_LV1_N);
 
 	// PLAY LEVEL 2
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV2))) {
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_PLAY_LV2))) {
 
-		if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
 			
 			au->PlayMusic(S_GAME_THEME, -1);
 			au->VolumeMusic(S_GAME_THEME, 1);
@@ -93,8 +92,8 @@ void Menu::Update(InputManager& input)
 	else r->SetTexture(T_BTN_PLAY_LV2, T_BTN_PLAY_LV2_N);
 	
 	// RANKING
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_RANKING))) {
-		if (input.JustPressed(InputKeys::MOUSE_LEFT))
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_RANKING))) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT))
 		{
 			state = ESceneState::CLICK_RANKING;
 		}
@@ -103,9 +102,9 @@ void Menu::Update(InputManager& input)
 	else r->SetTexture(T_BTN_RANKING, T_BTN_RANKING_N);
 
 	// SOUND
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_SOUND)))
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_SOUND)))
 	{
-		if (input.JustPressed(InputKeys::MOUSE_LEFT)) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT)) {
 			if (!au->MusicIsPaused(S_MENU)) au->PauseMusic(S_MENU);
 			else au->ResumeMusic(S_MENU);
 		}
@@ -114,8 +113,8 @@ void Menu::Update(InputManager& input)
 	else r->SetTexture(T_BTN_SOUND, T_BTN_SOUND_N);
 	
 	// EXIT
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
-		if (input.JustPressed(InputKeys::MOUSE_LEFT))
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT))
 		{
 			state = ESceneState::CLICK_EXIT;
 		}

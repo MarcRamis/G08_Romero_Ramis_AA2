@@ -38,11 +38,11 @@ Ranking::~Ranking()
 {
 }
 
-void Ranking::Update(InputManager& input)
+void Ranking::Update(InputManager* input)
 {
 	// EXIT
-	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
-		if (input.JustPressed(InputKeys::MOUSE_LEFT))
+	if (Collisions::ExistCollision(input->GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
+		if (input->JustPressed(InputKeys::MOUSE_LEFT))
 		{
 			SetState(ESceneState::CLICK_EXIT);
 		}

@@ -5,7 +5,7 @@ Play::Play(Map::ELevelType _map)
 	// -- Background --
 	r->LoadTexture(T_BG, P_BG);
 	r->LoadRect(T_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-
+	
 	#pragma region GRID
 
 	map = new Map(_map);
@@ -66,7 +66,8 @@ Play::Play(Map::ELevelType _map)
 	for (int i = 0; i < map->GetWall()->size(); i++)
 	{
 		AddWall({ (map->GetWall()->at(i).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
-			(map->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, map->GetWall()->at(i).destructible);
+			(map->GetWall()->at(i).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES }, 
+			map->GetWall()->at(i).destructible);
 	}
 
 	AddBomb({ 0, 0 }, player.at(0)->GetPlayerType());
@@ -75,6 +76,9 @@ Play::Play(Map::ELevelType _map)
 	AddExplosion({ 0, 0 }, player.at(0)->GetPlayerType());
 	AddExplosion({ 0, 0 }, player.at(1)->GetPlayerType());
 #pragma endregion
+
+	// -- AUDIO --
+	au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() 
@@ -85,11 +89,13 @@ Play::~Play()
 	explosionBomb2.clear();
 	powerUps.clear();
 	delete map;
+
+	Audio::GetInstance()->DestroyAudio();
 }
 
-void Play::Update(InputManager& input)
+void Play::Update(InputManager* input)
 {	
-	timeDown -= *input.GetDeltaTime();
+	timeDown -= *input->GetDeltaTime();
 	if (timeDown <= 0.f)
 	{
 		BoardRanking::GetInstance()->AskName(player.at(0)->GetScore(), player.at(1)->GetScore());
@@ -117,7 +123,7 @@ void Play::Update(InputManager& input)
 
 	for (Player* p : player)
 	{
-		p->Update(&input);
+		p->Update(input);
 
 		for (PowerUp* pw : powerUps)
 		{
@@ -428,7 +434,7 @@ void Play::Update(InputManager& input)
 		}
 
 		//Second check for player Collisions
-		p->UpdateCheck(&input);
+		p->UpdateCheck(input);
 	}
 	//Score Player 1
 	std::string sp1 = F2StrFormat(player.at(0)->GetScore(), 0);

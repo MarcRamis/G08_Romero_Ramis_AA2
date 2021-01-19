@@ -35,7 +35,7 @@ public:
 	Play(Map::ELevelType);
 	~Play();
 	
-	void Update(InputManager& input);
+	void Update(InputManager* input);
 	void Draw();
 
 	void AddPlayer(VEC2 pos, Player::EPlayerType type, int lives);

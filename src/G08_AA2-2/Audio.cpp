@@ -15,6 +15,11 @@ Audio::~Audio()
 
 Audio* Audio::audio = nullptr;
 
+void Audio::DestroyAudio()
+{
+	Mix_CloseAudio();
+}
+
 void Audio::LoadAudio(const std::string& idSound, const std::string& path)
 {
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {

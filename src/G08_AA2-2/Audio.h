@@ -12,8 +12,6 @@ private:
 	std::unordered_map<std::string, Mix_Music*> m_audio;
 
 	static Audio* audio;
-
-protected:
 	Audio();
 	~Audio();
 
@@ -24,6 +22,8 @@ public:
 		if (audio == nullptr) { audio = new Audio; }
 		return audio;
 	};
+
+	void DestroyAudio();
 
 	void LoadAudio(const std::string& idSound, const std::string& path);
 	void PlayMusic(const std::string& idSound, int repetition);

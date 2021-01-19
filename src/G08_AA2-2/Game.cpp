@@ -17,7 +17,7 @@ Game::~Game()
 
 void Game::Update()
 {
-	scenes->Update(input);
+	scenes->Update(&input);
 }
 void Game::Render()
 {
@@ -39,14 +39,12 @@ void Game::Run()
 			switch (*scenes->GetState())
 			{
 			case Scene::ESceneState::CLICK_PLAY_LV1:
-				std::cout << "State is CLICK_PLAY_LV1 -> Menu" << std::endl;
 				delete scenes;
 				scenes = new Play(Map::ELevelType::LEVEL1);
 				gameState = GameState::PLAY;
 				break;
 
 			case Scene::ESceneState::CLICK_PLAY_LV2:
-				std::cout << "State is CLICK_PLAY_LV2 -> Menu" << std::endl;
 				delete scenes;
 				scenes = new Play(Map::ELevelType::LEVEL2);
 				gameState = GameState::PLAY;
@@ -54,19 +52,16 @@ void Game::Run()
 
 			case Scene::ESceneState::CLICK_RANKING:
 				delete scenes;
-				scenes = new Ranking(/*Ranking::ERankingState::RUNNING*/);
-				std::cout << "State is CLICK_RANKING -> Menu" << std::endl;
+				scenes = new Ranking();
 				gameState = GameState::RANKING;
 				break;
 
 			case Scene::ESceneState::CLICK_EXIT:
-				std::cout << "State is CLICK_EXIT - > Menu" << std::endl;
 				delete scenes;
 				gameState = GameState::EXIT;
 				break;
 
-			case Scene::ESceneState::CLICK_QUIT:
-				std::cout << "State is CLICK_QUIT - > Menu" << std::endl;
+			case Scene::ESceneState::CLICK_QUIT:;
 				delete scenes;
 				gameState = GameState::EXIT;
 				break;
@@ -74,10 +69,8 @@ void Game::Run()
 			case Scene::ESceneState::RUNNING:
 				Update();
 				Render();
-				//std::cout << "State is RUNNING -> Menu" << std::endl;
 				break;
 			default:
-				//std::cout << "No state in Scene -> Menu" << std::endl;
 				break;
 			}
 			break;
@@ -90,30 +83,27 @@ void Game::Run()
 			switch (*scenes->GetState())
 			{
 			case Scene::ESceneState::CLICK_EXIT:
-				std::cout << "State is CLICK_EXIT - > Play" << std::endl;
+				au->PauseMusic(S_GAME_THEME);
+				au->ResumeMusic(S_MENU);
 				delete scenes;
 				scenes = new Menu();
 				gameState = GameState::MENU;
 				break;
 			case Scene::ESceneState::CLICK_QUIT:
-				std::cout << "State is CLICK_QUIT - > Play" << std::endl;
 				delete scenes;
 				break;
 			case Scene::ESceneState::CLICK_RANKING:
-				std::cout << "State is CLICK_RANKING -> Play" << std::endl;
 				delete scenes;
-				scenes = new Ranking(/*Ranking::ERankingState::ASKNAME*/);
+				scenes = new Ranking();
 				gameState = GameState::RANKING;
 				break;
 
 			case Scene::ESceneState::RUNNING:
-				//std::cout << "State is RUNNING -> Play" << std::endl;
 				Update();
 				Render();
 				break;
 
 			default:
-				std::cout << "No state in Scene -> Play" << std::endl;
 				break;
 			}
 			break;
@@ -126,30 +116,23 @@ void Game::Run()
 			switch (*scenes->GetState())
 			{
 			case Scene::ESceneState::CLICK_EXIT:
-				std::cout << "State is CLICK_EXIT -> Ranking" << std::endl;
 				delete scenes;
 				scenes = new Menu();
 				gameState = GameState::MENU;
 				break;
 				
 			case Scene::ESceneState::RUNNING:
-				//std::cout << "State is RUNNING -> Ranking" << std::endl;
 				Update();
 				Render();
 				break;
 
 			default:
-				std::cout << "No state in Scene -> Ranking" << std::endl;
 				break;
 			}
 			break;
 		default:
-			std::cout << "No state in GameState" << std::endl;
 			break;
 		}
-
-		//Update();
-		//Render();
 
 		// --- FRAME CONTROL ---
 		input.UpdateDeltaTime();

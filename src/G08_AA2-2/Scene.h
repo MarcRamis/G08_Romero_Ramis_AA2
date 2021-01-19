@@ -26,7 +26,7 @@ public:
 	Scene();
 	~Scene();
 	
-	virtual void Update(InputManager &input) {};
+	virtual void Update(InputManager* input) {};
 	virtual void Draw() {};
 	
 	inline const ESceneState* GetState() { return &state; };
