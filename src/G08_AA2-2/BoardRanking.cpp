@@ -50,7 +50,6 @@ void BoardRanking::ReadRanking()
 			delete[] temp;
 
 			rankingFileRead.read(reinterpret_cast<char*>(&tmpBg.score), sizeof(int));
-
 			vtmpBg.push_back(tmpBg);
 		}
 
@@ -103,7 +102,7 @@ void BoardRanking::AskName(const int& scPlWinner)
 
 	rankingFileWrite.close();
 
-	board.push(tmpBg);
+	//board.push(tmpBg);
 }
 
 void BoardRanking::LoadRanking()
@@ -117,6 +116,8 @@ void BoardRanking::LoadRanking()
 		std::string name = board.top().name;
 		std::string score = F2StrFormat(board.top().score, 0);
 		VEC2 vTemp, vTemp2;
+
+		std::cout << i + 1 <<  " Name : " << board.top().name << " - Score: " << board.top().score << std::endl;
 
 		if (i == 0)
 		{
