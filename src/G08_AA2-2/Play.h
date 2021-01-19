@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "Map.h"
+#include "BoardRanking.h"
 
 class Play : public Scene
 {

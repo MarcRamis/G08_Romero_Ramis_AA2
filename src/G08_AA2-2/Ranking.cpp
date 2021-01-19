@@ -40,9 +40,6 @@ Ranking::~Ranking()
 
 void Ranking::Update(InputManager& input)
 {
-	//if (input.isPressed(InputKeys::QUIT)) state = ESceneState::CLICK_QUIT;
-	//if (input.JustPressed(InputKeys::ESC)) state = ESceneState::CLICK_EXIT;
-
 	// EXIT
 	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
 		if (input.JustPressed(InputKeys::MOUSE_LEFT))
@@ -56,7 +53,6 @@ void Ranking::Update(InputManager& input)
 	switch (rankingState)
 	{
 	case ERankingState::ASKNAME:
-		BoardRanking::GetInstance()->AskName();
 		rankingState = ERankingState::RUNNING;
 		break;
 	case ERankingState::RUNNING:

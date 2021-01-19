@@ -13,7 +13,6 @@ Game::Game()
 
 Game::~Game()
 {
-
 }
 
 void Game::Update()
@@ -87,7 +86,7 @@ void Game::Run()
 
 			if (input.isPressed(InputKeys::QUIT)) scenes->SetState(Scene::ESceneState::CLICK_QUIT);
 			if (input.JustPressed(InputKeys::ESC)) scenes->SetState(Scene::ESceneState::CLICK_EXIT);
-
+			
 			switch (*scenes->GetState())
 			{
 			case Scene::ESceneState::CLICK_EXIT:

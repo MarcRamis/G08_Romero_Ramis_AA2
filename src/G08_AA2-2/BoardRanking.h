@@ -19,8 +19,8 @@ private:
 
 	std::priority_queue<Board> board;
 	
-	std::ofstream rankingFileWrite;
-	std::ifstream rankingFileRead;
+	//std::ofstream rankingFileWrite;
+	//std::ifstream rankingFileRead;
 
 	static BoardRanking* boardRanking;
 
@@ -35,7 +35,8 @@ public:
 		return boardRanking;
 	};
 
-	void AskName();
+	void AskName(const int& scPl1, const int& scPl2s);
+	void AskName(const int& scPlWinner);
 	void ShowRanking();
 	friend bool operator<(const BoardRanking::Board& bg1, const BoardRanking::Board& bg2) { return bg1.score < bg2.score; }
 };

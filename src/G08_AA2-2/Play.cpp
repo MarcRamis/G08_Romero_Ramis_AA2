@@ -90,7 +90,11 @@ Play::~Play()
 void Play::Update(InputManager& input)
 {	
 	timeDown -= *input.GetDeltaTime();
-	if (timeDown <= 0.f || player.at(0)->GetLives() <= 0 || player.at(1)->GetLives() <= 0) state = ESceneState::CLICK_RANKING;
+	if (timeDown <= 0.f)
+	{
+		BoardRanking::GetInstance()->AskName(player.at(0)->GetScore(), player.at(1)->GetScore());
+		state = ESceneState::CLICK_RANKING;
+	}
 	else
 	{
 		// Timer
@@ -98,6 +102,17 @@ void Play::Update(InputManager& input)
 		s += ":" + F2StrFormat(static_cast<int>(timeDown) % 60, 0);
 		VEC2 vTemp = r->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, s.c_str(), { 0,0,0,255 }, 0, 0 });
 		r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2 - vTemp.x, 10, vTemp.x, vTemp.y });
+	}
+
+	if (player.at(0)->GetLives() <= 0)
+	{
+		BoardRanking::GetInstance()->AskName(player.at(1)->GetScore());
+		state = ESceneState::CLICK_RANKING;
+	}
+	else if (player.at(1)->GetLives() <= 0)
+	{
+		BoardRanking::GetInstance()->AskName(player.at(0)->GetScore());
+		state = ESceneState::CLICK_RANKING;
 	}
 
 	for (Player* p : player)
@@ -287,6 +302,7 @@ void Play::Update(InputManager& input)
 				p->bomb2DmgDone = false;
 				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 				{
+					explosionBomb1.at(i)->edgeExplodes = true;
 					explosionBomb1.at(i)->exploding = false;
 				}
 			}
@@ -405,6 +421,7 @@ void Play::Update(InputManager& input)
 				p->bomb2DmgDone = false;
 				for (int i = 0; i < EXPLOSION_BLOCKS; i++)
 				{
+					explosionBomb2.at(i)->edgeExplodes = true;
 					explosionBomb2.at(i)->exploding = false;
 				}
 			}
