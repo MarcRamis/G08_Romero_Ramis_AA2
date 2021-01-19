@@ -9,25 +9,23 @@
 
 class BoardRanking
 {
-private:
-	
+public:
 	struct Board
 	{
 		std::string name;
 		int score;
 	};
 
-	std::priority_queue<Board> board;
+private:
+
 	
-	//std::ofstream rankingFileWrite;
-	//std::ifstream rankingFileRead;
+	std::priority_queue<Board> board;
 
 	static BoardRanking* boardRanking;
 
 public:
 	BoardRanking();
 	~BoardRanking();
-
 
 	static BoardRanking* GetInstance()
 	{
@@ -37,6 +35,9 @@ public:
 
 	void AskName(const int& scPl1, const int& scPl2s);
 	void AskName(const int& scPlWinner);
-	void ShowRanking();
+	void ReadRanking();
 	friend bool operator<(const BoardRanking::Board& bg1, const BoardRanking::Board& bg2) { return bg1.score < bg2.score; }
+	
+	std::string LoadRankingName();
+	int LoadRankingScore();
 };

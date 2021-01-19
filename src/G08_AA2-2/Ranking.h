@@ -10,11 +10,12 @@ public:
 
 private:
 
-	ERankingState rankingState;
+	//ERankingState rankingState;
+	std::vector<BoardRanking::Board> board;
 
 public:
 	
-	Ranking(ERankingState);
+	Ranking(/*ERankingState*/);
 	~Ranking();
 	
 	void Update(InputManager& input);

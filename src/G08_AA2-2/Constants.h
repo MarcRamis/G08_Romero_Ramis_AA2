@@ -13,6 +13,7 @@ const int MAP_ROWS{ 11 };
 const int MAP_COLS{ 13 };
 const int FPS{ 60 };
 const float MOVEMENT_FRAME_TIME{ 300.f };
+const int MAX_RANKING_PLAYERS{ 10 };
 
 // -- PATH GAME FILE--
 // -- IMG

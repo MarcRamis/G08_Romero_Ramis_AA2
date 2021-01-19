@@ -1,9 +1,8 @@
 #include "Ranking.h"
 
-Ranking::Ranking(ERankingState _state)
+Ranking::Ranking(/*ERankingState _state*/)
 {
-	//state = ESceneState::RUNNING;
-	rankingState = _state;
+	/*rankingState = _state;*/
 
 	// -- Background --
 	r->LoadTexture(T_BG, P_BG);
@@ -22,7 +21,6 @@ Ranking::Ranking(ERankingState _state)
 	r->LoadTextureText(F_SAIYAN, { T_BTN_EXIT, "Exit", { 0,0,0,0 }, 0, 0 });
 	r->LoadRect(T_BTN_EXIT, { SCREEN_WIDTH / 2 - vTemp.x / 2, TEXT_LINESPACING_MENU + (SCREEN_HEIGHT) / TEXTSIZE_MENU * 5, vTemp.x, vTemp.y });
 
-
 	// NAME - SCORE
 	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 100 });
 	
@@ -31,7 +29,18 @@ Ranking::Ranking(ERankingState _state)
 	
 	r->LoadTextureText(F_GAMEOVER, { T_BOARDSCORE, "Score", { 0,0,100,255 }, 0, 0 });
 	r->LoadRect(T_BOARDSCORE, { SCREEN_WIDTH / 2 - vTemp.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES, vTemp.x, vTemp.y });
+	
+	BoardRanking::GetInstance()->ReadRanking();
 
+
+	for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
+	{
+		r->LoadTextureText(F_GAMEOVER, { T_BOARDNAME, BoardRanking::GetInstance()->LoadRankingName(), { 0,0,100,255 }, 0, 0 });
+		r->LoadRect(T_BOARDNAME, { SCREEN_WIDTH / 2 - vTemp.x / 2 - 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 80 * i, vTemp.x, vTemp.y });
+
+		//r->LoadTextureText(F_GAMEOVER, { T_BOARDSCORE, "Score", { 0,0,100,255 }, 0, 0 });
+		//r->LoadRect(T_BOARDSCORE, { SCREEN_WIDTH / 2 - vTemp.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES, vTemp.x, vTemp.y });
+	}
 }
 
 Ranking::~Ranking()
@@ -40,27 +49,26 @@ Ranking::~Ranking()
 
 void Ranking::Update(InputManager& input)
 {
-	switch (rankingState)
-	{
-	case ERankingState::ASKNAME:
-		rankingState = ERankingState::RUNNING;
-		break;
-	case ERankingState::RUNNING:
-		
-		// EXIT
-		if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
-			if (input.JustPressed(InputKeys::MOUSE_LEFT))
-			{
-				SetState(ESceneState::CLICK_EXIT);
-			}
-			r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_H);
+	//switch (rankingState)
+	//{
+	//case ERankingState::ASKNAME:
+	//	rankingState = ERankingState::RUNNING;
+	//	break;
+	//case ERankingState::RUNNING:
+	//	
+
+
+	//	break;
+	//}
+	// EXIT
+	if (Collisions::ExistCollision(input.GetMouseCoords(), r->GetRect(T_BTN_EXIT))) {
+		if (input.JustPressed(InputKeys::MOUSE_LEFT))
+		{
+			SetState(ESceneState::CLICK_EXIT);
 		}
-		else r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_N);
-
-		BoardRanking::GetInstance();
-
-		break;
+		r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_H);
 	}
+	else r->SetTexture(T_BTN_EXIT, T_BTN_EXIT_N);
 }
 
 void Ranking::Draw()

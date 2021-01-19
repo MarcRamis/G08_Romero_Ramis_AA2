@@ -54,7 +54,7 @@ void Game::Run()
 
 			case Scene::ESceneState::CLICK_RANKING:
 				delete scenes;
-				scenes = new Ranking(Ranking::ERankingState::RUNNING);
+				scenes = new Ranking(/*Ranking::ERankingState::RUNNING*/);
 				std::cout << "State is CLICK_RANKING -> Menu" << std::endl;
 				gameState = GameState::RANKING;
 				break;
@@ -102,7 +102,7 @@ void Game::Run()
 			case Scene::ESceneState::CLICK_RANKING:
 				std::cout << "State is CLICK_RANKING -> Play" << std::endl;
 				delete scenes;
-				scenes = new Ranking(Ranking::ERankingState::RUNNING);
+				scenes = new Ranking(/*Ranking::ERankingState::ASKNAME*/);
 				gameState = GameState::RANKING;
 				break;
 
