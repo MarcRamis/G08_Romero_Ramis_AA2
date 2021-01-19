@@ -10,7 +10,7 @@ public:
 
 private:
 
-	ERankingState state;
+	ERankingState rankingState;
 
 public:
 	

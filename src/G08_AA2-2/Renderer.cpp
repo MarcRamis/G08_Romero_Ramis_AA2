@@ -42,6 +42,13 @@ Renderer::~Renderer()
 
 };
 
+void Renderer::DestroyEverything()
+{
+	for (auto& t : m_textureData) SDL_DestroyTexture(t.second), t.second = nullptr;
+	for (auto& f : m_fontData) TTF_CloseFont(f.second), f.second = nullptr;
+	for (auto& f : m_rects) { delete f.second; f.second = nullptr; };
+}
+
 void Renderer::Clear() { SDL_RenderClear(m_renderer); };
 void Renderer::Render() { SDL_RenderPresent(m_renderer); };
 

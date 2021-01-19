@@ -8,7 +8,7 @@ class Play : public Scene
 private:
 
 	Map *map;
-	
+
 	std::vector<Player*> player;
 	std::vector<Wall*> walls;
 	Bomb bomb1;
@@ -28,7 +28,7 @@ private:
 	bool onceExplPl1 = false;
 	bool onceExplPl2 = false;
 
-	//float timeDown;
+	float timeDown;
 	
 public:
 	Play(Map::ELevelType);

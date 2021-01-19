@@ -2,6 +2,10 @@
 
 Play::Play(Map::ELevelType _map)
 {
+	// -- Background --
+	r->LoadTexture(T_BG, P_BG);
+	r->LoadRect(T_BG, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+
 	#pragma region GRID
 
 	map = new Map(_map);
@@ -9,6 +13,8 @@ Play::Play(Map::ELevelType _map)
 #pragma endregion
 
 	#pragma region HUD
+
+	timeDown = MAX_GAMETIME;
 
 	//-->TEXT TIMER
 	r->LoadFont({ F_GAMEOVER, P_TTF_GAMEOVER, 90 });
@@ -45,8 +51,6 @@ Play::Play(Map::ELevelType _map)
 	Renderer::GetInstance()->LoadTexture(T_ITEMS, P_ITEMS);			//ITEMS
 	Renderer::GetInstance()->LoadTexture(T_EXPLOSION, P_EXPLOSION);			//BOMB EXPLOSION
 
-	//timeDown = MAX_GAMETIME;
-
 	AddPlayer({ (map->GetPlayer()->at(0).GetPosition()->x * SPRITE_RES) + SPRITE_RES,
 		(map->GetPlayer()->at(0).GetPosition()->y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES },
 
@@ -75,19 +79,26 @@ Play::Play(Map::ELevelType _map)
 
 Play::~Play() 
 {
+	player.clear();
+	walls.clear();
+	explosionBomb1.clear();
+	explosionBomb2.clear();
+	powerUps.clear();
 	delete map;
 }
 
 void Play::Update(InputManager& input)
-{
-	
-	//map->Update(map->GetType(), input);
-	
-	//timeDown -= *input.GetDeltaTime();;
-	//while (timeDown > 0)
-	//{
-	//	
-	//}
+{	
+	timeDown -= *input.GetDeltaTime();
+	if (timeDown <= 0.f || player.at(0)->GetLives() <= 0 || player.at(1)->GetLives() <= 0) state = ESceneState::CLICK_RANKING;
+	else
+	{
+		// Timer
+		std::string s = F2StrFormat(trunc(timeDown / 60), 0);
+		s += ":" + F2StrFormat(static_cast<int>(timeDown) % 60, 0);
+		VEC2 vTemp = r->LoadTextureText(F_GAMEOVER, { T_TXT_TIME, s.c_str(), { 0,0,0,255 }, 0, 0 });
+		r->LoadRect(T_TXT_TIME, { SCREEN_WIDTH / 2 - vTemp.x, 10, vTemp.x, vTemp.y });
+	}
 
 	for (Player* p : player)
 	{

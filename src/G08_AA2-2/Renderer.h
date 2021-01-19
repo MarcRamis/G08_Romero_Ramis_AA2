@@ -33,6 +33,8 @@ public:
 	 void Clear();
 	 void Render();
 	 
+	 void DestroyEverything();
+
 	 const SDL_Rect MyRect2SDL(const RECT* r);
 	 const RECT RectSDL2My(const SDL_Rect* r);
 
