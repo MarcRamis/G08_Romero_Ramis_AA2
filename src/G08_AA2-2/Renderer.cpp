@@ -39,7 +39,6 @@ Renderer::~Renderer()
 	IMG_Quit();
 	TTF_Quit();
 	SDL_Quit();
-
 };
 
 void Renderer::DestroyEverything()

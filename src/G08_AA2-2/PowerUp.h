@@ -18,8 +18,6 @@ private:
 	int initCol, lastCol;
 	int initRow, lastRow;
 
-
-
 public:
 	
 	PowerUp();

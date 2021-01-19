@@ -1,0 +1,119 @@
+﻿'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\G08_AA2-2.exe'. Symbols loaded.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ntdll.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\kernel32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\KernelBase.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\SDL2.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\gdi32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\win32u.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\gdi32full.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msvcp_win.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ucrtbase.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\user32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\imm32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msvcrt.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ole32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\rpcrt4.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\combase.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\oleaut32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\shell32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\SDL2_image.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\SDL2_ttf.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\SDL2_mixer.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msvcp140d.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\vcruntime140d.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\vcruntime140_1d.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ucrtbased.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\version.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\winmm.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libfreetype-6.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\zlib1.dll'. Module was built without symbols.
+The thread 0x5844 has exited with code 0 (0x0).
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\uxtheme.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\SHCore.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\kernel.appcore.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\bcryptprimitives.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\clbcatq.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\XAudio2_7.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\advapi32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\sechost.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\MMDevAPI.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\devobj.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\cfgmgr32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ResourcePolicyClient.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\dinput8.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\hid.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\InputHost.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\WinTypes.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\propsys.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\CoreUIComponents.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\CoreMessaging.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ws2_32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ntmarta.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\setupapi.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\bcrypt.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\wintrust.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\crypt32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msasn1.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\XInput1_4.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msctf.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\TextInputFramework.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\d3d9.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\windows.storage.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\dwmapi.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\wldp.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_a086f01cc7be643a\igdumdim64.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_a086f01cc7be643a\igd9dxva64.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_a086f01cc7be643a\igdgmm64.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\shlwapi.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\nvami.inf_amd64_c14b2b5eaba7d5ea\nvdlistx.dll'. 
+'G08_AA2-2.exe' (Win32): Unloaded 'C:\Windows\System32\DriverStore\FileRepository\nvami.inf_amd64_c14b2b5eaba7d5ea\nvdlistx.dll'
+The thread 0x3140 has exited with code 0 (0x0).
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\nvami.inf_amd64_c14b2b5eaba7d5ea\nvdlistx.dll'. 
+'G08_AA2-2.exe' (Win32): Unloaded 'C:\Windows\System32\DriverStore\FileRepository\nvami.inf_amd64_c14b2b5eaba7d5ea\nvdlistx.dll'
+The thread 0x2e98 has exited with code 0 (0x0).
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_a086f01cc7be643a\igdinfo64.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_a086f01cc7be643a\igc64.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\DXCore.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libjpeg-9.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libpng16-16.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\smpeg2.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libvorbisfile-3.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libvorbis-0.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libogg-0.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\AudioSes.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\powrprof.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\umpdc.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\Windows.UI.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\WindowManagementAPI.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\twinapi.appcore.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\twinapi.appcore.dll'. 
+'G08_AA2-2.exe' (Win32): Unloaded 'C:\Windows\System32\twinapi.appcore.dll'
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\avrt.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Users\marc_\Desktop\G08_Romero_Ramis_AA2\bin\x64Debug\libmodplug-1.dll'. Module was built without symbols.
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\winmmbase.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\wdmaud.drv'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\ksuser.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msacm32.drv'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\msacm32.dll'. 
+'G08_AA2-2.exe' (Win32): Loaded 'C:\Windows\System32\midimap.dll'. 
+The thread 0x17f8 has exited with code 0 (0x0).
+The thread 0x3f98 has exited with code 0 (0x0).
+The thread 0x3aa0 has exited with code 0 (0x0).
+The thread 0x2a04 has exited with code 0 (0x0).
+The thread 0x48bc has exited with code 0 (0x0).
+The thread 0x49c4 has exited with code 0 (0x0).
+The thread 0x4a68 has exited with code 0 (0x0).
+The thread 0x50b4 has exited with code 0 (0x0).
+The thread 0x4d78 has exited with code 0 (0x0).
+The thread 0x870 has exited with code 0 (0x0).
+The thread 0x1a10 has exited with code 0 (0x0).
+The thread 0x1c78 has exited with code 0 (0x0).
+The thread 0x3d24 has exited with code 0 (0x0).
+The thread 0x2d50 has exited with code 0 (0x0).
+The thread 0x5480 has exited with code 0 (0x0).
+The thread 0x1c90 has exited with code 0 (0x0).
+The thread 0x5b5c has exited with code 0 (0x0).
+The thread 0x5104 has exited with code 0 (0x0).
+The thread 0x57ec has exited with code 0 (0x0).
+The thread 0x44c8 has exited with code 0 (0x0).
+The program '[21856] G08_AA2-2.exe' has exited with code 0 (0x0).
