@@ -76,9 +76,6 @@ Play::Play(Map::ELevelType _map)
 	AddExplosion({ 0, 0 }, player.at(0)->GetPlayerType());
 	AddExplosion({ 0, 0 }, player.at(1)->GetPlayerType());
 #pragma endregion
-
-	// -- AUDIO --
-	au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
 }
 
 Play::~Play() 
@@ -89,8 +86,6 @@ Play::~Play()
 	explosionBomb2.clear();
 	powerUps.clear();
 	delete map;
-
-	Audio::GetInstance()->DestroyAudio();
 }
 
 void Play::Update(InputManager* input)
@@ -99,6 +94,7 @@ void Play::Update(InputManager* input)
 	if (timeDown <= 0.f)
 	{
 		BoardRanking::GetInstance()->AskName(player.at(0)->GetScore(), player.at(1)->GetScore());
+		au->PauseMusic(S_GAME_THEME);
 		state = ESceneState::CLICK_RANKING;
 	}
 	else
@@ -113,11 +109,13 @@ void Play::Update(InputManager* input)
 	if (player.at(0)->GetLives() <= 0)
 	{
 		BoardRanking::GetInstance()->AskName(player.at(1)->GetScore());
+		au->PauseMusic(S_GAME_THEME);
 		state = ESceneState::CLICK_RANKING;
 	}
 	else if (player.at(1)->GetLives() <= 0)
 	{
 		BoardRanking::GetInstance()->AskName(player.at(0)->GetScore());
+		au->PauseMusic(S_GAME_THEME);
 		state = ESceneState::CLICK_RANKING;
 	}
 
@@ -131,6 +129,7 @@ void Play::Update(InputManager* input)
 			{
 				pw->isActive = false;
 				p->SetBuff(pw->GetType());
+				//delete pw;
 			}
 		}
 
@@ -232,7 +231,6 @@ void Play::Update(InputManager* input)
 								explosionBomb1.at(8)->edgeExplodes = false;
 							if (map->GetWall()->at(j).destructible)
 							{
-								//map.at(1)->GetWall()->erase(j);
 								//AQUI FEM SETVALUES DEL POWER-UP
 								if (i == 5 && !explosionBomb1.at(i)->edgeExplodes)	{}
 								else if (i == 6 && !explosionBomb1.at(i)->edgeExplodes) {}
@@ -247,7 +245,6 @@ void Play::Update(InputManager* input)
 								}
 							}
 							j = map->GetWall()->size();
-							//std::cout << "Wall N: " << j << " collided with explosion N: " << i << std::endl;
 						}
 						else if (explosionBomb1.at(i)->GetPosition()->x < SPRITE_RES ||						//Left border of the map
 							explosionBomb1.at(i)->GetPosition()->x + explosionBomb1.at(i)->GetPosition()->w > SCREEN_WIDTH - SPRITE_RES ||			//Right border of the map
@@ -581,5 +578,6 @@ void Play::AddPowerUp(VEC2 wallPos)
 {
 	PowerUp* pow = new PowerUp();
 	pow->SetValues({ (wallPos.x * SPRITE_RES) + SPRITE_RES, (wallPos.y * SPRITE_RES) + SPRITE_HUD_HEIGHT + SPRITE_RES });
-	powerUps.push_back(pow);
+
+	if (pow->isActive) powerUps.push_back(pow);
 }

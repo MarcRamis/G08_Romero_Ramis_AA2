@@ -18,14 +18,13 @@ void PowerUp::SetValues(VEC2 pos)
     position.x = pos.x;
     position.y = pos.y;
 
-    isActive = true;
-
     EPowerUpType _type;
     int rnd = rand() % 100;
 
     if (rnd < 20)
     {
         int rnd2 = rand() % 100;
+        isActive = true;
 
         if (rnd2 < 50) {
             _type = EPowerUpType::SKATES;

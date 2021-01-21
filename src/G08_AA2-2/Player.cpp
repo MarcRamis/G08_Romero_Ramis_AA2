@@ -163,7 +163,7 @@ void Player::SetBuff(PowerUp::EPowerUpType _pwType)
 {
 	if (_pwType == PowerUp::EPowerUpType::SKATES)
 	{
-		speed = 0.8f; 
+		speed = 1.8f; 
 		immunity = false;
 	}
 	else if (_pwType == PowerUp::EPowerUpType::HELMET)

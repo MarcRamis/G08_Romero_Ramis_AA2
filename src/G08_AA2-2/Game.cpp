@@ -7,6 +7,10 @@ Game::Game()
 
 	scenes = new Menu();
 
+	// -- AUDIO --
+	au->LoadAudio(S_MENU, P_MENU);
+	au->LoadAudio(S_GAME_THEME, P_GAME_THEME);
+
 	au->PlayMusic(S_MENU, -1);
 	au->VolumeMusic(S_MENU, 1);
 }
@@ -78,13 +82,16 @@ void Game::Run()
 		case GameState::PLAY:
 
 			if (input.isPressed(InputKeys::QUIT)) scenes->SetState(Scene::ESceneState::CLICK_QUIT);
-			if (input.JustPressed(InputKeys::ESC)) scenes->SetState(Scene::ESceneState::CLICK_EXIT);
-			
+			if (input.JustPressed(InputKeys::ESC))
+			{
+				au->PauseMusic(S_GAME_THEME);
+				au->PlayMusic(S_MENU, 1);
+				scenes->SetState(Scene::ESceneState::CLICK_EXIT);
+			}
 			switch (*scenes->GetState())
 			{
 			case Scene::ESceneState::CLICK_EXIT:
-				au->PauseMusic(S_GAME_THEME);
-				au->ResumeMusic(S_MENU);
+
 				delete scenes;
 				scenes = new Menu();
 				gameState = GameState::MENU;

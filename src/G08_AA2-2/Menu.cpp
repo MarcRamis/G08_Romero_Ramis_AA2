@@ -50,13 +50,11 @@ Menu::Menu()
 
 #pragma endregion
 
-	// -- AUDIO --
-	au->LoadAudio(S_MENU, P_MENU);
+	
 }
 
 Menu::~Menu() 
 {
-	Audio::GetInstance()->DestroyAudio();
 }
 
 void Menu::Update(InputManager* input)

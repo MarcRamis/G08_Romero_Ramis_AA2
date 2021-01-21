@@ -2,13 +2,6 @@
 
 BoardRanking::BoardRanking()
 {
-	//for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
-	//{
-	//	Board tmpBoard;
-	//	tmpBoard.name = "NOPLAYER";
-	//	tmpBoard.score = 0;
-	//	board.push(tmpBoard);
-	//}
 }
 BoardRanking::~BoardRanking()
 {
@@ -21,14 +14,6 @@ BoardRanking* BoardRanking::boardRanking = nullptr;
 
 void BoardRanking::ReadRanking()
 {
-	//for (int i = 0; i < MAX_RANKING_PLAYERS; i++)
-	//{
-	//	Board tmpBoard;
-	//	tmpBoard.name = "NOPLAYER";
-	//	tmpBoard.score = 0;
-	//	board.push(tmpBoard);
-	//}
-
 	std::ifstream rankingFileRead(P_RANKING, std::ios::in | std::ios::binary);
 	if (!rankingFileRead)
 	{
@@ -142,7 +127,7 @@ void BoardRanking::LoadRanking()
 		Renderer::GetInstance()->LoadRect(tmpScores[i], { SCREEN_WIDTH / 2 - vTemp2.x / 2 + 150, SPRITE_HUD_HEIGHT + SPRITE_RES + 40 * (1 + i), vTemp2.x, vTemp2.y });
 	
 		tmpBoard.push_back(board.top());
-		board.pop();
+		if (!board.empty())board.pop();
 	}
 }
 
